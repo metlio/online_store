@@ -1,0 +1,57 @@
+.dima {
+    display: flex;
+}
+.homa {margin: 0;
+    padding: 2rem;
+    transition: 0.4s ease;
+    outline: 1px solid #eee;
+    text-align: center;
+    background-color: #ffffff;
+    width: 25%;
+    height: 25%;
+    display: inline-block;
+}
+
+.homa:hover {
+    transition: 0.2s ease;
+    background-color: #ffffff;
+}
+/*.homa:nth-child(n+1) {
+    transition: 0.2s ease;
+    margin: 0;
+    display: inline-block;
+    width: 50%;
+}
+.homa:nth-child(n+2):nth-child(-n+4) {
+
+    margin: 0;
+    display: inline-block;
+    width: 50%;
+}
+.homa:nth-child(n+5):nth-child(-n+7) {
+    background-color: #ffffff;
+    margin: 0;
+    display: inline-block;
+    width: 33%;
+}
+    
+.homa:nth-child(n+4):nth-child(-n+7):hover {
+        background-color: #ffffff;
+    
+    }
+*/
+@media (max-width: 768px) {
+    .lopa {
+        
+        flex-direction: column;
+        justify-content: flex-start !important; 
+    }
+    .homa {
+        height: 500px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start !important; 
+    }
+    
+}    

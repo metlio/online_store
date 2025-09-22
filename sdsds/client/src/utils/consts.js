@@ -1,0 +1,11 @@
+export const ADMIN_ROUTE = '/admin'
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/registration'
+export const SHOP_ROUTE = "/"
+export const RATING_ROUTE = "/rating"
+export const BASKET_ROUTE = '/basket'
+export const DEVICE_ROUTE = '/device'
+export const TVOROG_ROUTE = '/tvorog'
+export const JOKES_ROUTE = '/jokes'
+export const ADDJOKE_ROUTE = '/addjoke'
+export const JOKEDETAILS_ROUTE = '/joke-details'

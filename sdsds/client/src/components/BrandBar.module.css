@@ -1,0 +1,22 @@
+
+.form {  
+    color:aliceblue;
+    display: flex;
+    padding: 2rem;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+
+}
+
+.card {
+    display: flex;
+    padding: 1rem;
+    background-color: black;
+
+}
+.ico {
+    border: 0px solid;
+    align-items: center;
+}

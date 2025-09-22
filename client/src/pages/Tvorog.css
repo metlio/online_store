@@ -1,0 +1,37 @@
+body {
+    user-select: none;
+}
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+h2{
+    color: white;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.item-1 {
+    background-color: cornflowerblue;
+}
+.item-2 {
+    background-color: coral;
+}
+.item-3 {
+    background-color: darkseagreen;
+}
+
+.conta {
+    display: flex;
+    background-color: rgb(32, 32, 114);
+    text-align: center;
+    font-size: 5vw;
+}

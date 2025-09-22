@@ -1,0 +1,7 @@
+
+a:link { color: blue; }          /* Непосещённые ссылки */
+a:visited { color: purple; }     /* Посещённые ссылки */
+/* a:hover { background: yellow; }  Ссылки при наведении */
+a:active { color: #0dfd01; }
+button:active { color: #0dfd01; }
+button:hover { color: #0dfd01; }

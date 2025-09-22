@@ -1,0 +1,47 @@
+.form {
+    align-items:end;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+  }
+
+  
+  .form button {
+    color: transparent;
+    display: flex;
+    height:35px;
+    align-items: center;
+    font: inherit;
+    justify-content: flex-start;
+    cursor: pointer;
+    background: url('../../../assets/1.svg');
+    background-position: 85%;
+    background-size: 22%;
+    background-repeat: no-repeat;
+    padding-left: 13px;
+    margin-top: 10px;
+    width: 110px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    
+  }
+
+  input[type="number"], textarea {
+    color: rgb(151, 58, 58);
+    border: 0px;
+    background-color : #1a1a1a; 
+  }
+
+
+  .form button:hover,
+  .form button:active {
+    justify-content: flex-start;
+    color: white;
+    background-color: #601679;
+    transition: color 0.5s ease-in-out;
+    /* border: 1.5px solid #b4b4b4; */
+  }
+  

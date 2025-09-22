@@ -1,0 +1,16 @@
+.input {
+    /* padding-left: 0.5rem; */
+}
+.input label {
+
+
+}
+.input input {
+    font-size: 1rem;
+    height: 28px;
+    width: 3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 0.5rem;
+
+}

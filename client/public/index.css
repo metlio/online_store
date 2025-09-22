@@ -1,0 +1,30 @@
+
+
+h4 {
+    font-family: 'Sixtyfour', sans-serif;
+    font-size: 5rem;
+}
+
+*,
+*::before,
+*::after,
+:root {
+  box-sizing: border-box;
+  margin: 1;
+  padding: 1; 
+ 
+}
+ 
+html {
+    scroll-behavior: smooth;
+}
+ 
+body {
+  overflow-y: scroll;
+  /* font-family: 'Open Sans', sans-serif; */
+  letter-spacing: 1px;
+  font-family: "PT Mono";
+  font-size:large;
+  font-weight: 600;
+  background-color: black;
+}

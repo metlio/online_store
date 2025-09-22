@@ -1,0 +1,10 @@
+.blockface {
+
+    flex-direction: column;
+    background-color: red;
+}
+
+.init {
+    display: flex;
+    flex-basis: 25%;
+}

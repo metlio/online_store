@@ -1,0 +1,45 @@
+.block1 {
+  background: url('../assets/brian_stairs.jpg');
+}
+
+.block1:hover {
+}
+  .block2 {
+    background: url("../assets/brian_stairs.jpg");
+  }
+
+  .block2:hover {
+  }
+  
+  .block3 {
+    background: url("../assets/deck_interpol.jpg");
+  }
+
+  .block3:hover {
+  }
+  .block4 {
+    background: url("../assets/brian_stairs.jpg");
+  }
+
+  .block4:hover {
+  }
+   
+  h1 {
+    font-size: 3.7rem;
+    position: absolute;
+    padding: 0.8rem;
+    background: #fffcfc;
+    transform: translateZ(-1px) scale(1) translate(-25%, -25%);
+    top: 49%;
+    left: 49%;
+    text-align: center;
+  }
+   
+  .block1 h1 {
+    z-index: 2;
+    transform: translate(-49%, -49%);
+  }
+  .block2 h1 {
+    z-index: 2;
+    transform: translateZ(-.4px) scale(1.2) translate(-39%, -39%);
+  }

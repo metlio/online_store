@@ -1,0 +1,40 @@
+.header{
+    position: fixed;
+    right: 1rem;
+    top: 0;
+    width: 8%;
+    height: 5rem;
+    /* background-color: #f1f1f1; */
+    color: #0dfd01;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); */
+    z-index: 10;
+
+}
+
+.main-image {
+    width: 100%;
+    height: 25rem;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.main-image img {
+    width: 120%;
+    height: 100%;
+    object-fit: cover;
+}
+
+button {
+
+    height: 2rem;
+    border-radius: 20px;
+    border: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+p{
+    font-size: 0.8rem;
+}

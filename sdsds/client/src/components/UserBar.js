@@ -1,0 +1,35 @@
+import React, {useContext} from 'react';
+import {Context} from "../index";
+//import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+//import {Row} from "react-bootstrap";
+//import {NavLink} from "react-router-dom";
+import {TVOROG_ROUTE} from "../utils/consts";
+import {observer} from "mobx-react-lite";
+//import Container from "react-bootstrap/Container";
+import {useNavigate} from 'react-router-dom'
+//import Header from './Layout/Header';
+import styles from './NavBar.module.css'
+//import Logo from './Logo'
+import jwt_decode from "jwt-decode";
+
+const UserBar = observer(() => {
+    const {user} = useContext(Context)
+    const history = useNavigate()
+    let userinfo = jwt_decode(localStorage.token)
+    const user_mail = userinfo.email
+
+    return (
+        <div style={{display:'flex', alignItems:'center',backgroundColor:'#fff'}}>   
+                    <button 
+style={{backgroundColor:'#fff', fontSize:'80%'}} 
+onClick={() => history(TVOROG_ROUTE)}
+
+>{user_mail}
+</button>
+                
+                </div>    
+    );
+});
+
+export default UserBar;
