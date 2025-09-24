@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000
 
 const app = express()
 app.use(cors({
-    origin: 'https://online-store-11hz.vercel.app',
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
