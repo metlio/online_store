@@ -16,17 +16,19 @@ import jwt_decode from "jwt-decode";
 const UserBar = observer(() => {
     const {user} = useContext(Context)
     const history = useNavigate()
-    let userinfo = jwt_decode(localStorage.token)
-    const user_mail = userinfo.email
 
     return (
-        <div style={{display:'flex', alignItems:'center',backgroundColor:'#fff'}}>   
-                    <button 
-style={{backgroundColor:'#fff', fontSize:'80%'}} 
-onClick={() => history(TVOROG_ROUTE)}
-
->{user.isAuth ? user_mail : ""}
-</button>
+        <div style={{display:'flex', alignItems:'center',backgroundColor:'#fff'}}>
+            {user.isAuth ?
+                <button
+                    style={{backgroundColor:'#fff', fontSize:'80%'}}
+                    onClick={() => history(TVOROG_ROUTE)}
+                >
+                    {user.user.email}
+                </button>
+                :
+                ""
+            }
                 
                 </div>    
     );
