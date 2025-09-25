@@ -35,9 +35,9 @@ const App = observer(() => {
 
     useEffect(() => {
         check().then(data => {
-            user.setUser(true)
+            user.setUser(data);
             user.setIsAuth(true)
-        }).finally(() => setLoading(false))
+        }).catch(e => console.log(e)).finally(() => setLoading(false))
     }, [])
 
     if (loading) {
