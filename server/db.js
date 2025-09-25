@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize');
+require('pg');
 require('dotenv').config({ path: __dirname + '/.env' });
 
 if (!process.env.DATABASE_URL) {
