@@ -1,3 +1,4 @@
+THIS IS A DELIBERATE SYNTAX ERROR TO TEST THE VERCEL BUILD;
 import React, {useContext, useEffect, useState} from 'react';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
