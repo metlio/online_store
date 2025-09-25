@@ -12,7 +12,10 @@ const NewComponent = observer((props) => {
 
     const result = device.brands.find(({ id }) => id === sept);
 
-
+    if (!result) {
+    return null; 
+    }
+    
     return (
                 <div>
                                 <div>
