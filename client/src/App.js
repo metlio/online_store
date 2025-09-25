@@ -1,4 +1,3 @@
-THIS IS A DELIBERATE SYNTAX ERROR TO TEST THE VERCEL BUILD;
 import React, {useContext, useEffect, useState} from 'react';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
@@ -36,10 +35,8 @@ const App = observer(() => {
 
     useEffect(() => {
         check().then(data => {
-            if (data) {
-                user.setUser(data);
-                user.setIsAuth(true)
-            }
+            user.setUser(data);
+            user.setIsAuth(true)
         }).catch(e => console.log(e)).finally(() => setLoading(false))
     }, [])
 
