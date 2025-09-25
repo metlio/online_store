@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-import NavBar from "./components/NavBar";
 //import {NavLink} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
@@ -25,7 +24,6 @@ import MainFill2 from './components/MainFill2';
 import Logo from './components/Logo';
 import Menu from './components/Menu';
 import TypeBar from './components/TypeBar';
-import UserBar from './components/UserBar';
 import Other from './pages/Other';
 import MainTheme4 from './components/MainTheme4';
 
@@ -35,13 +33,23 @@ const App = observer(() => {
 
     useEffect(() => {
         check().then(data => {
-            user.setUser(data);
-            user.setIsAuth(true)
-        }).catch(e => console.log(e)).finally(() => setLoading(false))
+            if (data) {
+                user.setUser(data);
+                user.setIsAuth(true);
+            }
+        }).catch(e => {
+            console.error("Failed to check auth on load:", e);
+        }).finally(() => {
+            setLoading(false);
+        });
     }, [])
 
     if (loading) {
-        return <Spinner animation={"grow"}/>
+        return (
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+                <Spinner animation={"grow"}/>
+            </div>
+        )
     }
 
     return (
@@ -52,7 +60,6 @@ const App = observer(() => {
         <Menu />
         <div style={{display:'flex', flexDirection:'row', justifyContent:'space-around',backgroundColor:'#fff'}}>
         <TypeBar />
-        <UserBar />
         </div>
             {/* <SpringDemo/> */}
             <Happ />

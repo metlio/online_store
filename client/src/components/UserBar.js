@@ -16,19 +16,8 @@ import jwt_decode from "jwt-decode";
 const UserBar = observer(() => {
     const {user} = useContext(Context)
     const history = useNavigate()
-
-    let user_mail = ''
-    if (user.isAuth) {
-        const token = localStorage.getItem('token');
-        if (token) {
-            try {
-                const userinfo = jwt_decode(token);
-                user_mail = userinfo.email;
-            } catch (e) {
-                console.error("Invalid token:", e);
-            }
-        }
-    }
+    let userinfo = jwt_decode(localStorage.token)
+    const user_mail = userinfo.email
 
     return (
         <div style={{display:'flex', alignItems:'center',backgroundColor:'#fff'}}>   
