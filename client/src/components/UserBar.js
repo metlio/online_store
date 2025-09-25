@@ -24,7 +24,7 @@ const UserBar = observer(() => {
                     style={{backgroundColor:'#fff', fontSize:'80%'}}
                     onClick={() => history(TVOROG_ROUTE)}
                 >
-                    {jwt_decode(localStorage.getItem('token')).email}
+                    {user.user.email}
                 </button>
                 :
                 ""
