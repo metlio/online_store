@@ -11,7 +11,6 @@ import {useNavigate} from 'react-router-dom'
 //import Header from './Layout/Header';
 import styles from './NavBar.module.css'
 //import Logo from './Logo'
-import jwt_decode from "jwt-decode";
 
 const UserBar = observer(() => {
     const {user} = useContext(Context)
