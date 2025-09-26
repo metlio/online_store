@@ -19,8 +19,8 @@ const DeviceItem = observer(({device}) => {
     const [ratingVisible, setRatingVisible] = useState(false)
     const [imaging, setImaging] = useState(false)
 
-    const sold2 = process.env.REACT_APP_API_URL + device.imgg;
-    const sold = process.env.REACT_APP_API_URL + device.img;
+    const sold2 = process.env.REACT_APP_API_URL + '/static/' + device.imgg;
+    const sold = process.env.REACT_APP_API_URL + '/static/' + device.img;
 
     const formattedPrice = `${device.price.toFixed(0)}`;
     const oldPrice = formattedPrice*1.5;
