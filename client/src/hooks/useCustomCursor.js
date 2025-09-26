@@ -4,13 +4,13 @@ import { useEffect, useRef } from 'react';
 const CURSOR_DEFAULT = 'https://i.postimg.cc/W3VXrbXS/pp.png';
 const CURSOR_LEFT_CLICK = 'https://i.postimg.cc/CKC6c6rF/1.png';
 const CURSOR_RIGHT_CLICK = 'https://i.postimg.cc/PJzrkdCY/p1.png';
+const CURSOR_POINTER = 'https://i.postimg.cc/CKn93Bbm/123343.png'; // New cursor for links/buttons
 
 // Named function for the context menu handler to ensure it can be removed correctly
 const preventContextMenu = (e) => e.preventDefault();
 
 const useCustomCursor = () => {
   // Use a ref to store the current cursor state ('default', 'left', 'right')
-  // This avoids re-renders and re-running the effect on state change.
   const cursorState = useRef('default');
 
   const setCursor = (cursorUrl) => {
@@ -21,30 +21,26 @@ const useCustomCursor = () => {
     const handleMouseDown = (e) => {
       const target = e.target;
 
-      // If clicking on a link or button, reset to default cursor and state
+      // If clicking on a link or button, let handleMouseMove manage the cursor.
+      // Just prevent the click state from being activated.
       if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
-        setCursor(CURSOR_DEFAULT);
-        cursorState.current = 'default';
-        return; // Stop further processing
+        cursorState.current = 'default'; // Reset state on click of interactive element
+        return;
       }
 
       if (e.button === 0) { // Left click
         if (cursorState.current === 'left') {
-          // If already in left-click state, toggle back to default
           cursorState.current = 'default';
           setCursor(CURSOR_DEFAULT);
         } else {
-          // Otherwise, switch to left-click state
           cursorState.current = 'left';
           setCursor(CURSOR_LEFT_CLICK);
         }
       } else if (e.button === 2) { // Right click
         if (cursorState.current === 'right') {
-          // If already in right-click state, toggle back to default
           cursorState.current = 'default';
           setCursor(CURSOR_DEFAULT);
         } else {
-          // Otherwise, switch to right-click state
           cursorState.current = 'right';
           setCursor(CURSOR_RIGHT_CLICK);
         }
@@ -54,8 +50,8 @@ const useCustomCursor = () => {
     const handleMouseMove = (e) => {
         const target = e.target;
         if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
-            setCursor(CURSOR_DEFAULT);
-            cursorState.current = 'default';
+            // Use the new pointer cursor when hovering over links/buttons
+            setCursor(CURSOR_POINTER);
         } else {
             // When moving off an interactive element, restore the correct cursor based on the stored state
             switch (cursorState.current) {
