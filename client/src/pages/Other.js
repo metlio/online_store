@@ -10,7 +10,7 @@ const Other = () => {
             width: '100vw',
             height: '100vh',
             backgroundColor: 'red',
-            zIndex: '99'
+            zIndex: '8'
         }}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <img src={PaintIcon} alt="My Image"/>

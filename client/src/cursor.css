@@ -1,3 +1,8 @@
 body {
   cursor: url('./assets/cursor.png'), auto;
 }
+
+a:hover,
+button:hover {
+  cursor: url('https://i.postimg.cc/CKn93Bbm/123343.png'), auto;
+}

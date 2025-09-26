@@ -6,7 +6,7 @@ const useCustomCursor = () => {
   const clickImageRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseDown = (e) => {
+    const handleMouseDown = (event) => {
       // Remove any existing image
       if (clickImageRef.current) {
         clickImageRef.current.remove();
@@ -14,14 +14,14 @@ const useCustomCursor = () => {
 
       const img = document.createElement('img');
       img.style.position = 'fixed';
-      img.style.left = `${e.clientX - 30}px`; // Adjust position to center the image on the cursor
-      img.style.top = `${e.clientY - 30}px`;
+      img.style.left = `${event.clientX - 30}px`; // Adjust position to center the image on the cursor
+      img.style.top = `${event.clientY - 30}px`;
       img.style.pointerEvents = 'none'; // Make the image non-interactive
       img.style.zIndex = '10000'; // Ensure it's on top
 
-      if (e.button === 0) { // Left click
+      if (event.button === 0) { // Left click
         img.src = leftClickImg;
-      } else if (e.button === 2) { // Right click
+      } else if (event.button === 2) { // Right click
         img.src = rightClickImg;
       } else {
         return; // Do nothing for other buttons
@@ -38,8 +38,8 @@ const useCustomCursor = () => {
       }
     };
 
-    const handleContextMenu = (e) => {
-        e.preventDefault();
+    const handleContextMenu = (event) => {
+        event.preventDefault();
     };
 
     document.addEventListener('mousedown', handleMouseDown);
