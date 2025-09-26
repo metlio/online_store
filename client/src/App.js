@@ -49,23 +49,25 @@ const App = observer(() => {
     }
 
     return (
-    <div style={{width:'100vw', top:'0px'}}>
-        <CartContextProvider>
-        <BrowserRouter>
-        <Menu />
-        <div style={{display:'flex', flexDirection:'row', justifyContent:'space-around',backgroundColor:'#fff'}}>
-        <TypeBar />
-        <UserBar />
+        <div style={{width: '100vw', top: '0px'}}>
+            <CartContextProvider>
+                <div>
+                    <BrowserRouter>
+                        <Menu/>
+                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: '#fff'}}>
+                            <TypeBar/>
+                            <UserBar/>
+                        </div>
+                        <Happ/>
+                        <div style={{backgroundColor: 'white'}}>
+                            <AppRouter/>
+                        </div>
+                    </BrowserRouter>
+                </div>
+                <Other/>
+                <Footer/>
+            </CartContextProvider>
         </div>
-            <Happ />
-            <div style={{backgroundColor:'white'}}>
-            <AppRouter />
-            </div>
-        </BrowserRouter>
-        <Other />
-        <Footer />
-        </CartContextProvider>
-    </div>
     );
 });
 

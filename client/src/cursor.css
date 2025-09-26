@@ -3,6 +3,7 @@ body {
 }
 
 a:hover,
-button:hover {
-  cursor: url('https://i.postimg.cc/CKn93Bbm/123343.png'), auto;
+button:hover,
+img:hover {
+  cursor: url('https://i.postimg.cc/CKn93Bbm/123343.png') !important, auto;
 }
