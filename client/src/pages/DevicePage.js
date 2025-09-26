@@ -39,8 +39,8 @@ const DevicePage = () => {
         <Container className="mt-3">
             <div style={{display:'flex', maxHeight:'500px'}}>
 
-                    <Image width={400} src={process.env.REACT_APP_API_URL + device.img}/>
-                    <Image width={400} src={process.env.REACT_APP_API_URL + device.imgg}/>
+                    <Image width={400} src={process.env.REACT_APP_API_URL + '/static/' + device.img}/>
+                    <Image width={400} src={process.env.REACT_APP_API_URL + '/static/' + device.imgg}/>
                     <Card
                         className="d-flex flex-column align-items-center justify-content-around"
                         style={{backgroundColor:'#000', border: '0px solid lightgray'}}

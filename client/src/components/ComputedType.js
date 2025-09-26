@@ -17,7 +17,7 @@ const ComputedType = observer(() => {
                     key={type.id}
                 >
                     {type.name}
-                    <Image src={process.env.REACT_APP_API_URL + type.img}/>
+                    <Image src={process.env.REACT_APP_API_URL + '/static/' + type.img}/>
                 </ListGroup.Item>
             )}
         </ListGroup>

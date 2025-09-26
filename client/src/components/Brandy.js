@@ -9,7 +9,7 @@ const Brandy = observer(() => {
 
     return (
         <div>
-            <Image width={20} height={20} src={process.env.REACT_APP_API_URL + brand.img}/>
+            <Image width={20} height={20} src={process.env.REACT_APP_API_URL + '/static/' + brand.img}/>
         </div>
     );
 });

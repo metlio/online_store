@@ -19,7 +19,7 @@ const NewComponent = observer((props) => {
     return (
                 <div>
                                 <div>
-                                    <Image height={20}  src={process.env.REACT_APP_API_URL + result.img}/>
+                                    <Image height={20}  src={process.env.REACT_APP_API_URL + '/static/' + result.img}/>
                                 </div>
                 </div>
     );

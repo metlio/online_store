@@ -107,7 +107,7 @@ const CreateDevice = observer(({show, onHide}) => {
                                     key={brand.id}
                                 >
                                     {brand.name}
-                                    <Image width={20} height={20} src={process.env.REACT_APP_API_URL + brand.img}/>
+                                    <Image width={20} height={20} src={process.env.REACT_APP_API_URL + '/static/' + brand.img}/>
                                 </Dropdown.Item>
                             )}
                         </Dropdown.Menu>
