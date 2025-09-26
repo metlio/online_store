@@ -62,8 +62,8 @@ const App = observer(() => {
             <AppRouter />
             </div>
         </BrowserRouter>
-        <Footer />
         <Other />
+        <Footer />
         </CartContextProvider>
     </div>
     );
