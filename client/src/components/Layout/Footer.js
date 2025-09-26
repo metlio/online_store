@@ -1,39 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ReactComponent as Logotyp } from "../sv.svg";
 import styles from './Header.module.css';
 
 const Footer = () => {
-    const [footerVisible, setFooterVisible] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            // Check if the user has scrolled to the bottom of the page.
-            // (window.innerHeight + window.scrollY) is the position of the bottom of the viewport.
-            // document.body.offsetHeight is the total height of the page.
-            // We use a 200px buffer to trigger it a bit before the absolute end.
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
-                setFooterVisible(true);
-            } else {
-                setFooterVisible(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        // Cleanup the event listener on component unmount
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
+    // Simplified footer with fixed positioning at the bottom.
+    // The zIndex ensures it stays on top of other content.
     const footerStyle = {
         width: '100%',
-        position: 'fixed', // Use fixed positioning to ensure it's relative to the viewport
-        bottom: footerVisible ? '0' : '-100%', // Animate from a position completely off-screen
+        position: 'fixed',
+        bottom: '0',
         left: '0',
-        zIndex: '100', // Ensure it's above other content (like the red 'Hello' block)
-        backgroundColor: '#0b0b0b',
-        transition: 'bottom 0.7s ease-in-out' // A smooth slide-in effect
+        zIndex: '1000', // High z-index to ensure it's on top
+        backgroundColor: '#0b0b0b'
     };
 
     return (

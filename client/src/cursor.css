@@ -1,0 +1,43 @@
+/*
+  Base cursor for the entire page.
+  This is the default state.
+*/
+body {
+  cursor: url('https://i.postimg.cc/W3VXrbXS/pp.png'), auto !important;
+}
+
+/*
+  Cursor for links, buttons, and images.
+  This rule will override any default browser styles (like the pointer finger).
+*/
+a,
+button,
+img,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  cursor: url('https://i.postimg.cc/CKn93Bbm/123343.png'), auto !important;
+}
+
+/*
+  State for when the left mouse button is pressed.
+  This class will be added/removed by JavaScript.
+*/
+body.left-click,
+body.left-click a,
+body.left-click button,
+body.left-click img {
+  cursor: url('https://i.postimg.cc/CKC6c6rF/1.png'), auto !important;
+}
+
+/*
+  State for when the right mouse button is pressed.
+  This class will be added/removed by JavaScript.
+*/
+body.right-click,
+body.right-click a,
+body.right-click button,
+body.right-click img {
+  cursor: url('https://i.postimg.cc/PJzrkdCY/p1.png'), auto !important;
+}
