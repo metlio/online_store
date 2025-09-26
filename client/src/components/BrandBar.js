@@ -25,7 +25,7 @@ const BrandBar = observer(() => {
                     onClick={() => device.setSelectedBrand(brand)}
                     border={brand.id === device.selectedBrand.id ? 'dark' : 'light'}
                 >
-                    <div className={styles.ico}><div><Image width={40}src={process.env.REACT_APP_API_URL + brand.img}></Image></div></div><br></br>
+                    <div className={styles.ico}><div><Image width={40}src={process.env.REACT_APP_API_URL + '/static/' + brand.img}></Image></div></div><br></br>
                 </div>
             )}
             </div>
