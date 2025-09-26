@@ -49,7 +49,7 @@ const App = observer(() => {
     }
 
     return (
-    <div style={{width:'100vw', top:'0px', height:'200vh', backgroundColor:'#fff'}}>
+    <div style={{width:'100vw', top:'0px'}}>
         <CartContextProvider>
         <BrowserRouter>
         <Menu />
