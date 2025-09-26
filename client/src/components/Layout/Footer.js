@@ -7,8 +7,11 @@ const Footer = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            // Show footer when user scrolls past 1000 pixels
-            if (window.scrollY > 1000) {
+            // Check if the user has scrolled to the bottom of the page.
+            // (window.innerHeight + window.scrollY) is the position of the bottom of the viewport.
+            // document.body.offsetHeight is the total height of the page.
+            // We use a 200px buffer to trigger it a bit before the absolute end.
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
                 setFooterVisible(true);
             } else {
                 setFooterVisible(false);
@@ -17,6 +20,7 @@ const Footer = () => {
 
         window.addEventListener('scroll', handleScroll);
 
+        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -24,12 +28,12 @@ const Footer = () => {
 
     const footerStyle = {
         width: '100%',
-        position: 'fixed', // Use fixed positioning to stick to the viewport
-        bottom: footerVisible ? '0' : '-500px', // Animate from bottom
+        position: 'fixed', // Use fixed positioning to ensure it's relative to the viewport
+        bottom: footerVisible ? '0' : '-100%', // Animate from a position completely off-screen
         left: '0',
-        zIndex: '100', // Ensure it's above the red block (zIndex: 99)
+        zIndex: '100', // Ensure it's above other content (like the red 'Hello' block)
         backgroundColor: '#0b0b0b',
-        transition: 'bottom 0.5s ease-in-out' // Smooth slide effect
+        transition: 'bottom 0.7s ease-in-out' // A smooth slide-in effect
     };
 
     return (
