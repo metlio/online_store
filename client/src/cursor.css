@@ -1,6 +1,6 @@
 /*
   Base cursor for the entire page.
-  This is the default state.
+  !important is used to ensure this style takes precedence over any other default styles.
 */
 body {
   cursor: url('https://i.postimg.cc/W3VXrbXS/pp.png'), auto !important;
