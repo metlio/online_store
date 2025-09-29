@@ -8,24 +8,34 @@ class DeviceController {
     async create(req, res, next) {
         try {
             let {name, price, brandId, typeId, info, rating} = req.body
-            const {img, imgg} = req.files
 
-            const extension1 = mime.extension(img.mimetype);
-            if (!extension1) {
-                return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
-            }
-            let fileName = uuid.v4() + "." + extension1;
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            let fileName = null;
+            let filekName = null;
 
-            const extension2 = mime.extension(imgg.mimetype);
-            if (!extension2) {
-                return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
+            if (req.files) {
+                if (req.files.img) {
+                    const {img} = req.files;
+                    const extension1 = mime.extension(img.mimetype);
+                    if (!extension1) {
+                        return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
+                    }
+                    fileName = uuid.v4() + "." + extension1;
+                    img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                }
+
+                if (req.files.imgg) {
+                    const {imgg} = req.files;
+                    const extension2 = mime.extension(imgg.mimetype);
+                    if (!extension2) {
+                        return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
+                    }
+                    filekName = uuid.v4() + "." + extension2;
+                    imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                }
             }
-            let filekName = uuid.v4() + "." + extension2;
-            imgg.mv(path.resolve(__dirname, '..', 'static', filekName))
 
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
-            
+
             if (info) {
                 info = JSON.parse(info)
                 info.forEach(i =>
