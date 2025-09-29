@@ -6,20 +6,25 @@ const mime = require('mime-types');
 
 class BrandController {
     async create(req, res, next) {
-    try {    
-        const {name} = req.body
-        const {img} = req.files
-        const extension = mime.extension(img.mimetype);
-        if (!extension) {
-            return next(ApiError.badRequest('Неверный тип файла'));
+        try {
+            const {name} = req.body;
+            let fileName = null;
+
+            if (req.files && req.files.img) {
+                const {img} = req.files;
+                const extension = mime.extension(img.mimetype);
+                if (!extension) {
+                    return next(ApiError.badRequest('Неверный тип файла'));
+                }
+                fileName = uuid.v4() + "." + extension;
+                img.mv(path.resolve(__dirname, '..', 'static', fileName));
+            }
+
+            const brand = await Brand.create({name, img: fileName});
+            return res.json(brand);
+        } catch (e) {
+            next(ApiError.badRequest(e.message));
         }
-        let fileName = uuid.v4() + "." + extension;
-        img.mv(path.resolve(__dirname, '..', 'static', fileName))
-        const brand = await Brand.create({name, img: fileName})
-        return res.json(brand)
-    } catch (e) {
-        next(ApiError.badRequest(e.message))
-    }
     }
 
     async getAll(req, res) {
