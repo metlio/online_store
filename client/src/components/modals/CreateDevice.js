@@ -40,17 +40,21 @@ const CreateDevice = observer(({show, onHide}) => {
         const formData = new FormData()
         formData.append('name', name)
         formData.append('price', `${price}`)
-        formData.append('img', file[0])
-        formData.append('imgg', file[1])
+        if (file[0]) {
+            formData.append('img', file[0])
+        }
+        if (file[1]) {
+            formData.append('imgg', file[1])
+        }
         formData.append('rating', rate)
-        console.log(file[1])
         formData.append('brandId', device.selectedBrand.id)
-        formData.append('brandImg', device.file)
         formData.append('typeId', device.selectedType.id)
         formData.append('info', JSON.stringify(info))
-        createDevice(formData).then(data => onHide())
-        device.setSelectedType(0)
-        device.setSelectedBrand(0)
+        createDevice(formData).then(data => {
+            onHide();
+            device.setSelectedType({});
+            device.setSelectedBrand({});
+        })
     }
 
     return (
