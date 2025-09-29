@@ -2,17 +2,28 @@ const uuid = require('uuid');
 const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
 const { ApiError } = require('../error/ApiError');
+const mime = require('mime-types');
 
 class DeviceController {
     async create(req, res, next) {
         try {
             let {name, price, brandId, typeId, info, rating} = req.body
-            const {img} = req.files
-            let fileName = uuid.v4() + ".jpg"
+            const {img, imgg} = req.files
+
+            const extension1 = mime.extension(img.mimetype);
+            if (!extension1) {
+                return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
+            }
+            let fileName = uuid.v4() + "." + extension1;
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const {imgg} = req.files
-            let filekName = uuid.v4() + ".jpg"
+
+            const extension2 = mime.extension(imgg.mimetype);
+            if (!extension2) {
+                return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
+            }
+            let filekName = uuid.v4() + "." + extension2;
             imgg.mv(path.resolve(__dirname, '..', 'static', filekName))
+
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
             
             if (info) {
