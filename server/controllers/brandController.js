@@ -8,7 +8,8 @@ class BrandController {
     try {    
         const {name} = req.body
         const {img} = req.files
-        let fileName = uuid.v4() + ".jpg"
+        const extension = path.extname(img.name);
+        let fileName = uuid.v4() + extension;
         img.mv(path.resolve(__dirname, '..', 'static', fileName))
         const brand = await Brand.create({name, img: fileName})
         return res.json(brand)
@@ -22,8 +23,14 @@ class BrandController {
         return res.json(brands)
     }
 
-    async check(req, res) {
-        
+    async delete(req, res, next) {
+        try {
+            const {id} = req.params;
+            await Brand.destroy({where: {id}});
+            return res.json({message: 'Бренд успешно удален'});
+        } catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
     }
 }
 
