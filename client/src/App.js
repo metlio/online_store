@@ -16,7 +16,6 @@ import CartContextProvider from "./store/CartContextProvider";
 import Menu from './components/Menu';
 import TypeBar from './components/TypeBar';
 import UserBar from './components/UserBar';
-import Other from './pages/Other';
 import useCustomCursor from './hooks/useCustomCursor';
 import './cursor.css';
 
@@ -62,7 +61,6 @@ const App = observer(() => {
             <AppRouter />
             </div>
         </BrowserRouter>
-        <Other />
         <Footer />
         </CartContextProvider>
     </div>
