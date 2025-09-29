@@ -16,7 +16,6 @@ const TypeBar = observer(() => {
         <div className={styles.dom}>
             {device.types.map(type =>
                 <div className={type.id === device.selectedType.id ? styles.lom : styles.pom}
-                    style={{cursor: 'pointer'}}
                     onClick={() => device.setSelectedType(type)}
                     key={type.id}
                 >
