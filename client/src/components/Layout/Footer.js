@@ -7,7 +7,7 @@ import styles from './Header.module.css';
 const Footer = () => {
 
     return <React.Fragment>
-<footer style={{width:'100%', position:'sticky', bottom:'0', left:'0', zIndex:'100', backgroundColor:'#0b0b0b'}} className="text-center text-lg-start text-muted">
+<footer style={{width:'100%', position: 'relative', zIndex: 100, backgroundColor:'#0b0b0b'}} className="text-center text-lg-start text-muted">
 
   <section className="d-flex justify-content-center justify-content-lg-between p-0">
 
@@ -44,7 +44,7 @@ const Footer = () => {
             <Logotyp />
             {/* <NewComponent /> */}
             </div>
-          </div> 
+          </div>
           </h6>
 
 
@@ -107,7 +107,7 @@ const Footer = () => {
     </div>
   </section>
   <div className="text-center p-4">
-    © 2023 Copyright  
+    © 2023 Copyright
     <a className="p-2 text-reset fw-bold" href="#">SLLC</a>
   </div>
 </footer>
