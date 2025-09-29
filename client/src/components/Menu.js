@@ -3,7 +3,7 @@ import Logo from './Logo';
 import styles from './Menu.module.css';
 import NavBar from './NavBar';
 import {useNavigate} from 'react-router-dom'
-import {OTHER_ROUTE} from "../utils/consts";
+import {OTHER_ROUTE, MAGAZINE_ROUTE} from "../utils/consts";
 
 
 function Menu() {
@@ -21,7 +21,9 @@ function Menu() {
                                       >
                                           Админка
                                       </button></span>
-      <span className={styles.tip}>MAGAZINE</span>
+      <span className={styles.tip} onClick={() => history(MAGAZINE_ROUTE)} style={{cursor: 'pointer'}}>
+                                          MAGAZINE
+                                      </span>
       <span className={styles.tip}>CONTACTS</span>
       <div>
       <NavBar />
