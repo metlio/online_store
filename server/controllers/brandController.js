@@ -2,14 +2,18 @@ const uuid = require('uuid');
 const path = require('path');
 const {Brand, Type} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const mime = require('mime-types');
 
 class BrandController {
     async create(req, res, next) {
     try {    
         const {name} = req.body
         const {img} = req.files
-        const extension = path.extname(img.name);
-        let fileName = uuid.v4() + extension;
+        const extension = mime.extension(img.mimetype);
+        if (!extension) {
+            return next(ApiError.badRequest('Неверный тип файла'));
+        }
+        let fileName = uuid.v4() + "." + extension;
         img.mv(path.resolve(__dirname, '..', 'static', fileName))
         const brand = await Brand.create({name, img: fileName})
         return res.json(brand)
