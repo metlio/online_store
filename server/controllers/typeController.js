@@ -16,6 +16,16 @@ class TypeController {
     async check(req, res) {
         
     }
+
+    async delete(req, res, next) {
+        try {
+            const {id} = req.params;
+            await Type.destroy({where: {id}});
+            return res.json({message: 'Тип успешно удален'});
+        } catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
 }
 
 module.exports = new TypeController()

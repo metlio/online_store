@@ -7,4 +7,5 @@ router.post('/', deviceController.create)
 router.get('/', deviceController.getAll)
 router.get('/:id',deviceController.getOne)
 router.put('/',ratingController.create)
+router.delete('/:id', deviceController.delete);
 module.exports = router
