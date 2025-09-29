@@ -95,19 +95,19 @@ const Footer = () => {
 
         <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-          <p><i className="fas fa-home me-3 text-secondary"></i> New York, NY 10012, US</p>
+          <p><i className="fas fa-home me-3 text-secondary"></i> Rostov-on-Don, RO 344000, RU</p>
           <p>
             <i className="fas fa-envelope me-3 text-secondary"></i>
-            info@example.com
+            yad@yadde.ru
           </p>
-          <p><i className="fas fa-phone me-3 text-secondary"></i> + 01 234 567 88</p>
-          <p><i className="fas fa-print me-3 text-secondary"></i> + 01 234 567 89</p>
+          <p><i className="fas fa-phone me-3 text-secondary"></i> + 7 951 546 29 29</p>
+          <p><i className="fas fa-print me-3 text-secondary"></i> + 8 234 567 89</p>
         </div>
       </div>
     </div>
   </section>
   <div className="text-center p-4">
-    © 2023 Copyright
+    © 2025 Copyright
     <a className="p-2 text-reset fw-bold" href="#">SLLC</a>
   </div>
 </footer>
