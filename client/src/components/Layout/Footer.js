@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
         <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <h6 className="text-uppercase fw-bold mb-4">
-            Товары
+            Библиотеки
           </h6>
           <p>
             <a href="#!" className="text-reset">Angular</a>
@@ -80,7 +80,7 @@ const Footer = () => {
             Ссылки
           </h6>
           <p>
-            <a href="#!" className="text-reset">Pricing</a>
+            <a href="#!" className="text-reset">Admin Panel</a>
           </p>
           <p>
             <a href="#!" className="text-reset">Settings</a>
