@@ -103,6 +103,7 @@ const Other = () => {
             }}>
                 {showScore ? (
                     <div className='score-section' style={{textAlign: 'center'}}>
+                    <div style={{width: '200px', height: '200px', backgroundImage: 'url(https://img1.picmix.com/output/stamp/thumb/0/1/1/6/1456110_56f42.gif)'}}
                         <h2>Ты набрал {score} пиратских монет из {questions.length}</h2>
                         <p>
                             {(() => {
