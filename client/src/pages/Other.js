@@ -20,7 +20,7 @@ const Other = () => {
         }
     };
 
-    const resultBackgroundImage = 'url(https://i.pinimg.com/originals/e4/15/c4/e415c48c6387706cc02f92b09501cab5.gif)';
+    const resultBackgroundImage = 'url(https://i.pinimg.com/originals/04/fc/a4/04fca40971c99476080805fd7f0a09a1.gif)';
 
     const questions = [
         {
@@ -41,7 +41,7 @@ const Other = () => {
                 { answerText: 'Франции', isCorrect: true },
                 { answerText: 'России', isCorrect: false },
             ],
-            backgroundImage: 'url(https://f.simpleminecraft.ru/uploads/monthly_2020_01/624058593_TinderHeader.gif.3c34e00467139834d99d9b52413670e4.gif)',
+            backgroundImage: 'url(https://i.postimg.cc/H8GT534g/4.gif)',
         },
         {
             questionText: 'Сколько мачт у фрегата?',
@@ -51,7 +51,7 @@ const Other = () => {
                 { answerText: 'Две', isCorrect: false },
                 { answerText: 'Одна', isCorrect: false },
             ],
-            backgroundImage: 'url(https://gifdb.com/images/high/sailing-vessel-in-the-ocean-a4n7xwhsukx7jgwm.gif)',
+            backgroundImage: 'url(https://i.postimg.cc/4KNyN8wb/pro.gif)',
         },
         {
             questionText: 'Что такое книппель?',
@@ -61,7 +61,7 @@ const Other = () => {
                 { answerText: 'Снаряд для разрушения такелажа и парусов', isCorrect: true },
                 { answerText: 'Не знаю', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.imgur.com/aYJ6ZYV.gif)',
+            backgroundImage: 'url(https://i.postimg.cc/sGpsJSwD/2.gif)',
         },
         {
             questionText: 'Что самое важное для настоящего пирата:',
@@ -71,7 +71,7 @@ const Other = () => {
                 { answerText: 'Избежать цинги', isCorrect: true },
                 { answerText: 'Сьесть больше Цинго-Догов', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.pinimg.com/originals/4c/1a/4d/4c1a4d9cdaef56ab9cd11052364fbc19.gif)',
+            backgroundImage: 'url(https://i.postimg.cc/vgxQcCnZ/5.gif)',
         },
     ];
 
@@ -103,8 +103,17 @@ const Other = () => {
             }}>
                 {showScore ? (
                     <div className='score-section' style={{textAlign: 'center'}}>
-                    <div style={{width: '200px', height: '200px', backgroundImage: 'url(https://img1.picmix.com/output/stamp/thumb/0/1/1/6/1456110_56f42.gif)'}}
-                        <h2>Ты набрал {score} пиратских монет из {questions.length}</h2>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                            {Array.from({ length: score }).map((_, index) => (
+                                <img 
+                                    key={index}
+                                    src="https://media.tenor.com/jX0Ytn_JLcIAAAAj/mario-coins.gif" 
+                                    alt="coin" 
+                                    style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                                />
+                            ))}
+                        </div>
+                        <h2>Ты набрал {score} из {questions.length} монет</h2>
                         <p>
                             {(() => {
                                 const percentage = score / questions.length;
@@ -122,17 +131,17 @@ const Other = () => {
                         </div>
                         <div className='answer-section' style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                                <button
-                                    key={index}
+                                <button 
+                                    key={index} 
                                     onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
                                     style={{
                                         fontFamily: "'Neucha', sans-serif",
-                                        width: '50%',
-                                        marginBottom: '10px',
-                                        fontSize: '16pt',
-                                        padding: '10px',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
+                                        width: '50%', 
+                                        marginBottom: '10px', 
+                                        fontSize: '16pt', 
+                                        padding: '10px', 
+                                        borderRadius: '8px', 
+                                        cursor: 'pointer', 
                                         border: '2px solid #ffffff',
                                         backgroundColor: 'rgba(0,0,0,0.3)' ,
                                         color: 'white'
