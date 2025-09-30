@@ -130,7 +130,7 @@ const Other = () => {
                         <div className='question-section' style={{width: '100%', textAlign: 'center'}}>
                             <div className='question-text' style={{padding: '10px', marginBottom: '40px'}}>{questions[currentQuestion].questionText}</div>
                         </div>
-                        <div className='answer-section' style={{padding: '10px', marginBottom:'10px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <div className='answer-section' style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             {questions[currentQuestion].answerOptions.map((answerOption, index) => (
                                 <button 
                                     key={index} 
@@ -140,12 +140,12 @@ const Other = () => {
                                         width: '50%', 
                                         marginBottom: '10px', 
                                         fontSize: '16pt', 
-                                        padding: '10px', 
+                                        padding: '30px', 
                                         borderRadius: '8px', 
                                         cursor: 'pointer', 
                                         border: '2px solid #ffffff',
-                                        backgroundColor: 'rgba(0,0,0,0.3)' ,
-                                        color: 'white'
+                                        backgroundColor: 'white' ,
+                                        color: 'Black'
                                     }}
                                 >
                                     {answerOption.answerText}
