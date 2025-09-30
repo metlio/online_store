@@ -20,58 +20,51 @@ const Other = () => {
         }
     };
 
-    const resultBackgroundImage = 'url(https://i.pinimg.com/originals/04/fc/a4/04fca40971c99476080805fd7f0a09a1.gif)';
-
     const questions = [
         {
-            questionText: 'Как назывался пират, состоящий на службе у короны?',
+            questionText: 'What is the capital of France?',
             answerOptions: [
-                { answerText: 'Капер', isCorrect: true },
-                { answerText: 'Кемпер', isCorrect: false },
-                { answerText: 'Бретёр', isCorrect: false },
-                { answerText: 'Буханьер', isCorrect: false },
+                { answerText: 'New York', isCorrect: false },
+                { answerText: 'London', isCorrect: false },
+                { answerText: 'Paris', isCorrect: true },
+                { answerText: 'Dublin', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/dDdsvPvz/3.gif)',
         },
         {
-            questionText: 'Какой стране принадлежал остров Тортуга?',
+            questionText: 'Who is CEO of Tesla?',
             answerOptions: [
-                { answerText: 'Испании', isCorrect: false },
-                { answerText: 'Голландии', isCorrect: false },
-                { answerText: 'Франции', isCorrect: true },
-                { answerText: 'России', isCorrect: false },
+                { answerText: 'Jeff Bezos', isCorrect: false },
+                { answerText: 'Elon Musk', isCorrect: true },
+                { answerText: 'Bill Gates', isCorrect: false },
+                { answerText: 'Tony Stark', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/H8GT534g/4.gif)',
         },
         {
-            questionText: 'Сколько мачт у фрегата?',
+            questionText: 'The iPhone was created by which company?',
             answerOptions: [
-                { answerText: 'Четыре', isCorrect: false },
-                { answerText: 'Три', isCorrect: true },
-                { answerText: 'Две', isCorrect: false },
-                { answerText: 'Одна', isCorrect: false },
+                { answerText: 'Apple', isCorrect: true },
+                { answerText: 'Intel', isCorrect: false },
+                { answerText: 'Amazon', isCorrect: false },
+                { answerText: 'Microsoft', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/4KNyN8wb/pro.gif)',
         },
         {
-            questionText: 'Что такое книппель?',
+            questionText: 'How many Harry Potter books are there?',
             answerOptions: [
-                { answerText: 'Блюдо которым кормили моряков в XVIII веке', isCorrect: false },
-                { answerText: 'Абордажная сабля', isCorrect: false },
-                { answerText: 'Снаряд для разрушения такелажа и парусов', isCorrect: true },
-                { answerText: 'Не знаю', isCorrect: false },
+                { answerText: '1', isCorrect: false },
+                { answerText: '4', isCorrect: false },
+                { answerText: '6', isCorrect: false },
+                { answerText: '7', isCorrect: true },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/sGpsJSwD/2.gif)',
         },
         {
-            questionText: 'Что самое важное для настоящего пирата:',
+            questionText: 'What is the largest planet in our solar system?',
             answerOptions: [
-                { answerText: 'Бутылка рома', isCorrect: false },
-                { answerText: 'Свистать всех наверх', isCorrect: false },
-                { answerText: 'Избежать цинги', isCorrect: true },
-                { answerText: 'Сьесть больше Цинго-Догов', isCorrect: false },
+                { answerText: 'Earth', isCorrect: false },
+                { answerText: 'Jupiter', isCorrect: true },
+                { answerText: 'Mars', isCorrect: false },
+                { answerText: 'Saturn', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/vgxQcCnZ/5.gif)',
         },
     ];
 
@@ -81,9 +74,7 @@ const Other = () => {
             top: '0',
             width: '100vw',
             height: '100vh',
-            backgroundImage: showScore ? resultBackgroundImage : questions[currentQuestion].backgroundImage,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundColor: 'red',
             zIndex: '99'
         }}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -92,14 +83,12 @@ const Other = () => {
             </div>
             <div style={{
                 perspective: '50px',
-                paddingTop: '10vh',
+                height: '80%',
                 fontSize: '24pt',
-                fontFamily: "'Neucha', sans-serif",
                 display: 'flex',
-                flexDirection: 'column',
+                justifyContent: "center",
                 alignItems: 'center',
-                color: 'white',
-                textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                color: 'white'
             }}>
                 {showScore ? (
                     <div className='score-section' style={{textAlign: 'center'}}>
@@ -113,40 +102,19 @@ const Other = () => {
                                 />
                             ))}
                         </div>
-                        <h2>Ты набрал {score} из {questions.length} монет</h2>
-                        <p>
-                            {(() => {
-                                const percentage = score / questions.length;
-                                if (percentage === 1) return 'Безупречная победа!';
-                                if (percentage >= 0.8) return 'Отлично!';
-                                if (percentage >= 0.5) return 'Хорошая работа!';
-                                return 'Можно и лучше. Попробуй еще!';
-                            })()}
-                        </p>
+                        <h2>You scored {score} out of {questions.length}</h2>
                     </div>
                 ) : (
                     <>
-                        <div className='question-section' style={{width: '100%', textAlign: 'center'}}>
-                            <div className='question-text' style={{marginBottom: '20px'}}>{questions[currentQuestion].questionText}</div>
+                        <div className='question-section'>
+                            <div className='question-count'>
+                                <span>Question {currentQuestion + 1}</span>/{questions.length}
+                            </div>
+                            <div className='question-text'>{questions[currentQuestion].questionText}</div>
                         </div>
-                        <div className='answer-section' style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <div className='answer-section'>
                             {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
-                                    style={{
-                                        fontFamily: "'Neucha', sans-serif",
-                                        width: '50%',
-                                        marginBottom: '10px',
-                                        fontSize: '16pt',
-                                        padding: '10px',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        border: '2px solid #ffffff',
-                                        backgroundColor: 'rgba(0,0,0,0.3)' ,
-                                        color: 'white'
-                                    }}
-                                >
+                                <button key={index} onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>
                                     {answerOption.answerText}
                                 </button>
                             ))}
