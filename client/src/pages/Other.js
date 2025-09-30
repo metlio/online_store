@@ -74,9 +74,6 @@ const Other = () => {
             top: '0',
             width: '100vw',
             height: '100vh',
-            backgroundImage: 'url(https://i.postimg.cc/nL1GjqR3/2.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
             zIndex: '99'
         }}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -85,13 +82,14 @@ const Other = () => {
             </div>
             <div style={{
                 perspective: '50px',
-                height: '80%',
+                paddingTop: '10vh',
                 fontSize: '24pt',
+                fontFamily: "'Neucha', sans-serif",
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: "center",
                 alignItems: 'center',
-                color: 'white'
+                color: 'white',
+                textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}>
                 {showScore ? (
                     <div className='score-section' style={{textAlign: 'center'}}>
@@ -109,9 +107,6 @@ const Other = () => {
                 ) : (
                     <>
                         <div className='question-section' style={{width: '100%', textAlign: 'center'}}>
-                            <div className='question-count' style={{marginBottom: '10px'}}>
-                                <span>Question {currentQuestion + 1}</span>/{questions.length}
-                            </div>
                             <div className='question-text' style={{marginBottom: '20px'}}>{questions[currentQuestion].questionText}</div>
                         </div>
                         <div className='answer-section' style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -120,6 +115,7 @@ const Other = () => {
                                     key={index}
                                     onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
                                     style={{
+                                        fontFamily: "'Neucha', sans-serif",
                                         width: '50%',
                                         marginBottom: '10px',
                                         fontSize: '16pt',
