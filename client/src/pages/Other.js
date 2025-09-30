@@ -20,7 +20,7 @@ const Other = () => {
         }
     };
 
-    const resultBackgroundImage = 'url(https://i.pinimg.com/originals/04/fc/a4/04fca40971c99476080805fd7f0a09a1.gif)';
+    const resultBackgroundImage = 'url(https://i.pinimg.com/originals/e4/15/c4/e415c48c6387706cc02f92b09501cab5.gif)';
 
     const questions = [
         {
@@ -41,7 +41,7 @@ const Other = () => {
                 { answerText: 'Франции', isCorrect: true },
                 { answerText: 'России', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/H8GT534g/4.gif)',
+            backgroundImage: 'url(https://f.simpleminecraft.ru/uploads/monthly_2020_01/624058593_TinderHeader.gif.3c34e00467139834d99d9b52413670e4.gif)',
         },
         {
             questionText: 'Сколько мачт у фрегата?',
@@ -51,7 +51,7 @@ const Other = () => {
                 { answerText: 'Две', isCorrect: false },
                 { answerText: 'Одна', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/4KNyN8wb/pro.gif)',
+            backgroundImage: 'url(https://gifdb.com/images/high/sailing-vessel-in-the-ocean-a4n7xwhsukx7jgwm.gif)',
         },
         {
             questionText: 'Что такое книппель?',
@@ -61,7 +61,7 @@ const Other = () => {
                 { answerText: 'Снаряд для разрушения такелажа и парусов', isCorrect: true },
                 { answerText: 'Не знаю', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/sGpsJSwD/2.gif)',
+            backgroundImage: 'url(https://i.imgur.com/aYJ6ZYV.gif)',
         },
         {
             questionText: 'Что самое важное для настоящего пирата:',
@@ -71,7 +71,7 @@ const Other = () => {
                 { answerText: 'Избежать цинги', isCorrect: true },
                 { answerText: 'Сьесть больше Цинго-Догов', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/vgxQcCnZ/5.gif)',
+            backgroundImage: 'url(https://i.pinimg.com/originals/4c/1a/4d/4c1a4d9cdaef56ab9cd11052364fbc19.gif)',
         },
     ];
 
