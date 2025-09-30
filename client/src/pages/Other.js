@@ -128,7 +128,7 @@ const Other = () => {
                 ) : (
                     <>
                         <div className='question-section' style={{width: '100%', textAlign: 'center'}}>
-                            <div className='question-text' style={{marginBottom: '40px'}}>{questions[currentQuestion].questionText}</div>
+                            <div className='question-text' style={{padding: '10px', marginBottom: '40px'}}>{questions[currentQuestion].questionText}</div>
                         </div>
                         <div className='answer-section' style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             {questions[currentQuestion].answerOptions.map((answerOption, index) => (
