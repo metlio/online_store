@@ -115,7 +115,7 @@ const Other = () => {
                             ))}
                         </div>
                         <h2>Ты набрал {score} из {questions.length} монет</h2>
-                        <h1>
+                        <h2>
                             {(() => {
                                 const percentage = score / questions.length;
                                 if (percentage === 1) return 'Невероятные познания, вам позавидует даже Антон Ночевной';
@@ -123,7 +123,7 @@ const Other = () => {
                                 if (percentage >= 0.5) return 'Аргххх! Попей-ка ещё рома, старина! Прийди в себя!';
                                 return 'Давай-ка сьедим по кусочку апельсина, я всё обьясню!';
                             })()}
-                        </h1>
+                        </h2>
                     </div>
                 ) : (
                     <>
