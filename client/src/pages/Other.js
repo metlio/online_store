@@ -20,6 +20,8 @@ const Other = () => {
         }
     };
 
+    const resultBackgroundImage = 'url(https://i.pinimg.com/originals/04/fc/a4/04fca40971c99476080805fd7f0a09a1.gif)';
+
     const questions = [
         {
             questionText: 'What is the capital of France?',
@@ -29,6 +31,7 @@ const Other = () => {
                 { answerText: 'Paris', isCorrect: true },
                 { answerText: 'Dublin', isCorrect: false },
             ],
+            backgroundImage: 'url(https://i.postimg.cc/dDdsvPvz/3.gif)',
         },
         {
             questionText: 'Who is CEO of Tesla?',
@@ -38,6 +41,7 @@ const Other = () => {
                 { answerText: 'Bill Gates', isCorrect: false },
                 { answerText: 'Tony Stark', isCorrect: false },
             ],
+            backgroundImage: 'url(https://i.postimg.cc/H8GT534g/4.gif)',
         },
         {
             questionText: 'The iPhone was created by which company?',
@@ -47,6 +51,7 @@ const Other = () => {
                 { answerText: 'Amazon', isCorrect: false },
                 { answerText: 'Microsoft', isCorrect: false },
             ],
+            backgroundImage: 'url(https://i.postimg.cc/4KNyN8wb/pro.gif)',
         },
         {
             questionText: 'How many Harry Potter books are there?',
@@ -56,6 +61,7 @@ const Other = () => {
                 { answerText: '6', isCorrect: false },
                 { answerText: '7', isCorrect: true },
             ],
+            backgroundImage: 'url(https://i.postimg.cc/sGpsJSwD/2.gif)',
         },
         {
             questionText: 'What is the largest planet in our solar system?',
@@ -65,6 +71,7 @@ const Other = () => {
                 { answerText: 'Mars', isCorrect: false },
                 { answerText: 'Saturn', isCorrect: false },
             ],
+            backgroundImage: 'url(https://i.postimg.cc/vgxQcCnZ/5.gif)',
         },
     ];
 
@@ -74,6 +81,9 @@ const Other = () => {
             top: '0',
             width: '100vw',
             height: '100vh',
+            backgroundImage: showScore ? resultBackgroundImage : questions[currentQuestion].backgroundImage,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             zIndex: '99'
         }}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
