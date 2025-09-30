@@ -103,14 +103,24 @@ const Other = () => {
             }}>
                 {showScore ? (
                     <div className='score-section' style={{textAlign: 'center'}}>
-                        <h2>You scored {score} out of {questions.length}</h2>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                            {Array.from({ length: score }).map((_, index) => (
+                                <img
+                                    key={index}
+                                    src="https://media.tenor.com/jX0Ytn_JLcIAAAAj/mario-coins.gif"
+                                    alt="coin"
+                                    style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                                />
+                            ))}
+                        </div>
+                        <h2>Ты набрал {score} из {questions.length} монет</h2>
                         <p>
                             {(() => {
                                 const percentage = score / questions.length;
-                                if (percentage === 1) return 'Flawless Victory!';
-                                if (percentage >= 0.8) return 'Excellent!';
-                                if (percentage >= 0.5) return 'Good job!';
-                                return 'You can do better. Keep trying!';
+                                if (percentage === 1) return 'Безупречная победа!';
+                                if (percentage >= 0.8) return 'Отлично!';
+                                if (percentage >= 0.5) return 'Хорошая работа!';
+                                return 'Можно и лучше. Попробуй еще!';
                             })()}
                         </p>
                     </div>
