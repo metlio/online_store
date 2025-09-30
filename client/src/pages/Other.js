@@ -9,7 +9,9 @@ const Other = () => {
             top: '0',
             width: '100vw',
             height: '100vh',
-            backgroundColor: 'red',
+            backgroundImage: 'url(https://i.postimg.cc/nL1GjqR3/2.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             zIndex: '99'
         }}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
