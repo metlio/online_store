@@ -103,14 +103,14 @@ const Other = () => {
             }}>
                 {showScore ? (
                     <div className='score-section' style={{textAlign: 'center'}}>
-                        <h2>You scored {score} out of {questions.length}</h2>
+                        <h2>Ты набрал {score} пиратских монет из {questions.length}</h2>
                         <p>
                             {(() => {
                                 const percentage = score / questions.length;
-                                if (percentage === 1) return 'Flawless Victory!';
-                                if (percentage >= 0.8) return 'Excellent!';
-                                if (percentage >= 0.5) return 'Good job!';
-                                return 'You can do better. Keep trying!';
+                                if (percentage === 1) return 'Невероятные познания, вам позавидует даже Антон Ночевной';
+                                if (percentage >= 0.8) return 'Прекрасно, прекрасно! Вы невероятны, капитан!';
+                                if (percentage >= 0.5) return 'Аргххх! Попей-ка ещё рома, старина! Прийди в себя!';
+                                return 'Давай-ка сьедим по кусочку апельсина, я всё обьясню!';
                             })()}
                         </p>
                     </div>
