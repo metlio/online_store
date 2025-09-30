@@ -32,7 +32,7 @@ const Other = () => {
                 { answerText: 'Бретёр', isCorrect: false },
                 { answerText: 'Буханьер', isCorrect: false },
             ],
-            backgroundImage: 'url(https://i.postimg.cc/dDdsvPvz/3.gif)',
+            backgroundImage: 'url(https://i.pinimg.com/originals/3c/4c/73/3c4c73cfda47690a8784c96274c7a38a.gif)',
         },
         {
             questionText: 'Какой стране принадлежал остров Тортуга?',
