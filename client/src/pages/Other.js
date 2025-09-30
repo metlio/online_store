@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import PaintIcon from "../components/logo.png";
+import PaintIcon from "../components/logo.gif";
 import CartIcon from "../components/cart.png";
 
 const Other = () => {
