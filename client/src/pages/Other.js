@@ -2,12 +2,21 @@
 import React, { useState } from 'react';
 import PaintIcon from "../components/logo.gif";
 import CartIcon from "../components/cart.gif";
+import music from "../components/m.mp3";
 
 const Other = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
+    const [showWarning, setShowWarning] = useState(true);
 
+    const audio = new Audio(music);
+
+    const handleStartQuiz = () => {
+        audio.play();
+        setShowWarning(false);
+    };
+    
     const handleAnswerOptionClick = (isCorrect) => {
         if (isCorrect) {
             setScore(score + 1);
@@ -75,7 +84,48 @@ const Other = () => {
             backgroundImage: 'url(https://i.pinimg.com/originals/4c/1a/4d/4c1a4d9cdaef56ab9cd11052364fbc19.gif)',
         },
     ];
-
+    
+     if (showWarning) {
+        return (
+            <div style={{
+                position: 'sticky',
+                top: '0',
+                width: '100vw',
+                height: '100vh',
+                backgroundImage: 'url(https://i.gifer.com/origin/ba/ba2ce77a7622f364061a5864115b81b8_w200.gif)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: '99',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: 'white',
+                textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+                fontFamily: "'Neucha', sans-serif",
+                fontSize: '24pt'
+            }}>
+                <h2>Вы включили динамики?</h2>
+                <button 
+                    onClick={handleStartQuiz}
+                    style={{
+                        fontFamily: "'Neucha', sans-serif",
+                        width: '30%', 
+                        marginTop: '20px',
+                        fontSize: '16pt', 
+                        padding: '20px', 
+                        borderRadius: '8px', 
+                        cursor: 'pointer', 
+                        border: '2px solid #ffffff',
+                        backgroundColor: 'white' ,
+                        color: 'Black'
+                    }}
+                >
+                    Да, брух
+                </button>
+            </div>
+        );
+    }
     return (
         <div style={{
             position: 'sticky',
