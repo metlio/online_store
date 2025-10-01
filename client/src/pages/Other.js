@@ -113,7 +113,6 @@ const Other = () => {
                         width: '30%', 
                         marginTop: '20px',
                         fontSize: '16pt', 
-                        padding: '20px', 
                         borderRadius: '8px', 
                         cursor: 'pointer', 
                         border: '2px solid #ffffff',
