@@ -19,9 +19,9 @@ const Other = () => {
 
     const audio = new Audio(music);
 
-    const handleTypeClick = (typeName) => {
+   const handleTypeClick = (typeName) => {
         createType({ name: typeName }).then(data => {
-            alert(`Ваш подарок выбран! Однако вы можете попробовать еще сыграть)))`);
+            alert(`Тип "${typeName}" добавлен!`);
         });
     };
 
