@@ -52,10 +52,10 @@ const App = observer(() => {
     <div style={{width:'100vw', top:'0px'}}>
         <CartContextProvider>
         <BrowserRouter>
-        <Menu />
+        /*<Menu />*/
         <div style={{display:'flex', flexDirection:'row', justifyContent:'space-around',backgroundColor:'#fff'}}>
-        <TypeBar />
-        <UserBar />
+        /*<TypeBar />*/
+        /*<UserBar />*/
         </div>
             <Happ />
             <div style={{backgroundColor:'white'}}>
