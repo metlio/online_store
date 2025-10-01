@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import PaintIcon from "../components/logo.gif";
-import CartIcon from "../components/cart.png";
+import CartIcon from "../components/cart.gif";
 
 const Other = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
