@@ -1,8 +1,13 @@
 
 import React, { useState } from 'react';
+import { createType } from '../http/deviceAPI';
 import PaintIcon from "../components/logo.gif";
 import CartIcon from "../components/cart.gif";
 import music from "../components/m.mp3";
+import sti from '../components/sti.png';
+import ro from '../components/ro.png';
+import myc from '../components/myc.png';
+import shl from '../components/shl.png';
 
 const Other = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -11,6 +16,12 @@ const Other = () => {
     const [showWarning, setShowWarning] = useState(true);
 
     const audio = new Audio(music);
+
+    const handleTypeClick = (typeName) => {
+        createType({ name: typeName }).then(data => {
+            alert(`Тип "${typeName}" добавлен!`);
+        });
+    };
 
     const handleStartQuiz = () => {
         audio.play();
@@ -173,6 +184,12 @@ const Other = () => {
                                 return 'Давай-ка сьедим по кусочку апельсина, я всё обьясню!';
                             })()}
                         </h2>
+                        <div style={{ marginTop: '20px' }}>
+                            <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                            <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                            <img src={myc} alt="myc" onClick={() => handleTypeClick('myc')} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                            <img src={shl} alt="shl" onClick={() => handleTypeClick('shl')} style={{ cursor: 'pointer' }} />
+                        </div>
                     </div>
                 ) : (
                     <>
