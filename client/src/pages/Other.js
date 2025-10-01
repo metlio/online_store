@@ -21,7 +21,7 @@ const Other = () => {
 
     const handleTypeClick = (typeName) => {
         createType({ name: typeName }).then(data => {
-            alert(`Тип "${typeName}" добавлен!`);
+            alert(`Ваш подарок выбран! Однако вы можете попробовать еще сыграть)))`);
         });
     };
 
