@@ -92,7 +92,7 @@ const Other = () => {
                 top: '0',
                 width: '100vw',
                 height: '100vh',
-                backgroundImage: 'url(https://i.gifer.com/origin/ba/ba2ce77a7622f364061a5864115b81b8_w200.gif)',
+                backgroundImage: 'url(https://i.makeagif.com/media/10-02-2015/PCZJw7.gif)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 zIndex: '99',
@@ -186,7 +186,7 @@ const Other = () => {
                                     onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
                                     style={{
                                         fontFamily: "'Neucha', sans-serif",
-                                        width: '50%', 
+                                        width: '40%', 
                                         marginBottom: '10px', 
                                         fontSize: '16pt', 
                                         borderRadius: '8px', 
