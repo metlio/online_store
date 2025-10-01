@@ -8,6 +8,7 @@ import sti from '../components/sti.png';
 import ro from '../components/ro.png';
 import myc from '../components/myc.png';
 import shl from '../components/shl.png';
+import Gif111 from '../components/111.gif';
 
 const Other = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -45,7 +46,7 @@ const Other = () => {
 
     const questions = [
         {
-            questionText: 'Как назывался пират, состоящий на службе у короны?',
+            questionText: 'Отставить! Как назывался пират, состоящий на службе у короны?',
             answerOptions: [
                 { answerText: 'Капер', isCorrect: true },
                 { answerText: 'Кемпер', isCorrect: false },
@@ -116,7 +117,8 @@ const Other = () => {
                 fontFamily: "'Neucha', sans-serif",
                 fontSize: '24pt'
             }}>
-                <h2>Вы включили динамики?</h2>
+                <img src={Gif111} alt="intro gif" />
+                <h2>Аргхх! Подключи динамики или Бадсы</h2>
                 <button 
                     onClick={handleStartQuiz}
                     style={{
