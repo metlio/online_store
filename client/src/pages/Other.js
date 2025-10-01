@@ -189,7 +189,7 @@ const Other = () => {
                         </h2>
                             <
                         <div style={{ marginTop: '20px' }}>
-                            <h2>Выбери достойный подарок! (Не ошибись, О-хо-хо-хо!)</h2>
+                            <h2>Выбери достойный подарок! (Но не ошибись, О-хо-хо-хо!)</h2>
                             <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={yash} alt="ro" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
