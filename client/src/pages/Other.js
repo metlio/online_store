@@ -140,7 +140,7 @@ const Other = () => {
                                         width: '50%', 
                                         marginBottom: '10px', 
                                         fontSize: '16pt', 
-                                        padding: '30px', 
+                                        padding: '10px', 
                                         borderRadius: '8px', 
                                         cursor: 'pointer', 
                                         border: '2px solid #ffffff',
