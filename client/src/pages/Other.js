@@ -7,6 +7,7 @@ import music from "../components/m.mp3";
 import sti from '../components/sti.png';
 import ro from '../components/ro.png';
 import myc from '../components/myc.png';
+import yash from '../components/yash.png';
 import shl from '../components/shl.png';
 import Gif111 from '../components/111.gif';
 
@@ -176,7 +177,7 @@ const Other = () => {
                                 />
                             ))}
                         </div>
-                        <h2>Ты набрал {score} из {questions.length} монет</h2>
+                        <h2>C днем рождения, Бро! 🎂🎁🙂 Ты набрал {score} из {questions.length} монет</h2>
                         <h2>
                             {(() => {
                                 const percentage = score / questions.length;
@@ -186,9 +187,12 @@ const Other = () => {
                                 return 'Давай-ка сьедим по кусочку апельсина, я всё обьясню!';
                             })()}
                         </h2>
+                            <
                         <div style={{ marginTop: '20px' }}>
+                            <h2>Выбери достойный подарок! (Не ошибись, О-хо-хо-хо!)</h2>
                             <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                            <img src={yash} alt="ro" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={myc} alt="myc" onClick={() => handleTypeClick('myc')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={shl} alt="shl" onClick={() => handleTypeClick('shl')} style={{ cursor: 'pointer' }} />
                         </div>
