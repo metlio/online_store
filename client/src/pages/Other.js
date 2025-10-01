@@ -192,7 +192,7 @@ const Other = () => {
                             <h2>Выбери достойный подарок! (Но не ошибись, О-хо-хо-хо!)</h2>
                             <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                            <img src={yash} alt="ro" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                            <img src={yash} alt="yash" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={myc} alt="myc" onClick={() => handleTypeClick('myc')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={shl} alt="shl" onClick={() => handleTypeClick('shl')} style={{ cursor: 'pointer' }} />
                         </div>
