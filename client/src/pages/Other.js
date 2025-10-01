@@ -21,7 +21,7 @@ const Other = () => {
 
    const handleTypeClick = (typeName) => {
         createType({ name: typeName }).then(data => {
-            alert(`Тип "${typeName}" добавлен!`);
+            alert(`Ваш выбор принят! Вы можете попробовать сыграть еще раз!`);
         });
     };
 
@@ -189,11 +189,12 @@ const Other = () => {
                         </h2>
                            
                         <div style={{ marginTop: '20px' }}>
+                            <h2>Выбери достойный подарок, но не ошибись! О-хо-хо!</h2>
                             <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                            <img src={yash} alt="yash" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={myc} alt="myc" onClick={() => handleTypeClick('myc')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                             <img src={shl} alt="shl" onClick={() => handleTypeClick('shl')} style={{ cursor: 'pointer' }} />
+                            <img src={yash} alt="yash" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
                         </div>
                     </div>
                 ) : (
