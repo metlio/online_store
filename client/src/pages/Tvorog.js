@@ -1,42 +1,13 @@
-import React, {useContext, useState} from 'react';
-import {Button, Card} from "react-bootstrap";
-import {Context} from "../index";
-import Shetchik from '../components/Shetchik'
-import styles from './Tvorog.css';
-import Edit from '../components/Edit';
+import React from 'react';
 
-
-
-function Tvorog() {
-
-    const {brand} = useContext(Context)
-
-    const [visible, setVisible] = useState(false)
-
-    const handleOver = () => {
-
-        setVisible((currentValue) => !currentValue)
-    }
-
+const Tvorog = () => {
     return (
         <div>
-            <div style={{ display: 'flex',backgroundColor:'#fff'}}>  
-                <div style={{width:'20%', minHeight:'100vh'}}>
-            </div>           
-            <div style={{width:'80%', minHeight:'100vh', justifyContent:'center'}}>
-            <h2 className={styles.conta}>My chosen works 2023</h2>
-            <Edit />
-            <Button variant='primary' onMouseOver={handleOver}>
-                Показать
-            </Button>
-            {visible &&
-            <Card>
-                <Card.Body>Это ява библиотека<Shetchik /></Card.Body>
-            </Card>}
-            </div>   
-            </div> 
+            {/* This is the new main page. It's intentionally left empty
+                as per the user's request. The main layout components
+                are rendered in App.js. */}
         </div>
     );
-  }
-  
-  export default Tvorog;
+};
+
+export default Tvorog;

@@ -43,7 +43,8 @@ const Shop = observer(() => {
 
 
     return (
-            <div>           
+            <div>
+                <TypeBar/>
                 <BrandBar/>
                 <DeviceList/>
                 <Pages/>
