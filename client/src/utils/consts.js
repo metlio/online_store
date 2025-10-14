@@ -7,6 +7,7 @@ export const RATING_ROUTE = "/rating"
 export const BASKET_ROUTE = '/basket'
 export const DEVICE_ROUTE = '/device'
 export const TVOROG_ROUTE = '/tvorog'
+export const QUIZ_ROUTE = '/quiz'
 export const JOKES_ROUTE = '/jokes'
 export const ADDJOKE_ROUTE = '/addjoke'
 export const OTHER_ROUTE = '/other'
