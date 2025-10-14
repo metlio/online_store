@@ -1,4 +1,4 @@
-import {ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, MAGAZINE_ROUTE, TVOROG_ROUTE, OTHER_ROUTE, ADDJOKE_ROUTE, JOKEDETAILS_ROUTE, JOKES_ROUTE, QUIZ_ROUTE} from "./utils/consts";
+import {ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, MAGAZINE_ROUTE, TVOROG_ROUTE, OTHER_ROUTE, ADDJOKE_ROUTE, JOKEDETAILS_ROUTE, JOKES_ROUTE} from "./utils/consts";
 import Admin from "./pages/Admin";
 import Basket from "./pages/Basket";
 import Shop from "./pages/Shop";
@@ -10,7 +10,6 @@ import Tvorog from "./pages/Tvorog";
 import JokeDetails from "./pages/JokeDetails";
 import AddJoke from "./pages/AddJoke";
 import Jokes from "./pages/Jokes";
-import Quiz from "./pages/Quiz";
 
 export const authRoutes = [
     {
@@ -60,10 +59,6 @@ export const publicRoutes = [
     {
         path: TVOROG_ROUTE,
         Component: Tvorog
-    },
-    {
-        path: QUIZ_ROUTE,
-        Component: Quiz
     },
     {
         path: OTHER_ROUTE,
