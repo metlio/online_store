@@ -1,17 +1,20 @@
-/* Set a default cursor for the whole page */
 body {
-  cursor: url('https://i.postimg.cc/W3VXrbXS/pp.png'), auto;
+  cursor: none;
 }
 
-/*
-  Override the default browser pointer for interactive elements.
-  !important is necessary to ensure this rule takes precedence.
-*/
-a,
-button,
-[role="button"],
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
-  cursor: url('https://i.postimg.cc/CKn93Bbm/123343.png'), auto !important;
+.custom-cursor {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: black;
+  pointer-events: none;
+  transition: transform 0.2s, background-color 0.2s, width 0.2s, height 0.2s;
+  z-index: 9999;
+}
+
+.custom-cursor.hover {
+  width: 15px;
+  height: 15px;
+  background-color: lightgreen;
 }
