@@ -18,7 +18,6 @@ const BrandBar = observer(() => {
         <div style={{display:'flex'}}>
             {device.brands.map(brand =>
                 <div
-                    style={{cursor:'pointer'}}
                     key={brand.id}
                     className={styles.card}
                     onClick={() => device.setSelectedBrand(brand)}

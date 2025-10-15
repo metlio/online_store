@@ -13,7 +13,6 @@ const ComputedType = observer(() => {
         <ListGroup>
             {shapochka.types.map(type =>
                 <ListGroup.Item
-                    style={{cursor: 'pointer'}}
                     key={type.id}
                 >
                     {type.name}

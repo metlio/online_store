@@ -43,7 +43,7 @@ const DeviceItem = observer(({device}) => {
     return (
         <CartContextProvider> 
         <div className={styles.homa}>
-            <div /*onClick={()=>setImaging(!imaging)} onMouseOut={()=>setImaging(false)}*/><Tilt gyroscope={true} scale={0.95}><Fade out><Image style={{cursor:'pointer'}} onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)} width='50%' height='50%' src={ imaging ? sold2 : sold }/></Fade></Tilt>
+            <div /*onClick={()=>setImaging(!imaging)} onMouseOut={()=>setImaging(false)}*/><Tilt gyroscope={true} scale={0.95}><Fade out><Image onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)} width='50%' height='50%' src={ imaging ? sold2 : sold }/></Fade></Tilt>
             </div>
                 <div style={{color:'#fff'}} className="text-white-50 d-flex justify-content-between align-items-center">
                 <NewComponent homa={device.brandId} />

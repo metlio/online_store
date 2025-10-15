@@ -9,7 +9,7 @@ const CartItem = (props) => {
   return (
     <li className={classes["cart-item"]}>
       <div style={{display:'flex', alignItems:'center'}}>
-      <Image style={{cursor:'pointer'}} onClick={() => navigate(DEVICE_ROUTE + '/' + props.id)} width={50} height={50} src={process.env.REACT_APP_API_URL + props.image}/>
+      <Image onClick={() => navigate(DEVICE_ROUTE + '/' + props.id)} width={50} height={50} src={process.env.REACT_APP_API_URL + props.image}/>
         <h2>{props.name}</h2>
         <div className={classes.summary}>
           <span className={classes.price}>{price}</span>

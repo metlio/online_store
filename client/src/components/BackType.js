@@ -12,7 +12,6 @@ const BackType = observer(() => {
         <Form className="d-flex">
             {device.brands.map(brand =>
                 <Card
-                    style={{cursor:'pointer'}}
                     key={brand.id}
                     className="p-3"
                     border={brand.id === device.selectedBrand.id ? 'danger' : 'light'}

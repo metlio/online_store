@@ -24,7 +24,6 @@
   .actions button {
     font: inherit;
     font-size: 12px;
-    cursor: pointer;
     background-color: transparent;
     border: 1px solid #6b068a;
     border-radius: 25px;

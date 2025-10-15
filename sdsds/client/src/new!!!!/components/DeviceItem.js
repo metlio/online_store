@@ -41,7 +41,7 @@ const DeviceItem = observer(({device}) => {
     return (
         <CartContextProvider> 
         <div className={styles.homa}>
-            <div /*onClick={()=>setImaging(!imaging)} onMouseOut={()=>setImaging(false)}*/><Image style={{cursor:'pointer'}} onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)} width='50%' height='50%' src={ imaging ? sold2 : sold }/>
+            <div /*onClick={()=>setImaging(!imaging)} onMouseOut={()=>setImaging(false)}*/><Image onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)} width='50%' height='50%' src={ imaging ? sold2 : sold }/>
             </div>
                 <div style={{color:'#fff'}} className="text-white-50 d-flex justify-content-between align-items-center">
                 <NewComponent homa={device.brandId} />
