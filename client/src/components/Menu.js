@@ -21,7 +21,7 @@ function Menu() {
                                       >
                                           Админка
                                       </button></span>
-      <span className={styles.tip} onClick={() => history(MAGAZINE_ROUTE)} style={{cursor: 'pointer'}}>
+      <span className={styles.tip} onClick={() => history(MAGAZINE_ROUTE)}>
                                           MAGAZINE
                                       </span>
       <span className={styles.tip}>CONTACTS</span>

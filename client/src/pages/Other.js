@@ -128,7 +128,6 @@ const Other = () => {
                         marginTop: '20px',
                         fontSize: '16pt', 
                         borderRadius: '8px', 
-                        cursor: 'pointer', 
                         border: '2px solid #ffffff',
                         backgroundColor: 'white' ,
                         color: 'Black'
@@ -190,11 +189,11 @@ const Other = () => {
                            
                         <div style={{ marginTop: '20px' }}>
                             <h2>Выбери достойный подарок, но не ошибись! О-хо-хо!</h2>
-                            <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                            <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                            <img src={myc} alt="myc" onClick={() => handleTypeClick('myc')} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                            <img src={shl} alt="shl" onClick={() => handleTypeClick('shl')} style={{ cursor: 'pointer' }} />
-                            <img src={yash} alt="yash" onClick={() => handleTypeClick('yash')} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                            <img src={sti} alt="sti" onClick={() => handleTypeClick('sti')} style={{  marginRight: '10px' }} />
+                            <img src={ro} alt="ro" onClick={() => handleTypeClick('ro')} style={{  marginRight: '10px' }} />
+                            <img src={myc} alt="myc" onClick={() => handleTypeClick('myc')} style={{  marginRight: '10px' }} />
+                            <img src={shl} alt="shl" onClick={() => handleTypeClick('shl')} style={{  }} />
+                            <img src={yash} alt="yash" onClick={() => handleTypeClick('yash')} style={{  marginRight: '10px' }} />
                         </div>
                     </div>
                 ) : (
@@ -213,7 +212,6 @@ const Other = () => {
                                         marginBottom: '10px', 
                                         fontSize: '16pt', 
                                         borderRadius: '8px', 
-                                        cursor: 'pointer', 
                                         border: '2px solid #ffffff',
                                         backgroundColor: 'white' ,
                                         color: 'Black'
