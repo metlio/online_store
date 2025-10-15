@@ -7,8 +7,6 @@ import {Context} from "./index";
 import {check} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 import jwt_decode from "jwt-decode";
-import Happ from './Happ'
-import Other from './pages/Other';
 import Preorder from './components/Preorder';
 import Footer from './components/Layout/Footer';
 import './components/Courusel/Courusel.css';
@@ -52,13 +50,11 @@ const App = observer(() => {
     <div style={{width:'100vw', top:'0px'}}>
         <CartContextProvider>
         <BrowserRouter>
-            <Happ />
             <div style={{backgroundColor:'white'}}>
             <AppRouter />
             </div>
+            <Footer />
         </BrowserRouter>
-        <Other />
-        <Footer />
         </CartContextProvider>
     </div>
     );
