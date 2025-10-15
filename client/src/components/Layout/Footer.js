@@ -9,8 +9,6 @@ const Footer = () => {
     return <React.Fragment>
 <footer style={{
             width: '100%',
-            position: 'sticky',
-            bottom: 0,
             zIndex: 10,
             backgroundColor: '#0b0b0b'
         }} className="text-center text-lg-start text-muted">
