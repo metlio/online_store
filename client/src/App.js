@@ -53,8 +53,11 @@ const App = observer(() => {
         <CartContextProvider>
         <BrowserRouter>
             <Happ />
+            <div style={{backgroundColor:'white'}}>
             <AppRouter />
+            </div>
         </BrowserRouter>
+        <Other />
         <Footer />
         </CartContextProvider>
     </div>
