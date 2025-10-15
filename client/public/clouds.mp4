@@ -3113,7 +3113,6 @@
                     visibility: hidden;
                     text-decoration: none;
                     color: #777777;
-                    cursor: pointer;
                     background: transparent;
                     border: none;
                 }
