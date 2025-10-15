@@ -1,18 +1,27 @@
-body {
+/* Прячем стандартный курсор для всей страницы и для всех интерактивных элементов */
+body,
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
   cursor: none;
 }
 
+/* Стили для нашего кастомного курсора */
 .custom-cursor {
   position: fixed;
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background-color: black;
-  pointer-events: none;
+  pointer-events: none; /* Курсор не должен мешать кликам по элементам под ним */
   transition: transform 0.2s, background-color 0.2s, width 0.2s, height 0.2s;
-  z-index: 9999;
+  z-index: 9999; /* Поверх всех остальных элементов */
 }
 
+/* Стили для курсора при наведении на ссылку/кнопку */
 .custom-cursor.hover {
   width: 15px;
   height: 15px;
