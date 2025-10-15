@@ -1,54 +1,39 @@
 import { useEffect } from 'react';
 
-// URLs provided by the user
-const CURSOR_DEFAULT = 'https://i.postimg.cc/W3VXrbXS/pp.png';
-const CURSOR_LEFT_CLICK = 'https://i.postimg.cc/CKC6c6rF/1.png';
-const CURSOR_RIGHT_CLICK = 'https://i.postimg.cc/PJzrkdCY/p1.png';
-
-// Named function for the context menu handler to ensure it can be removed correctly
-const preventContextMenu = (e) => e.preventDefault();
-
 const useCustomCursor = () => {
   useEffect(() => {
-    const handleMouseDown = (e) => {
-      const target = e.target;
-      // Do not change cursor if clicking on an interactive element; let CSS handle it.
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
-        return;
-      }
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
 
-      switch (e.button) {
-        case 0: // Left click
-          document.body.style.cursor = `url(${CURSOR_LEFT_CLICK}), auto`;
-          break;
-        case 2: // Right click
-          document.body.style.cursor = `url(${CURSOR_RIGHT_CLICK}), auto`;
-          break;
-        default:
-          break;
-      }
+    const onMouseMove = (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
     };
 
-    const handleMouseUp = () => {
-        // On mouse up, always revert to the default cursor.
-        // The CSS rule will handle displaying the pointer cursor over interactive elements.
-        document.body.style.cursor = `url(${CURSOR_DEFAULT}), auto`;
+    const onMouseEnter = (e) => {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
+            cursor.classList.add('hover');
+        }
     };
 
-    // Add all event listeners
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('contextmenu', preventContextMenu);
+    const onMouseLeave = (e) => {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
+            cursor.classList.remove('hover');
+        }
+    };
 
-    // Cleanup function to remove listeners and reset cursor
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseover', onMouseEnter);
+    document.addEventListener('mouseout', onMouseLeave);
+
     return () => {
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('contextmenu', preventContextMenu);
-      document.body.style.cursor = 'auto'; // Reset to default browser cursor
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseover', onMouseEnter);
+      document.removeEventListener('mouseout', onMouseLeave);
+      document.body.removeChild(cursor);
     };
-  }, []); // Empty dependency array ensures this effect runs only once.
-
+  }, []);
 };
 
 export default useCustomCursor;
