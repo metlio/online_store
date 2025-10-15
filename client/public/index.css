@@ -23,8 +23,9 @@ body {
   overflow-y: scroll;
   /* font-family: 'Open Sans', sans-serif; */
   letter-spacing: 1px;
-  font-family: "PT Mono";
-  font-size:large;
-  font-weight: 600;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: black;
 }
