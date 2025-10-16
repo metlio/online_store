@@ -45,6 +45,7 @@ const Shop = observer(() => {
 
     return (
             <div>
+                <Menu/>
                 <TypeBar/>
                 <BrandBar/>
                 <DeviceList/>
