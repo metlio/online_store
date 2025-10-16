@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 //import {Card} from "react-bootstrap";
+import Menu from "../components/Menu";
 import Col from "react-bootstrap/Col";
 import TypeBar from "../components/TypeBar";
 import BrandBar from "../components/BrandBar";
@@ -44,7 +45,7 @@ const Shop = observer(() => {
 
     return (
             <div>
-                <TYpeBar/>
+                <TypeBar/>
                 <BrandBar/>
                 <DeviceList/>
                 <Pages/>
