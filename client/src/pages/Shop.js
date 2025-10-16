@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 //import {Card} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
+import Menu from "../components/Menu";
 import TypeBar from "../components/TypeBar";
 import BrandBar from "../components/BrandBar";
 import ComputedType from "../components/ComputedType";
