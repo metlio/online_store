@@ -1,12 +1,23 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import Logo from './Logo';
 import styles from './Menu.module.css';
 import NavBar from './NavBar';
 import {useNavigate} from 'react-router-dom'
 import {OTHER_ROUTE, MAGAZINE_ROUTE} from "../utils/consts";
+import HeaderCartButton from './Cart/HeaderCartButton';
+import Cart from './Cart/Cart';
 
 
 function Menu() {
+  const [cartIsVisible, setCartIsVisible] = useState(false);
+
+  const showCartHandler = () => {
+    setCartIsVisible(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartIsVisible(false);
+  };
   
   const history = useNavigate()
 
@@ -27,9 +38,9 @@ function Menu() {
       <span className={styles.tip}>CONTACTS</span>
       <div>
       <NavBar />
-
       </div>
-
+      {cartIsVisible && <Cart onHideCart={hideCartHandler} />}
+      <HeaderCartButton onClick={showCartHandler} />
       </div>
       
     )

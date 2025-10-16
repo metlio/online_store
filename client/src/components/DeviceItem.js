@@ -5,7 +5,6 @@ import {DEVICE_ROUTE} from "../utils/consts"
 import {observer} from "mobx-react-lite";
 import MealItemForm from './Meals/MealItem/MealItemForm'
 import CartContext from '../store/cart-context';
-import CartContextProvider from '../store/CartContextProvider'
 //import Tilt from 'react-parallax-tilt';
 import styles from './Item.module.css'
 import CreateRating from "../components/modals/CreateRating";
@@ -42,7 +41,6 @@ const DeviceItem = observer(({device}) => {
     const navigate = useNavigate()
     
     return (
-        <CartContextProvider> 
         <div className={styles.homa}>
             <div /*onClick={()=>setImaging(!imaging)} onMouseOut={()=>setImaging(false)}*/><Tilt tiltMaxAngleX={25} tiltMaxAngleY={25} gyroscope={true} glareEnable={true} glareReverse={true} glareMaxOpacity={0.5} scale={1}><Fade out><Image onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)} height='250px'src={ imaging ? sold2 : sold }/></Fade></Tilt>
             </div>
@@ -67,8 +65,6 @@ const DeviceItem = observer(({device}) => {
                 </div>
                 </div>
             </div>           
-        <CreateRating person={device.id} show={ratingVisible} onHide={() => setRatingVisible(false)}/>  
-        </CartContextProvider>
     );
 
 
