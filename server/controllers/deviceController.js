@@ -1,6 +1,7 @@
 const uuid = require('uuid');
 const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
+const { Op } = require('sequelize');
 const { ApiError } = require('../error/ApiError');
 const mime = require('mime-types');
 
@@ -56,23 +57,31 @@ class DeviceController {
 
 
     async getAll(req, res) {
-        let {brandId, typeId, limit, page} = req.query
+        let {brandId, typeId, limit, page, minPrice, maxPrice, sortBy} = req.query
         page = page || 1
-        limit = 8
+        limit = limit || 8
         let offset = page * limit - limit
-        let devices;
-        if (!brandId && !typeId){
-            devices = await Device.findAndCountAll({limit, offset})
+
+        let where = {};
+        if (brandId) where.brandId = brandId;
+        if (typeId) where.typeId = typeId;
+        if (minPrice && maxPrice) {
+            where.price = {
+                [Op.between]: [minPrice, maxPrice]
+            };
         }
-        if (brandId && !typeId){
-            devices = await Device.findAndCountAll({where:{brandId}, limit, offset})
+
+        let order = [];
+        if (sortBy === 'price_asc') {
+            order.push(['price', 'ASC']);
+        } else if (sortBy === 'price_desc') {
+            order.push(['price', 'DESC']);
+        } else {
+            // Default sort by popularity (assuming 'rating' is a proxy for popularity)
+            order.push(['rating', 'DESC']);
         }
-        if (!brandId && typeId){
-            devices = await Device.findAndCountAll({where:{typeId}, limit, offset})
-        }
-        if (brandId && typeId){
-            devices = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
-        }
+
+        const devices = await Device.findAndCountAll({where, limit, offset, order});
 
         return res.json(devices)
     }

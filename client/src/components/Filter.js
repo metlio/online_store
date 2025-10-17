@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
+import { debounce } from 'lodash';
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import styles from './Filter.module.css';
@@ -7,6 +8,24 @@ import Image from "react-bootstrap/Image";
 
 const Filter = observer(() => {
     const { device } = useContext(Context);
+    const [price, setPrice] = useState(device.priceRange.max);
+
+    const debouncedSetPriceRange = useCallback(
+        debounce((newPrice) => {
+            device.setPriceRange({ ...device.priceRange, max: newPrice });
+        }, 500),
+        []
+    );
+
+    const handlePriceChange = (e) => {
+        const newPrice = e.target.value;
+        setPrice(newPrice);
+        debouncedSetPriceRange(newPrice);
+    };
+
+    const handleSortChange = (e) => {
+        device.setSortBy(e.target.value);
+    };
 
     return (
         <div className={styles.filterContainer}>
@@ -39,9 +58,16 @@ const Filter = observer(() => {
                 </div>
             </div>
             <div className={styles.filterSection}>
-                <h5>Цена</h5>
+                <h5>Цена до: {price} ₽</h5>
                 <div className={styles.priceRange}>
-                    <input type="range" min="0" max="100000" className={styles.slider} />
+                    <input
+                        type="range"
+                        min="0"
+                        max="100000"
+                        value={price}
+                        onChange={handlePriceChange}
+                        className={styles.slider}
+                    />
                     <div className={styles.priceValues}>
                         <span>0 ₽</span>
                         <span>100000 ₽</span>
@@ -50,10 +76,10 @@ const Filter = observer(() => {
             </div>
             <div className={styles.filterSection}>
                 <h5>Сортировать по</h5>
-                <Form.Select className={styles.sortSelect}>
-                    <option>Популярности</option>
-                    <option>Цене (возрастание)</option>
-                    <option>Цене (убывание)</option>
+                <Form.Select className={styles.sortSelect} value={device.sortBy} onChange={handleSortChange}>
+                    <option value="popularity">Популярности</option>
+                    <option value="price_asc">Цене (возрастание)</option>
+                    <option value="price_desc">Цене (убывание)</option>
                 </Form.Select>
             </div>
         </div>

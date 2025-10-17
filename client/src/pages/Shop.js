@@ -34,11 +34,11 @@ const Shop = observer(() => {
     }, [])
 
     useEffect(() => {
-        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2).then(data => {
+        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2, device.priceRange, device.sortBy).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
-    }, [device.page, device.selectedType, device.selectedBrand,])
+    }, [device.page, device.selectedType, device.selectedBrand, device.priceRange, device.sortBy])
 
 
 
