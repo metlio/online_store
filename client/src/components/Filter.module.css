@@ -1,0 +1,68 @@
+.filterContainer {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.filterSection {
+    margin-bottom: 20px;
+}
+
+.filterSection h5 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.typeBar, .brandBar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.typeItem, .brandItem {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.typeItem:hover, .brandItem:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.typeItem.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.brandItem {
+    padding: 5px;
+}
+
+.brandItem.activeBrand {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.priceRange {
+    padding: 0 10px;
+}
+
+.slider {
+    width: 100%;
+}
+
+.priceValues {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.sortSelect {
+    max-width: 200px;
+}
