@@ -1,7 +1,7 @@
 import {ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, MAGAZINE_ROUTE, TVOROG_ROUTE, OTHER_ROUTE, ADDJOKE_ROUTE, JOKEDETAILS_ROUTE, JOKES_ROUTE} from "./utils/consts";
 import Admin from "./pages/Admin";
 import Basket from "./pages/Basket";
-import Shop from "./pages/Shop";
+import MagazineLayout from "./pages/MagazineLayout";
 import HomePage from "./pages/HomePage";
 import Other from "./pages/Other";
 import Auth from "./pages/Auth";
@@ -30,7 +30,7 @@ export const publicRoutes = [
     },
     {
         path: MAGAZINE_ROUTE,
-        Component: Shop
+        Component: MagazineLayout
     },
     {
         path:LOGIN_ROUTE,
