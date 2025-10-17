@@ -8,7 +8,7 @@ import {check} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 import jwt_decode from "jwt-decode";
 import Preorder from './components/Preorder';
-import Footer from './components/Layout/Footer';
+
 import './components/Courusel/Courusel.css';
 import './pages/Tvorog.css'
 import CartContextProvider from "./store/CartContextProvider";
@@ -53,7 +53,7 @@ const App = observer(() => {
             <div style={{backgroundColor:'white'}}>
             <AppRouter />
             </div>
-            <Footer />
+
         </BrowserRouter>
         </CartContextProvider>
     </div>
