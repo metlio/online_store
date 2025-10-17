@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useLocation} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
@@ -17,12 +17,15 @@ import TypeBar from './components/TypeBar';
 import UserBar from './components/UserBar';
 import useCustomCursor from './hooks/useCustomCursor';
 import './cursor.css';
+import { SHOP_ROUTE } from './utils/consts';
 
-const App = observer(() => {
-    useCustomCursor();
-    const {user} = useContext(Context)
-    const [loading, setLoading] = useState(true)
+const AppContent = observer(() => {
+    const location = useLocation();
+    const {user} = useContext(Context);
+    const [loading, setLoading] = useState(true);
     const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+    const isHomePage = location.pathname === SHOP_ROUTE;
 
     useEffect(() => {
         check().then(data => {
@@ -41,7 +44,7 @@ const App = observer(() => {
         }).finally(() => {
             setLoading(false);
         });
-    }, [])
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -49,29 +52,40 @@ const App = observer(() => {
             setIsFooterVisible(bottom);
         };
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        if (!isHomePage) {
+            window.addEventListener('scroll', handleScroll, { passive: true });
+        }
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            if (!isHomePage) {
+                window.removeEventListener('scroll', handleScroll);
+            }
         };
-    }, []);
+    }, [isHomePage]);
 
     if (loading) {
         return <Spinner animation={"grow"}/>
     }
 
     return (
-    <div style={{width:'100vw', top:'0px'}}>
-        <CartContextProvider>
-        <BrowserRouter>
-            <div style={{backgroundColor:'white'}}>
-            <AppRouter />
-            </div>
-            <Footer isVisible={isFooterVisible} />
-        </BrowserRouter>
-        </CartContextProvider>
-    </div>
+        <div style={{width:'100vw', top:'0px'}}>
+            <CartContextProvider>
+                <div style={{backgroundColor:'white'}}>
+                    <AppRouter />
+                </div>
+                <Footer isAnimated={!isHomePage} isVisible={isHomePage || isFooterVisible} />
+            </CartContextProvider>
+        </div>
     );
 });
+
+const App = () => {
+    useCustomCursor();
+    return (
+        <BrowserRouter>
+            <AppContent />
+        </BrowserRouter>
+    );
+};
 
 export default App;
