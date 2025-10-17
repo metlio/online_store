@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState, useRef} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
@@ -23,7 +23,6 @@ const App = observer(() => {
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(true)
     const [isFooterVisible, setIsFooterVisible] = useState(false);
-    const triggerRef = useRef(null);
 
     useEffect(() => {
         check().then(data => {
@@ -45,25 +44,15 @@ const App = observer(() => {
     }, [])
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsFooterVisible(entry.isIntersecting);
-            },
-            {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.1,
-            }
-        );
+        const handleScroll = () => {
+            const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
+            setIsFooterVisible(bottom);
+        };
 
-        if (triggerRef.current) {
-            observer.observe(triggerRef.current);
-        }
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
         return () => {
-            if (triggerRef.current) {
-                observer.unobserve(triggerRef.current);
-            }
+            window.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
@@ -77,7 +66,6 @@ const App = observer(() => {
         <BrowserRouter>
             <div style={{backgroundColor:'white'}}>
             <AppRouter />
-            <div ref={triggerRef} style={{ height: '1px' }} />
             </div>
             <Footer isVisible={isFooterVisible} />
         </BrowserRouter>
