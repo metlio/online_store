@@ -4,9 +4,9 @@ import { ReactComponent as Logotyp } from "../sv.svg";
 import styles from './Header.module.css';
 //import HeaderCartButton from "./HeaderCartButton";
 
-const Footer = ({ isVisible, isMagazinePage }) => {
+const Footer = ({ isVisible }) => {
 
-    const footerStyles = isMagazinePage ? {
+    const footerStyles = {
         position: 'fixed',
         bottom: isVisible ? 0 : '-100%',
         left: 0,
@@ -14,10 +14,6 @@ const Footer = ({ isVisible, isMagazinePage }) => {
         zIndex: 10,
         backgroundColor: '#0b0b0b',
         transition: 'bottom 0.5s ease-in-out'
-    } : {
-        width: '100%',
-        zIndex: 10,
-        backgroundColor: '#0b0b0b'
     };
 
     return <React.Fragment>

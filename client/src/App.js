@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
@@ -22,6 +22,8 @@ const App = observer(() => {
     useCustomCursor();
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(true)
+    const [isFooterVisible, setIsFooterVisible] = useState(false);
+    const triggerRef = useRef(null);
 
     useEffect(() => {
         check().then(data => {
@@ -42,6 +44,29 @@ const App = observer(() => {
         });
     }, [])
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsFooterVisible(entry.isIntersecting);
+            },
+            {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.1,
+            }
+        );
+
+        if (triggerRef.current) {
+            observer.observe(triggerRef.current);
+        }
+
+        return () => {
+            if (triggerRef.current) {
+                observer.unobserve(triggerRef.current);
+            }
+        };
+    }, []);
+
     if (loading) {
         return <Spinner animation={"grow"}/>
     }
@@ -52,8 +77,9 @@ const App = observer(() => {
         <BrowserRouter>
             <div style={{backgroundColor:'white'}}>
             <AppRouter />
+            <div ref={triggerRef} style={{ height: '1px' }} />
             </div>
-            <Footer />
+            <Footer isVisible={isFooterVisible} />
         </BrowserRouter>
         </CartContextProvider>
     </div>
