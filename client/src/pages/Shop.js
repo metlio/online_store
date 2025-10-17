@@ -3,8 +3,7 @@ import React, {useContext, useEffect} from 'react';
 import Menu from "../components/Menu";
 import Col from "react-bootstrap/Col";
 
-import TypeBar from "../components/TypeBar";
-import BrandBar from "../components/BrandBar";
+import Filter from "../components/Filter";
 import ComputedType from "../components/ComputedType";
 import BackType from "../components/BackType";
 import DeviceList from "../components/DeviceList";
@@ -47,8 +46,7 @@ const Shop = observer(() => {
     return (
             <div> 
                 <Menu/>
-                <TypeBar/>
-                <BrandBar/>
+                <Filter/>
                 <DeviceList/>
                 <Pages/>
             </div>

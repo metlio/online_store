@@ -23,14 +23,11 @@ const DeviceList = observer(() => {
     const {device} = useContext(Context)
 
     return (
-                <div style={{backgroundColor:'white', border:'1px solid #e7e7e7'}}>
+                <div style={{display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center', backgroundColor:'white', border:'1px solid #e7e7e7', padding: '20px'}}>
                     {device.devices.map(device =>
-
-                        <DeviceItem key={device.id} device={device}/>  
-                        
-                      )}
-                {/* <Happ />  */}
-                </div> 
+                        <DeviceItem key={device.id} device={device}/>
+                    )}
+                </div>
                 
             )
             });
