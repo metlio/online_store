@@ -6,12 +6,14 @@ import {observer} from "mobx-react-lite";
 import MealItemForm from './Meals/MealItem/MealItemForm'
 import CartContext from '../store/cart-context';
 //import Tilt from 'react-parallax-tilt';
-import styles from './Item.module.css'
+import styles from './DeviceItem.module.css'
 import CreateRating from "../components/modals/CreateRating";
 import { ReactComponent as Logo2 } from '../assets/star_all.svg';
 import Fade from 'react-reveal/Fade';
 import NewComponent from './NewComponent';
 import Tilt from 'react-parallax-tilt';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DeviceItem = observer(({device}) => {
 
@@ -37,34 +39,45 @@ const DeviceItem = observer(({device}) => {
         amount: amount,
         price: device.price,
     });
+    toast.success(`${device.name} added to cart!`);
 }
     const navigate = useNavigate()
     
     return (
-        <div className={styles.homa}>
-            <div /*onClick={()=>setImaging(!imaging)} onMouseOut={()=>setImaging(false)}*/><Tilt tiltMaxAngleX={25} tiltMaxAngleY={25} gyroscope={true} glareEnable={true} glareReverse={true} glareMaxOpacity={0.5} scale={1}><Fade out><Image onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)} height='250px'src={ imaging ? sold2 : sold }/></Fade></Tilt>
+        <div className={styles.deviceCard}>
+            <ToastContainer />
+            <div className={styles.imageContainer} onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)}>
+                <Tilt tiltMaxAngleX={25} tiltMaxAngleY={25} gyroscope={true} glareEnable={true} glareReverse={true} glareMaxOpacity={0.5} scale={1}>
+                    <Fade out>
+                        <Image height='250px' src={imaging ? sold2 : sold} />
+                    </Fade>
+                </Tilt>
             </div>
-                <div style={{color:'#fff'}} className="text-white-50 d-flex justify-content-between align-items-center">
+            <div className={`${styles.deviceInfo} text-white-50 d-flex justify-content-between align-items-center`}>
                 <NewComponent homa={device.brandId} />
-                    <div>{device.specs}</div>  
-                <div style={{padding:'1%' , display:'flex', flexDirection:'column'}}> 
-                    <Logo2 width={18} />  
-                    <div style={{fontSize:'0.6rem', marginTop:'-5px'}} onClick={() => setRatingVisible(true)}>
+                <div>{device.specs}</div>
+                <div className={styles.ratingContainer}>
+                    <Logo2 width={18} />
+                    <div className={styles.ratingText} onClick={() => setRatingVisible(true)}>
                         {device.rating}
                     </div>
                 </div>
+            </div>
+            <div className={styles.deviceName}>{device.name}</div>
+            <div className={styles.priceContainer}>
+                <div className={styles.currentPrice}>
+                    {formattedPrice}
+                    <div className={styles.currencySymbol}>₽</div>
                 </div>
-                <div style={{color:'black', display:'flex', justifyContent:'flex-start', paddingBottom:'0.4rem'}}>{device.name}</div>
-                <div  className={styles.lopa} style={{display: 'flex', justifyContent: 'space-between', alignItems:'center', height:'6vh'}}>
-                <div style={{display:'flex', color:'#6b068a', fontSize:'1.5rem'}}>{formattedPrice}<div style={{color:'#6b068a', fontWeight:'600', fontSize:'1.5rem',marginLeft:'0.25rem'}}>₽</div></div>
-
-                <div style={{display:'flex', color:'#ccc', fontSize:'1rem', textDecoration:'line-through'}}>{oldPrice}<div style={{color:'#ccc', fontWeight:'600', fontSize:'1rem'}}>₽</div></div>
-
+                <div className={styles.oldPrice}>
+                    {oldPrice}
+                    <div className={styles.oldPriceCurrencySymbol}>₽</div>
+                </div>
                 <div>
-                <MealItemForm onAddToCart={addToCartHandler} id={device.id}/>
+                    <MealItemForm onAddToCart={addToCartHandler} id={device.id} />
                 </div>
-                </div>
-            </div>           
+            </div>
+        </div>
     );
 
 

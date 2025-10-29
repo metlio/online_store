@@ -14,6 +14,11 @@ export default class DeviceStore {
         this._page = 1
         this._totalCount = 0
         this._limit = 5
+        this._searchTerm = ""
+        this._sortBy = "price_asc"
+        this._minPrice = 0
+        this._maxPrice = 100000
+        this._loading = false
 
         makeAutoObservable(this)
 
@@ -75,5 +80,45 @@ export default class DeviceStore {
     }
     get limit() {
         return this._limit
+    }
+
+    setSearchTerm(term) {
+        this._searchTerm = term
+    }
+
+    get searchTerm() {
+        return this._searchTerm
+    }
+
+    setSortBy(sortBy) {
+        this._sortBy = sortBy
+    }
+
+    get sortBy() {
+        return this._sortBy
+    }
+
+    setMinPrice(price) {
+        this._minPrice = price
+    }
+
+    get minPrice() {
+        return this._minPrice
+    }
+
+    setMaxPrice(price) {
+        this._maxPrice = price
+    }
+
+    get maxPrice() {
+        return this._maxPrice
+    }
+
+    setLoading(loading) {
+        this._loading = loading
+    }
+
+    get loading() {
+        return this._loading
     }
 }

@@ -3,6 +3,7 @@ import React, {useContext, useEffect} from 'react';
 import Col from "react-bootstrap/Col";
 import TypeBar from "../components/TypeBar";
 import BrandBar from "../components/BrandBar";
+import Filter from "../components/Filter";
 import ComputedType from "../components/ComputedType";
 import BackType from "../components/BackType";
 import DeviceList from "../components/DeviceList";
@@ -26,26 +27,80 @@ const Shop = observer(() => {
     useEffect(() => {
         fetchTypes().then(data => device.setTypes(data))
         fetchBrands().then(data => device.setBrands(data))
-        fetchDevices(null, null, 1, 2).then(data => {
+        fetchDevices(null, null, 1, 2, '').then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
     }, [])
 
     useEffect(() => {
-        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2).then(data => {
+        device.setLoading(true)
+        fetchDevices(
+            device.selectedType.id,
+            device.selectedBrand.id,
+            device.page,
+            2,
+            device.searchTerm,
+            device.sortBy,
+            device.minPrice,
+            device.maxPrice
+        ).then(data => {
+            device.setDevices(data.rows)
+            device.setTotalCount(data.count)
+        }).finally(() => device.setLoading(false))
+    }, [device.page, device.selectedType, device.selectedBrand, device.searchTerm, device.sortBy, device.minPrice, device.maxPrice])
+
+    const handleSearch = () => {
+        fetchDevices(
+            device.selectedType.id,
+            device.selectedBrand.id,
+            device.page,
+            2,
+            device.searchTerm,
+            device.sortBy,
+            device.minPrice,
+            device.maxPrice
+        ).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
-    }, [device.page, device.selectedType, device.selectedBrand,])
-
-
+    }
 
 
     return (
-            <div>           
+            <div>
+                <Row className="mt-2">
+                    <Col md={9}>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search by device name..."
+                            value={device.searchTerm}
+                            onChange={(e) => device.setSearchTerm(e.target.value)}
+                        />
+                    </Col>
+                    <Col md={3}>
+                        <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+                    </Col>
+                </Row>
+                <Row className="mt-2">
+                    <Col md={3}>
+                        <label htmlFor="sort-select">Sort by:</label>
+                        <select
+                            id="sort-select"
+                            className="form-control"
+                            value={device.sortBy}
+                            onChange={(e) => device.setSortBy(e.target.value)}
+                        >
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="rating_desc">Rating: High to Low</option>
+                        </select>
+                    </Col>
+                </Row>
+                <Filter />
                 <BrandBar/>
-                <DeviceList/>
+                {device.loading ? <div>Loading...</div> : <DeviceList/>}
                 <Pages/>
                 <Page/>
             </div>

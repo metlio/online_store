@@ -1,0 +1,56 @@
+.filterContainer {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.filterSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.typeBar, .brandBar {
+    display: flex;
+    gap: 10px;
+}
+
+.typeItem, .brandItem {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.typeItem.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.brandItem.activeBrand {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.priceRange {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slider {
+    width: 100%;
+}
+
+.priceValues {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sortSelect {
+    width: 200px;
+}
