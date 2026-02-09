@@ -27,11 +27,11 @@ function Menu() {
         <Logo />
         </div>
       <span className={styles.tip}>                                <button
-                                          style={{textAlign:'center',height:'25px', width:'65px', fontSize: '0.6rem', backgroundColor: 'lightgreen !important'}}
+                                          style={{textAlign:'center',height:'25px', width:'65px', fontSize: '0.6rem', backgroundColor: 'black'}}
 
                                           onClick={() => history(OTHER_ROUTE)}
                                       >
-                                          Админка
+                                          Quizzy
                                       </button></span>
       <span className={styles.tip} onClick={() => history(MAGAZINE_ROUTE)}>
                                           MAGAZINE
