@@ -7,13 +7,12 @@ import styles from './Header.module.css';
 const Footer = ({ isVisible, isMagazinePage }) => {
 
     const footerStyles = isMagazinePage ? {
-        position: 'fixed',
-        bottom: isVisible ? 0 : '-100%',
+        position: 'sticky',
+        bottom: 0,
         left: 0,
         width: '100%',
-        zIndex: 10,
+        zIndex: 1,
         backgroundColor: '#0b0b0b',
-        transition: 'bottom 0.5s ease-in-out'
     } : {
         width: '100%',
         zIndex: 10,
