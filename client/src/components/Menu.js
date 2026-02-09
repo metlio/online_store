@@ -27,7 +27,7 @@ function Menu() {
         <Logo />
         </div>
       <span className={styles.tip}>                                <button
-                                          style={{textAlign:'center',height:'25px', width:'65px', fontSize: '0.6rem'}} 
+                                          style={{textAlign:'center',height:'25px', width:'65px', fontSize: '0.6rem', backgroundColor: 'lightgreen'}}
                                           onClick={() => history(OTHER_ROUTE)}
                                       >
                                           Админка
