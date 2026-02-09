@@ -7,7 +7,7 @@ const Footer = () => {
         width: '100%',
         backgroundColor: '#0b0b0b',
         color: 'white',
-        padding: '6rem 0 3rem 0',
+        padding: '2rem 0',
         fontFamily: "'Inter', sans-serif"
     };
 
