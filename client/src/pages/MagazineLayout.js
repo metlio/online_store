@@ -3,37 +3,54 @@ import Shop from './Shop';
 import Footer from '../components/Layout/Footer';
 
 const MagazineLayout = () => {
-    const [isFooterVisible, setIsFooterVisible] = useState(false);
-    const triggerRef = useRef(null);
+    const [footerHeight, setFooterHeight] = useState(0);
+    const footerRef = useRef(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsFooterVisible(entry.isIntersecting);
-            },
-            {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.1,
-            }
-        );
-
-        if (triggerRef.current) {
-            observer.observe(triggerRef.current);
-        }
-
-        return () => {
-            if (triggerRef.current) {
-                observer.unobserve(triggerRef.current);
+        const updateHeight = () => {
+            if (footerRef.current) {
+                setFooterHeight(footerRef.current.offsetHeight);
             }
         };
+
+        const resizeObserver = new ResizeObserver(updateHeight);
+        if (footerRef.current) {
+            resizeObserver.observe(footerRef.current);
+        }
+
+        updateHeight();
+        return () => resizeObserver.disconnect();
     }, []);
 
     return (
-        <div>
-            <Shop />
-            <div ref={triggerRef} style={{ height: '1px' }} />
-            <Footer isVisible={isFooterVisible} isMagazinePage={true} />
+        <div style={{ position: 'relative', backgroundColor: 'white' }}>
+            {/* Основной контент с белым фоном, который перекрывает подвал */}
+            <div style={{
+                position: 'relative',
+                zIndex: 2,
+                backgroundColor: 'white',
+                minHeight: '100vh',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+            }}>
+                <Shop />
+            </div>
+
+            {/* Распорка, которая позволяет увидеть фиксированный подвал при прокрутке */}
+            <div style={{ height: footerHeight, position: 'relative', zIndex: 0 }} />
+
+            {/* Фиксированный подвал, находящийся "под" основным контентом */}
+            <div
+                ref={footerRef}
+                style={{
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    zIndex: 1
+                }}
+            >
+                <Footer />
+            </div>
         </div>
     );
 };
