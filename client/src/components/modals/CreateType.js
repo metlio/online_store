@@ -7,9 +7,16 @@ const CreateType = ({show, onHide}) => {
     const [value, setValue] = useState('')
 
     const addType = () => {
+        if (!value) { alert("Проблема с названием"); return; }
         createType({name: value}).then(data => {
+            alert("Тип добавлен")
             setValue('')
             onHide()
+        }).catch(err => {
+            const message = err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : err.message
+            alert("Проблема с " + message)
         })
     }
 

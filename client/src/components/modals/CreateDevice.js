@@ -36,14 +36,12 @@ const CreateDevice = observer(({show, onHide}) => {
     }
 
     const addDevice = () => {
-        if (!name || !price || !device.selectedType.id || !device.selectedBrand.id) {
-            alert("Пожалуйста, заполните все обязательные поля (название, цена, тип, бренд)")
-            return
-        }
-        if (!file || file.length < 1) {
-            alert("Пожалуйста, выберите хотя бы одно изображение")
-            return
-        }
+        if (!name) { alert("Проблема с названием"); return; }
+        if (!price) { alert("Проблема с ценой"); return; }
+        if (!device.selectedType.id) { alert("Проблема с типом"); return; }
+        if (!device.selectedBrand.id) { alert("Проблема с брендом"); return; }
+        if (!file || file.length < 1) { alert("Проблема с изображением"); return; }
+
         const formData = new FormData()
         formData.append('name', name)
         formData.append('price', `${price}`)
@@ -59,6 +57,7 @@ const CreateDevice = observer(({show, onHide}) => {
         formData.append('typeId', device.selectedType.id)
         formData.append('info', JSON.stringify(info))
         createDevice(formData).then(data => {
+            alert("Устройство добавлено")
             onHide();
             device.setSelectedType({});
             device.setSelectedBrand({});
@@ -68,7 +67,10 @@ const CreateDevice = observer(({show, onHide}) => {
             setRate(0);
             setInfo([]);
         }).catch(err => {
-            alert("Ошибка при добавлении устройства: " + err.message)
+            const message = err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : err.message
+            alert("Проблема с " + message)
         })
     }
 

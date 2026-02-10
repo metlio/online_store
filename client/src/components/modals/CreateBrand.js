@@ -9,10 +9,23 @@ const CreateBrand = observer(({show, onHide}) => {
     const [file, setFile] = useState(null)
 
     const addBrand = () => {
+        if (!value) { alert("Проблема с названием"); return; }
         const formData = new FormData()
         formData.append('name', value)
-        formData.append('img', file)
-        createBrand(formData).then(data => onHide())
+        if (file) {
+            formData.append('img', file)
+        }
+        createBrand(formData).then(data => {
+            alert("Бренд добавлен")
+            setValue('')
+            setFile(null)
+            onHide()
+        }).catch(err => {
+            const message = err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : err.message
+            alert("Проблема с " + message)
+        })
     }
 
     const selectFile = e => {
