@@ -17,7 +17,7 @@ class BrandController {
                     return next(ApiError.badRequest('Неверный тип файла'));
                 }
                 fileName = uuid.v4() + "." + extension;
-                img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
             }
 
             const brand = await Brand.create({name, img: fileName});

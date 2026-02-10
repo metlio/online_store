@@ -12,7 +12,7 @@ const CreateDevice = observer(({show, onHide}) => {
 
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
-    const [file, setFile] = useState([])
+    const [file, setFile] = useState(null)
     const [rate, setRate] = useState(0)
     const [info, setInfo] = useState([])
 
@@ -32,19 +32,27 @@ const CreateDevice = observer(({show, onHide}) => {
     }
 
     const selectFile = e => {
-        setFile(...[e.target.files])
-
+        setFile(e.target.files)
     }
 
     const addDevice = () => {
+        if (!name || !price || !device.selectedType.id || !device.selectedBrand.id) {
+            alert("Пожалуйста, заполните все обязательные поля (название, цена, тип, бренд)")
+            return
+        }
+        if (!file || file.length < 1) {
+            alert("Пожалуйста, выберите хотя бы одно изображение")
+            return
+        }
         const formData = new FormData()
         formData.append('name', name)
         formData.append('price', `${price}`)
-        if (file[0]) {
-            formData.append('img', file[0])
-        }
+        formData.append('img', file[0])
         if (file[1]) {
             formData.append('imgg', file[1])
+        } else {
+            // Если второго изображения нет, используем первое как заглушку или второе
+            formData.append('imgg', file[0])
         }
         formData.append('rating', rate)
         formData.append('brandId', device.selectedBrand.id)
@@ -54,6 +62,13 @@ const CreateDevice = observer(({show, onHide}) => {
             onHide();
             device.setSelectedType({});
             device.setSelectedBrand({});
+            setName('');
+            setPrice(0);
+            setFile(null);
+            setRate(0);
+            setInfo([]);
+        }).catch(err => {
+            alert("Ошибка при добавлении устройства: " + err.message)
         })
     }
 
