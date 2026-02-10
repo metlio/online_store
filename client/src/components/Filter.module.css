@@ -1,67 +1,118 @@
-.filterContainer {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
+.filterWrapper {
+    position: relative;
+    display: inline-block;
     margin-bottom: 20px;
+    z-index: 1000;
+}
+
+.filterToggleButton {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.filterToggleButton:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.filterDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .filterSection {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .filterSection h5 {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
     font-weight: bold;
+    text-transform: uppercase;
+    color: #666;
 }
 
 .typeBar, .brandBar {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 .typeItem, .brandItem {
-    padding: 8px 15px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    transition: all 0.3s ease;
+    padding: 4px 12px;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
 }
 
 .typeItem:hover, .brandItem:hover {
-    background-color: #e9ecef;
-    border-color: #adb5bd;
+    background-color: #f5f5f5;
+    border-color: #ddd;
 }
 
 .typeItem.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
 }
 
 .brandItem {
-    padding: 5px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .brandItem.activeBrand {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #000;
+    background-color: #f0f0f0;
 }
 
 .priceRange {
-    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.priceInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.priceInput label {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
 }
 
 .slider {
     width: 100%;
-}
-
-.priceValues {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9em;
-    color: #6c757d;
+    accent-color: #000;
 }
 
 .sortSelect {
-    max-width: 200px;
+    font-size: 0.85rem;
+    padding: 6px;
+}
+
+.filterActions {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
 }
