@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
-const { ApiError } = require('../error/ApiError');
+const ApiError = require('../error/ApiError');
 const mime = require('mime-types');
 const { Op } = require('sequelize');
 
@@ -39,6 +39,10 @@ class DeviceController {
                     console.log('Uploading imgg to:', uploadPath);
                     await imgg.mv(uploadPath);
                 }
+            }
+
+            if (fileName && !filekName) {
+                filekName = fileName;
             }
 
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
