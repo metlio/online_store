@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
-const { ApiError } = require('../error/ApiError');
+const ApiError = require('../error/ApiError');
 const mime = require('mime-types');
 const { Op } = require('sequelize');
 
@@ -16,23 +16,33 @@ class DeviceController {
             if (req.files) {
                 if (req.files.img) {
                     const {img} = req.files;
-                    const extension1 = mime.extension(img.mimetype);
+                    let extension1 = mime.extension(img.mimetype);
                     if (!extension1) {
                         return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
                     }
+                    if (extension1 === 'jpeg') extension1 = 'jpg';
                     fileName = uuid.v4() + "." + extension1;
-                    await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                    const uploadPath = path.resolve(__dirname, '..', 'static', fileName);
+                    console.log('Uploading img to:', uploadPath);
+                    await img.mv(uploadPath);
                 }
 
                 if (req.files.imgg) {
                     const {imgg} = req.files;
-                    const extension2 = mime.extension(imgg.mimetype);
+                    let extension2 = mime.extension(imgg.mimetype);
                     if (!extension2) {
                         return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
                     }
+                    if (extension2 === 'jpeg') extension2 = 'jpg';
                     filekName = uuid.v4() + "." + extension2;
-                    await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                    const uploadPath = path.resolve(__dirname, '..', 'static', filekName);
+                    console.log('Uploading imgg to:', uploadPath);
+                    await imgg.mv(uploadPath);
                 }
+            }
+
+            if (fileName && !filekName) {
+                filekName = fileName;
             }
 
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
