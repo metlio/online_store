@@ -16,7 +16,7 @@ const Shop = observer(() => {
     useEffect(() => {
         fetchTypes().then(data => device.setTypes(data))
         fetchBrands().then(data => device.setBrands(data))
-        fetchDevices(null, null, 1, 2, '').then(data => {
+        fetchDevices(null, null, 1, device.limit, '').then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
@@ -28,7 +28,7 @@ const Shop = observer(() => {
             device.selectedType.id,
             device.selectedBrand.id,
             device.page,
-            2,
+            device.limit,
             device.searchTerm,
             device.sortBy,
             device.minPrice,
