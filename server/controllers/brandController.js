@@ -12,12 +12,15 @@ class BrandController {
 
             if (req.files && req.files.img) {
                 const {img} = req.files;
-                const extension = mime.extension(img.mimetype);
+                let extension = mime.extension(img.mimetype);
                 if (!extension) {
                     return next(ApiError.badRequest('Неверный тип файла'));
                 }
+                if (extension === 'jpeg') extension = 'jpg';
                 fileName = uuid.v4() + "." + extension;
-                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                const uploadPath = path.resolve(__dirname, '..', 'static', fileName);
+                console.log('Uploading brand img to:', uploadPath);
+                await img.mv(uploadPath);
             }
 
             const brand = await Brand.create({name, img: fileName});
