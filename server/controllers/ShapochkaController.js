@@ -18,11 +18,14 @@ class ShapochkaController {
                 return next(ApiError.badRequest('Неверный тип файла'));
             }
             let fileName = uuid.v4() + "." + extension;
-            await img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            const filePath = path.resolve(__dirname, '..', 'static', fileName);
+            console.log('Uploading shapochka image to:', filePath);
+            await img.mv(filePath)
             const shapochka = await Shapochka.create({name, img: fileName});
             return res.json(shapochka)
         }
             catch (e) {
+            console.error('Error in ShapochkaController.create:', e);
             next(ApiError.badRequest(e.message))
         }
     }

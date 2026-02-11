@@ -13,6 +13,9 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000
 
 const app = express()
+app.use(fileUpload({
+    createParentPath: true
+}))
 app.use(cors({
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
@@ -20,7 +23,6 @@ app.use(cors({
 }));
 app.use(express.json())
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
-app.use(fileUpload({}))
 app.use('/api', router)
 
 app.use(bodyParser.json())

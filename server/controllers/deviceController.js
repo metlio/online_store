@@ -21,7 +21,9 @@ class DeviceController {
                         return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
                     }
                     fileName = uuid.v4() + "." + extension1;
-                    await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                    const filePath1 = path.resolve(__dirname, '..', 'static', fileName);
+                    console.log('Uploading device image 1 to:', filePath1);
+                    await img.mv(filePath1);
                 }
 
                 if (req.files.imgg) {
@@ -31,7 +33,9 @@ class DeviceController {
                         return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
                     }
                     filekName = uuid.v4() + "." + extension2;
-                    await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                    const filePath2 = path.resolve(__dirname, '..', 'static', filekName);
+                    console.log('Uploading device image 2 to:', filePath2);
+                    await imgg.mv(filePath2);
                 }
             }
 
@@ -50,6 +54,7 @@ class DeviceController {
 
             return res.json(device)
         } catch (e) {
+            console.error('Error in DeviceController.create:', e);
             next(ApiError.badRequest(e.message))
         }
 
