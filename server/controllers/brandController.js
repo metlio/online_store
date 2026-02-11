@@ -14,15 +14,18 @@ class BrandController {
                 const {img} = req.files;
                 const extension = mime.extension(img.mimetype);
                 if (!extension) {
-                    return next(ApiError.badRequest('Неверный тип файла'));
+                    return next(ApiError.badRequest('Неверный тип файла. Поддерживаются только изображения.'));
                 }
                 fileName = uuid.v4() + "." + extension;
-                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                const filePath = path.resolve(__dirname, '..', 'static', fileName);
+                console.log('Uploading brand image to:', filePath);
+                await img.mv(filePath);
             }
 
             const brand = await Brand.create({name, img: fileName});
             return res.json(brand);
         } catch (e) {
+            console.error('Error in BrandController.create:', e);
             next(ApiError.badRequest(e.message));
         }
     }

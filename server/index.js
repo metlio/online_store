@@ -19,11 +19,22 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json())
+app.use(fileUpload({
+    createParentPath: true
+}))
+
+// Request logger
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
-app.use(fileUpload({}))
 app.use('/api', router)
 
-app.use(bodyParser.json())
+// 404 handler for unknown routes
+app.use((req, res, next) => {
+    res.status(404).json({message: `Route ${req.method} ${req.url} not found`})
+})
 
 // // Обработка ошибок, последний Middleware
 app.use(errorHandler)
