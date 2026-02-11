@@ -8,12 +8,15 @@ const { Op } = require('sequelize');
 class DeviceController {
     async create(req, res, next) {
         try {
+            console.log('DeviceController.create started');
             let {name, price, brandId, typeId, info, rating} = req.body
+            console.log('Device body:', {name, price, brandId, typeId, rating});
 
             let fileName = null;
             let filekName = null;
 
             if (req.files) {
+                console.log('Files received:', Object.keys(req.files));
                 if (req.files.img) {
                     const {img} = req.files;
                     const extension1 = mime.extension(img.mimetype);
@@ -24,6 +27,7 @@ class DeviceController {
                     const filePath1 = path.resolve(__dirname, '..', 'static', fileName);
                     console.log('Uploading device image 1 to:', filePath1);
                     await img.mv(filePath1);
+                    console.log('Device image 1 uploaded successfully');
                 }
 
                 if (req.files.imgg) {
@@ -36,10 +40,21 @@ class DeviceController {
                     const filePath2 = path.resolve(__dirname, '..', 'static', filekName);
                     console.log('Uploading device image 2 to:', filePath2);
                     await imgg.mv(filePath2);
+                    console.log('Device image 2 uploaded successfully');
                 }
+            } else {
+                console.log('No files received in req.files');
             }
 
+            // Fallback: if imgg is missing, use fileName
+            if (fileName && !filekName) {
+                console.log('Using image 1 as fallback for image 2');
+                filekName = fileName;
+            }
+
+            console.log('Creating device in DB...');
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
+            console.log('Device created successfully:', device.id);
 
             if (info) {
                 info = JSON.parse(info)

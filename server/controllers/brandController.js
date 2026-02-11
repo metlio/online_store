@@ -7,10 +7,13 @@ const mime = require('mime-types');
 class BrandController {
     async create(req, res, next) {
         try {
+            console.log('BrandController.create started');
             const {name} = req.body;
+            console.log('Brand name:', name);
             let fileName = null;
 
             if (req.files && req.files.img) {
+                console.log('Brand image found in req.files');
                 const {img} = req.files;
                 const extension = mime.extension(img.mimetype);
                 if (!extension) {
@@ -20,9 +23,14 @@ class BrandController {
                 const filePath = path.resolve(__dirname, '..', 'static', fileName);
                 console.log('Uploading brand image to:', filePath);
                 await img.mv(filePath);
+                console.log('Brand image uploaded successfully');
+            } else {
+                console.log('No brand image provided');
             }
 
+            console.log('Creating brand in DB...');
             const brand = await Brand.create({name, img: fileName});
+            console.log('Brand created successfully:', brand.id);
             return res.json(brand);
         } catch (e) {
             console.error('Error in BrandController.create:', e);

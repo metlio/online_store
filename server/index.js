@@ -8,26 +8,37 @@ const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
 const jwt = require('jsonwebtoken')
-const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 5000
 
 const app = express()
+
+// Middleware
 app.use(cors({
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
-app.use(express.json())
-app.use(fileUpload({
-    createParentPath: true
-}))
 
-// Request logger
+// Better to have fileUpload before express.json for multipart handling
+app.use(fileUpload({
+    createParentPath: true,
+    useTempFiles: true,
+    tempFileDir: '/tmp/',
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
+}))
+app.use(express.json())
+
+// Request logger - at the top to catch everything
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    if (req.method === 'POST') {
+        console.log('Body:', JSON.stringify(req.body, null, 2));
+        console.log('Files:', req.files ? Object.keys(req.files) : 'No files');
+    }
     next();
 });
+
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
 app.use('/api', router)
 
