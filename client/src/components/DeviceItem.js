@@ -20,8 +20,9 @@ const DeviceItem = observer(({device}) => {
     const [ratingVisible, setRatingVisible] = useState(false)
     const [imaging, setImaging] = useState(false)
 
-    const sold2 = process.env.REACT_APP_API_URL + '/static/' + device.imgg;
-    const sold = process.env.REACT_APP_API_URL + '/static/' + device.img;
+    const apiUrl = process.env.REACT_APP_API_URL || '';
+    const sold2 = apiUrl + '/static/' + device.imgg;
+    const sold = apiUrl + '/static/' + device.img;
 
     const formattedPrice = `${device.price.toFixed(0)}`;
     const oldPrice = formattedPrice*1.5;
@@ -46,7 +47,12 @@ const DeviceItem = observer(({device}) => {
     return (
         <div className={styles.deviceCard}>
             <ToastContainer />
-            <div className={styles.imageContainer} onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)}>
+            <div
+                className={styles.imageContainer}
+                onClick={() => navigate(DEVICE_ROUTE + '/' + device.id)}
+                onMouseEnter={() => setImaging(true)}
+                onMouseLeave={() => setImaging(false)}
+            >
                 <Tilt tiltMaxAngleX={25} tiltMaxAngleY={25} gyroscope={true} glareEnable={true} glareReverse={true} glareMaxOpacity={0.5} scale={1}>
                     <Fade out>
                         <Image height='250px' src={imaging ? sold2 : sold} />

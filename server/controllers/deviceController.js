@@ -19,9 +19,13 @@ class DeviceController {
                 console.log('Files received:', Object.keys(req.files));
                 if (req.files.img) {
                     const {img} = req.files;
-                    const extension1 = mime.extension(img.mimetype);
+                    let extension1 = mime.extension(img.mimetype);
                     if (!extension1) {
-                        return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
+                        // Fallback if mime.extension fails
+                        if (img.mimetype === 'image/jpeg' || img.mimetype === 'image/jpg') extension1 = 'jpg';
+                        else if (img.mimetype === 'image/png') extension1 = 'png';
+                        else if (img.mimetype === 'image/webp') extension1 = 'webp';
+                        else return next(ApiError.badRequest('Неверный тип файла для первого изображения: ' + img.mimetype));
                     }
                     fileName = uuid.v4() + "." + extension1;
                     const filePath1 = path.resolve(__dirname, '..', 'static', fileName);
@@ -32,9 +36,12 @@ class DeviceController {
 
                 if (req.files.imgg) {
                     const {imgg} = req.files;
-                    const extension2 = mime.extension(imgg.mimetype);
+                    let extension2 = mime.extension(imgg.mimetype);
                     if (!extension2) {
-                        return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
+                        if (imgg.mimetype === 'image/jpeg' || imgg.mimetype === 'image/jpg') extension2 = 'jpg';
+                        else if (imgg.mimetype === 'image/png') extension2 = 'png';
+                        else if (imgg.mimetype === 'image/webp') extension2 = 'webp';
+                        else return next(ApiError.badRequest('Неверный тип файла для второго изображения: ' + imgg.mimetype));
                     }
                     filekName = uuid.v4() + "." + extension2;
                     const filePath2 = path.resolve(__dirname, '..', 'static', filekName);

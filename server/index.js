@@ -23,8 +23,6 @@ app.use(cors({
 // Better to have fileUpload before express.json for multipart handling
 app.use(fileUpload({
     createParentPath: true,
-    useTempFiles: true,
-    tempFileDir: '/tmp/',
     limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
 }))
 app.use(express.json())
@@ -54,6 +52,14 @@ const start = async () => {
      try {
          await sequelize.authenticate()
          await sequelize.sync()
+
+         // Ensure static directory exists
+         const staticDir = path.resolve(__dirname, 'static');
+         if (!require('fs').existsSync(staticDir)) {
+             require('fs').mkdirSync(staticDir, { recursive: true });
+             console.log(`Created static directory at ${staticDir}`);
+         }
+
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
      } catch (e) {
          console.error('Failed to start server:', e);

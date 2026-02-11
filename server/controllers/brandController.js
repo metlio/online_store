@@ -15,9 +15,12 @@ class BrandController {
             if (req.files && req.files.img) {
                 console.log('Brand image found in req.files');
                 const {img} = req.files;
-                const extension = mime.extension(img.mimetype);
+                let extension = mime.extension(img.mimetype);
                 if (!extension) {
-                    return next(ApiError.badRequest('Неверный тип файла. Поддерживаются только изображения.'));
+                    if (img.mimetype === 'image/jpeg' || img.mimetype === 'image/jpg') extension = 'jpg';
+                    else if (img.mimetype === 'image/png') extension = 'png';
+                    else if (img.mimetype === 'image/webp') extension = 'webp';
+                    else return next(ApiError.badRequest('Неверный тип файла: ' + img.mimetype));
                 }
                 fileName = uuid.v4() + "." + extension;
                 const filePath = path.resolve(__dirname, '..', 'static', fileName);
