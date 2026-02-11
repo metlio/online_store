@@ -57,9 +57,9 @@ const Admin = observer(() => {
                 </Col>
             </Row>
 
-            <CreateBrand show={brandVisible} onHide={() => setBrandVisible(false)}/>
-            <CreateDevice show={deviceVisible} onHide={() => setDeviceVisible(false)}/>
-            <CreateType show={typeVisible} onHide={() => setTypeVisible(false)}/>
+            <CreateBrand show={brandVisible} onHide={() => setBrandVisible(false)} refresh={refreshData}/>
+            <CreateDevice show={deviceVisible} onHide={() => setDeviceVisible(false)} refresh={refreshData}/>
+            <CreateType show={typeVisible} onHide={() => setTypeVisible(false)} refresh={refreshData}/>
 
             <Row className="mt-5">
                 <Col md={4}>

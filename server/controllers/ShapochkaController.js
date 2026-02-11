@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const path = require('path');
 const { Shapochka } = require('../models/models');
-const { ApiError } = require('../error/ApiError');
+const ApiError = require('../error/ApiError');
 const mime = require('mime-types');
 
 class ShapochkaController {

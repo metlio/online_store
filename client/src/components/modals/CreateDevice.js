@@ -6,7 +6,7 @@ import Image from "react-bootstrap/Image";
 import {createDevice, fetchBrands, fetchTypes} from "../../http/deviceAPI";
 import {observer} from "mobx-react-lite";
 
-const CreateDevice = observer(({show, onHide}) => {
+const CreateDevice = observer(({show, onHide, refresh}) => {
 
     const {device} = useContext(Context)
 
@@ -67,6 +67,7 @@ const CreateDevice = observer(({show, onHide}) => {
             setFile(null);
             setRate(0);
             setInfo([]);
+            if (refresh) refresh()
         }).catch(err => {
             alert("Ошибка при добавлении устройства: " + err.message)
         })

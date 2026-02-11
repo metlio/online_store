@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
-const { ApiError } = require('../error/ApiError');
+const ApiError = require('../error/ApiError');
 const mime = require('mime-types');
 const { Op } = require('sequelize');
 
@@ -63,12 +63,12 @@ class DeviceController {
         let offset = page * limit - limit
 
         const where = {};
-        if (brandId) where.brandId = brandId;
-        if (typeId) where.typeId = typeId;
+        if (brandId && brandId !== "null" && brandId !== "undefined") where.brandId = brandId;
+        if (typeId && typeId !== "null" && typeId !== "undefined") where.typeId = typeId;
         if (name) {
             where.name = {[Op.iLike]: `%${name}%`}
         }
-        if (minPrice && maxPrice) {
+        if (minPrice !== undefined && maxPrice !== undefined && minPrice !== "null" && maxPrice !== "null") {
             where.price = {[Op.between]: [minPrice, maxPrice]}
         }
 
