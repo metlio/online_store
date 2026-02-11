@@ -4,7 +4,7 @@ import {Button, Form} from "react-bootstrap";
 import {createBrand} from "../../http/deviceAPI";
 import {observer} from "mobx-react-lite";
 
-const CreateBrand = observer(({show, onHide}) => {
+const CreateBrand = observer(({show, onHide, refresh}) => {
     const [value, setValue] = useState('')
     const [file, setFile] = useState(null)
 
@@ -12,7 +12,12 @@ const CreateBrand = observer(({show, onHide}) => {
         const formData = new FormData()
         formData.append('name', value)
         formData.append('img', file)
-        createBrand(formData).then(data => onHide())
+        createBrand(formData).then(data => {
+            setValue('')
+            setFile(null)
+            onHide()
+            if (refresh) refresh()
+        })
     }
 
     const selectFile = e => {

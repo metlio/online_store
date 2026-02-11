@@ -3,13 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import {createType} from "../../http/deviceAPI";
 
-const CreateType = ({show, onHide}) => {
+const CreateType = ({show, onHide, refresh}) => {
     const [value, setValue] = useState('')
 
     const addType = () => {
         createType({name: value}).then(data => {
             setValue('')
             onHide()
+            if (refresh) refresh()
         })
     }
 
