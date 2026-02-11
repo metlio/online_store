@@ -1,5 +1,5 @@
-const Router = require('express')
-const router = new Router()
+const express = require('express')
+const router = express.Router()
 const ShapochkaController = require('../controllers/ShapochkaController')
 
 router.post('/', ShapochkaController.create)

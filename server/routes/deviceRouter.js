@@ -1,7 +1,7 @@
-const Router = require('express')
+const express = require('express')
+const router = express.Router()
 const deviceController = require('../controllers/deviceController')
 const ratingController = require('../controllers/ratingController')
-const router = new Router()
 
 router.post('/', deviceController.create)
 router.get('/', deviceController.getAll)
