@@ -29,3 +29,38 @@ Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.in
 Executing (default): SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'type_brands'
 Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND t.relkind = 'r' and t.relname = 'type_brands' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
 Server started on port 5000
+2026-02-11T13:00:36.639Z - POST /api/device
+Error in DeviceController.create: ValidationError [SequelizeValidationError]: notNull Violation: device.img cannot be null,
+notNull Violation: device.imgg cannot be null
+    at InstanceValidator._validate (/app/server/node_modules/sequelize/lib/instance-validator.js:50:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async InstanceValidator._validateAndRunHooks (/app/server/node_modules/sequelize/lib/instance-validator.js:60:7)
+    at async InstanceValidator.validate (/app/server/node_modules/sequelize/lib/instance-validator.js:54:12)
+    at async model.save (/app/server/node_modules/sequelize/lib/model.js:2426:7)
+    at async device.create (/app/server/node_modules/sequelize/lib/model.js:1362:12)
+    at async create (/app/server/controllers/deviceController.js:42:28) {
+  errors: [
+    ValidationErrorItem {
+      message: 'device.img cannot be null',
+      type: 'notNull Violation',
+      path: 'img',
+      value: null,
+      origin: 'CORE',
+      instance: [device],
+      validatorKey: 'is_null',
+      validatorName: null,
+      validatorArgs: []
+    },
+    ValidationErrorItem {
+      message: 'device.imgg cannot be null',
+      type: 'notNull Violation',
+      path: 'imgg',
+      value: null,
+      origin: 'CORE',
+      instance: [device],
+      validatorKey: 'is_null',
+      validatorName: null,
+      validatorArgs: []
+    }
+  ]
+}

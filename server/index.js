@@ -13,19 +13,28 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000
 
 const app = express()
-app.use(fileUpload({
-    createParentPath: true
-}))
 app.use(cors({
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
 app.use(express.json())
+app.use(fileUpload({
+    createParentPath: true
+}))
+
+// Request logger
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
 app.use('/api', router)
 
-app.use(bodyParser.json())
+// 404 handler for unknown routes
+app.use((req, res, next) => {
+    res.status(404).json({message: `Route ${req.method} ${req.url} not found`})
+})
 
 // // Обработка ошибок, последний Middleware
 app.use(errorHandler)
