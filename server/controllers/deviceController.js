@@ -11,7 +11,7 @@ class DeviceController {
             let {name, price, brandId, typeId, info, rating} = req.body
 
             let fileName = null;
-            let filekName = null;
+            let fileName2 = null;
 
             if (req.files) {
                 if (req.files.img) {
@@ -30,12 +30,16 @@ class DeviceController {
                     if (!extension2) {
                         return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
                     }
-                    filekName = uuid.v4() + "." + extension2;
-                    await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                    fileName2 = uuid.v4() + "." + extension2;
+                    await imgg.mv(path.resolve(__dirname, '..', 'static', fileName2));
                 }
             }
 
-            const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
+            if (!fileName) {
+                return next(ApiError.badRequest('Первое изображение (img) обязательно'));
+            }
+
+            const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: fileName2 || fileName});
 
             if (info) {
                 info = JSON.parse(info)

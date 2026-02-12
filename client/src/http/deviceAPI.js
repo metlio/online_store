@@ -9,7 +9,7 @@ export const createType = async (type) => {
 
 export const editRating = async (id, rating) => {
     const {data} = await $authHost.put('/api/device', {id, rating})
-    // const {data} = await $authHost.put('api/device/15', {params: {"id" : rate.id, "rating" : rate.rating}})
+    // const {data} = await $authHost.put('/api/device/15', {params: {"id" : rate.id, "rating" : rate.rating}})
     return data
   }
 
@@ -21,7 +21,7 @@ export const fetchTypes = async () => {
 
 
 //  export const fetchShapochka = async () => {
-//      const {data} = await $host.get('api/shapochka')
+//      const {data} = await $host.get('/api/shapochka')
 //      return data
 //  }
 

@@ -18,8 +18,13 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
-app.use(fileUpload({}))
+
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(fileUpload({
+    debug: true,
+    createParentPath: true
+}))
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
 app.use('/api', router)
 
