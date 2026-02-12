@@ -40,7 +40,7 @@ const Cart = (props) => {
     // };
 
     const submitOrderHandler = async (brand) => {
-      const {data} = await $authHost.post('api/brand', brand)
+      const {data} = await $authHost.post('/api/brand', brand)
       return data
     }
 
