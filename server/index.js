@@ -8,7 +8,7 @@ const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
 const jwt = require('jsonwebtoken')
-const bodyParser = require('body-parser');
+const fs = require('fs')
 
 const PORT = process.env.PORT || 5000
 
@@ -18,18 +18,20 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
+app.use(fileUpload({}))
 app.use(express.json())
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
-app.use(fileUpload({}))
 app.use('/api', router)
-
-app.use(bodyParser.json())
 
 // // Обработка ошибок, последний Middleware
 app.use(errorHandler)
 
 const start = async () => {
      try {
+         const staticPath = path.resolve(__dirname, 'static');
+         if (!fs.existsSync(staticPath)) {
+             fs.mkdirSync(staticPath, { recursive: true });
+         }
          await sequelize.authenticate()
          await sequelize.sync()
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
