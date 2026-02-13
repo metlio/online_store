@@ -1,12 +1,6 @@
-/* Прячем стандартный курсор для всей страницы и для всех интерактивных элементов */
-body,
-a,
-button,
-[role="button"],
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
-  cursor: none;
+/* Прячем стандартный курсор для ВСЕХ элементов на странице */
+html, body, *, *::before, *::after {
+  cursor: none !important;
 }
 
 /* Стили для нашего кастомного курсора */
