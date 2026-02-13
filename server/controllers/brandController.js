@@ -3,6 +3,7 @@ const path = require('path');
 const {Brand, Type} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const mime = require('mime-types');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 class BrandController {
     async create(req, res, next) {
@@ -16,8 +17,13 @@ class BrandController {
                 if (!extension) {
                     return next(ApiError.badRequest('Неверный тип файла'));
                 }
-                fileName = uuid.v4() + "." + extension;
-                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+
+                if (process.env.CLOUDINARY_CLOUD_NAME) {
+                    fileName = await uploadToCloudinary(img.data);
+                } else {
+                    fileName = uuid.v4() + "." + extension;
+                    await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                }
             }
 
             const brand = await Brand.create({name, img: fileName});

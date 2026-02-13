@@ -4,6 +4,7 @@ const { Device, DeviceInfo } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const mime = require('mime-types');
 const { Op } = require('sequelize');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 class DeviceController {
     async create(req, res, next) {
@@ -19,8 +20,14 @@ class DeviceController {
             if (!extension1) {
                 return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
             }
-            let fileName = uuid.v4() + "." + extension1;
-            await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+
+            let fileName;
+            if (process.env.CLOUDINARY_CLOUD_NAME) {
+                fileName = await uploadToCloudinary(img.data);
+            } else {
+                fileName = uuid.v4() + "." + extension1;
+                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+            }
 
             let filekName = fileName; // По умолчанию второе изображение такое же, как первое
             if (req.files.imgg) {
@@ -29,8 +36,13 @@ class DeviceController {
                 if (!extension2) {
                     return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
                 }
-                filekName = uuid.v4() + "." + extension2;
-                await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+
+                if (process.env.CLOUDINARY_CLOUD_NAME) {
+                    filekName = await uploadToCloudinary(imgg.data);
+                } else {
+                    filekName = uuid.v4() + "." + extension2;
+                    await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                }
             }
 
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
