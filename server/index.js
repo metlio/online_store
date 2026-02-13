@@ -28,6 +28,14 @@ app.use(fileUpload({
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
 app.use('/api', router)
 
+app.get('/', function(req, res) {
+    res.json({text:"my api run"});
+});
+
+app.use((req, res, next) => {
+    res.status(404).json({message: `Route ${req.method} ${req.url} not found on this server`});
+});
+
 // // Обработка ошибок, последний Middleware
 app.use(errorHandler)
 
@@ -45,9 +53,5 @@ const start = async () => {
          process.exit(1);
      }
  }
-
-app.get('/', function(req, res) {
-     res.json({text:"my api run"});
- });
 
 start()
