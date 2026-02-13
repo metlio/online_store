@@ -40,7 +40,11 @@ const start = async () => {
          }
          await sequelize.authenticate()
          await sequelize.sync()
-        app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+        app.listen(PORT, () => {
+            console.log(`Server started on port ${PORT}`);
+            console.log(`CLOUDINARY_CLOUD_NAME: ${process.env.CLOUDINARY_CLOUD_NAME ? 'SET' : 'NOT SET'}`);
+            console.log(`DATABASE_URL: ${process.env.DATABASE_URL ? 'SET' : 'NOT SET'}`);
+        })
      } catch (e) {
          console.error('Failed to start server:', e);
          process.exit(1);

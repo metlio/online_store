@@ -1,3 +1,4 @@
+import { getImageUrl } from '../utils/getImageUrl';
 import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
@@ -16,7 +17,7 @@ const BackType = observer(() => {
                     className="p-3"
                     border={brand.id === device.selectedBrand.id ? 'danger' : 'light'}
                 >
-                    <Image width={20} height={20} src={process.env.REACT_APP_API_URL + '/static/' + brand.img}/>{brand.name}
+                    <Image width={20} height={20} src={getImageUrl(brand.img)}/>{brand.name}
                 </Card>
             )}
         </Form>

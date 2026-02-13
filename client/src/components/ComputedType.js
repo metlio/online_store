@@ -1,3 +1,4 @@
+import { getImageUrl } from '../utils/getImageUrl';
 import React, {useContext, useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
@@ -16,7 +17,7 @@ const ComputedType = observer(() => {
                     key={type.id}
                 >
                     {type.name}
-                    <Image src={process.env.REACT_APP_API_URL + '/static/' + type.img}/>
+                    <Image src={getImageUrl(type.img)}/>
                 </ListGroup.Item>
             )}
         </ListGroup>
