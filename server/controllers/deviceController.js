@@ -10,29 +10,27 @@ class DeviceController {
         try {
             let {name, price, brandId, typeId, info, rating} = req.body
 
-            let fileName = null;
-            let filekName = null;
+            if (!req.files || !req.files.img) {
+                return next(ApiError.badRequest('Пожалуйста, загрузите основное изображение (img)'));
+            }
 
-            if (req.files) {
-                if (req.files.img) {
-                    const {img} = req.files;
-                    const extension1 = mime.extension(img.mimetype);
-                    if (!extension1) {
-                        return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
-                    }
-                    fileName = uuid.v4() + "." + extension1;
-                    await img.mv(path.resolve(__dirname, '..', 'static', fileName));
-                }
+            const {img} = req.files;
+            const extension1 = mime.extension(img.mimetype);
+            if (!extension1) {
+                return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
+            }
+            let fileName = uuid.v4() + "." + extension1;
+            await img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
-                if (req.files.imgg) {
-                    const {imgg} = req.files;
-                    const extension2 = mime.extension(imgg.mimetype);
-                    if (!extension2) {
-                        return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
-                    }
-                    filekName = uuid.v4() + "." + extension2;
-                    await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+            let filekName = fileName; // По умолчанию второе изображение такое же, как первое
+            if (req.files.imgg) {
+                const {imgg} = req.files;
+                const extension2 = mime.extension(imgg.mimetype);
+                if (!extension2) {
+                    return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
                 }
+                filekName = uuid.v4() + "." + extension2;
+                await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
             }
 
             const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});

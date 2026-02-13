@@ -12,15 +12,19 @@ const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 5000
 
+const fs = require('fs');
+
 const app = express()
 app.use(cors({
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
+app.use(fileUpload({
+    createParentPath: true
+}))
 app.use(express.json())
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
-app.use(fileUpload({}))
 app.use('/api', router)
 
 app.use(bodyParser.json())
@@ -30,6 +34,10 @@ app.use(errorHandler)
 
 const start = async () => {
      try {
+         const staticPath = path.resolve(__dirname, 'static');
+         if (!fs.existsSync(staticPath)) {
+             fs.mkdirSync(staticPath, { recursive: true });
+         }
          await sequelize.authenticate()
          await sequelize.sync()
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
