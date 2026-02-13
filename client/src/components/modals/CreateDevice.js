@@ -1,3 +1,4 @@
+import { getImageUrl } from '../../utils/getImageUrl';
 import React, {useContext, useEffect, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Button, Dropdown, Form, Row, Col} from "react-bootstrap";
@@ -127,7 +128,7 @@ const CreateDevice = observer(({show, onHide, refresh}) => {
                                     key={brand.id}
                                 >
                                     {brand.name}
-                                    <Image width={20} height={20} src={process.env.REACT_APP_API_URL + '/static/' + brand.img}/>
+                                    <Image width={20} height={20} src={getImageUrl(brand.img)}/>
                                 </Dropdown.Item>
                             )}
                         </Dropdown.Menu>

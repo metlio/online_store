@@ -1,3 +1,4 @@
+import { getImageUrl } from '../utils/getImageUrl';
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../index";
 import Image from "react-bootstrap/Image";
@@ -19,7 +20,7 @@ const NewComponent = observer((props) => {
     return (
                 <div>
                                 <div>
-                                    <Image height={20}  src={process.env.REACT_APP_API_URL + '/static/' + result.img}/>
+                                    <Image height={20}  src={getImageUrl(result.img)}/>
                                 </div>
                 </div>
     );

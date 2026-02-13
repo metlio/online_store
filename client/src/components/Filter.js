@@ -1,3 +1,4 @@
+import { getImageUrl } from '../utils/getImageUrl';
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
@@ -81,7 +82,7 @@ const Filter = observer(() => {
                                     className={`${styles.brandItem} ${brand.id === device.selectedBrand.id ? styles.activeBrand : ''}`}
                                     onClick={() => device.setSelectedBrand(brand)}
                                 >
-                                    <Image width={30} src={process.env.REACT_APP_API_URL + '/static/' + brand.img} />
+                                    <Image width={30} src={getImageUrl(brand.img)} />
                                 </div>
                             )}
                         </div>

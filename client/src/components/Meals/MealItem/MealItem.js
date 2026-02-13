@@ -1,3 +1,4 @@
+import { getImageUrl } from '../../../utils/getImageUrl';
 import { useContext } from 'react';
 import styles from './MealItem.module.css';
 import MealItemForm from './MealItemForm';
@@ -28,7 +29,7 @@ const MealItem = (props) => {
         <div>
             <h3 onClick={() => navigate(DEVICE_ROUTE + '/' + props.pid)}>{props.name}</h3>
             <div className={styles.name}>{props.name}</div>
-            <div><Image width={100} height={100} src={process.env.REACT_APP_API_URL + '/static/' + props.ima}/></div>
+            <div><Image width={100} height={100} src={getImageUrl(props.ima)}/></div>
             <div className={styles.price}>{formattedPrice}</div>
             
         </div>

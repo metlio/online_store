@@ -1,3 +1,4 @@
+import { getImageUrl } from '../utils/getImageUrl';
 import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
@@ -9,7 +10,7 @@ const Brandy = observer(() => {
 
     return (
         <div>
-            <Image width={20} height={20} src={process.env.REACT_APP_API_URL + '/static/' + brand.img}/>
+            <Image width={20} height={20} src={getImageUrl(brand.img)}/>
         </div>
     );
 });

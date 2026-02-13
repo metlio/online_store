@@ -1,11 +1,16 @@
 import axios from "axios";
 
+const sanitizeUrl = (url) => {
+    if (!url) return url;
+    return url.endsWith('/') ? url : url + '/';
+}
+
 const $host = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: sanitizeUrl(process.env.REACT_APP_API_URL)
 })
 
 const $authHost = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: sanitizeUrl(process.env.REACT_APP_API_URL)
 })
 
 const authInterceptor = config => {
