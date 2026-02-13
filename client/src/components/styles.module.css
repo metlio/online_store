@@ -8,7 +8,6 @@
   transition: box-shadow 0.5s, opacity 0.5s;
   will-change: transform;
   border: 10px solid white;
-  cursor: grab;
   overflow: hidden;
   touch-action: none;
 }
