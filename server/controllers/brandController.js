@@ -18,11 +18,16 @@ class BrandController {
                     return next(ApiError.badRequest('Неверный тип файла'));
                 }
 
-                if (process.env.CLOUDINARY_CLOUD_NAME) {
-                    fileName = await uploadToCloudinary(img.data);
-                } else {
-                    fileName = uuid.v4() + "." + extension;
-                    await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                try {
+                    if (process.env.CLOUDINARY_CLOUD_NAME) {
+                        fileName = await uploadToCloudinary(img.data);
+                    } else {
+                        fileName = uuid.v4() + "." + extension;
+                        await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                    }
+                } catch (e) {
+                    console.error('Brand image upload error:', e);
+                    return next(ApiError.badRequest('Ошибка при загрузке изображения бренда: ' + e.message));
                 }
             }
 

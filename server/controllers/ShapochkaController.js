@@ -20,11 +20,16 @@ class ShapochkaController {
             }
 
             let fileName;
-            if (process.env.CLOUDINARY_CLOUD_NAME) {
-                fileName = await uploadToCloudinary(img.data);
-            } else {
-                fileName = uuid.v4() + "." + extension;
-                await img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            try {
+                if (process.env.CLOUDINARY_CLOUD_NAME) {
+                    fileName = await uploadToCloudinary(img.data);
+                } else {
+                    fileName = uuid.v4() + "." + extension;
+                    await img.mv(path.resolve(__dirname, '..', 'static', fileName))
+                }
+            } catch (e) {
+                console.error('Shapochka image upload error:', e);
+                return next(ApiError.badRequest('Ошибка при загрузке изображения: ' + e.message));
             }
 
             const shapochka = await Shapochka.create({name, img: fileName});

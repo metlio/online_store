@@ -1,7 +1,7 @@
 
 
 h4 {
-    font-family: 'Sixtyfour', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 5rem;
 }
 
@@ -17,6 +17,11 @@ h4 {
  
 html {
     scroll-behavior: smooth;
+    cursor: none !important;
+}
+
+*, *::before, *::after {
+    cursor: none !important;
 }
  
 body {

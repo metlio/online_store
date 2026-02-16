@@ -16,32 +16,56 @@ class DeviceController {
             }
 
             const {img} = req.files;
+            console.log('Received img:', img.name, 'mimetype:', img.mimetype);
+
             const extension1 = mime.extension(img.mimetype);
             if (!extension1) {
+                console.error('Invalid extension for img:', img.mimetype);
                 return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
             }
 
             let fileName;
-            if (process.env.CLOUDINARY_CLOUD_NAME) {
-                fileName = await uploadToCloudinary(img.data);
-            } else {
-                fileName = uuid.v4() + "." + extension1;
-                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+            try {
+                if (process.env.CLOUDINARY_CLOUD_NAME) {
+                    console.log('Uploading primary image to Cloudinary...');
+                    fileName = await uploadToCloudinary(img.data);
+                    console.log('Cloudinary URL:', fileName);
+                } else {
+                    console.warn('Cloudinary NOT configured, falling back to local storage');
+                    fileName = uuid.v4() + "." + extension1;
+                    await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                    console.log('Saved locally to static/', fileName);
+                }
+            } catch (uploadError) {
+                console.error('Primary image upload error:', uploadError);
+                return next(ApiError.badRequest('Ошибка при загрузке основного изображения: ' + uploadError.message));
             }
 
             let filekName = fileName; // По умолчанию второе изображение такое же, как первое
             if (req.files.imgg) {
                 const {imgg} = req.files;
+                console.log('Received imgg:', imgg.name, 'mimetype:', imgg.mimetype);
                 const extension2 = mime.extension(imgg.mimetype);
                 if (!extension2) {
+                    console.error('Invalid extension for imgg:', imgg.mimetype);
                     return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
                 }
 
-                if (process.env.CLOUDINARY_CLOUD_NAME) {
-                    filekName = await uploadToCloudinary(imgg.data);
-                } else {
-                    filekName = uuid.v4() + "." + extension2;
-                    await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                try {
+                    if (process.env.CLOUDINARY_CLOUD_NAME) {
+                        console.log('Uploading secondary image to Cloudinary...');
+                        filekName = await uploadToCloudinary(imgg.data);
+                        console.log('Cloudinary URL 2:', filekName);
+                    } else {
+                        filekName = uuid.v4() + "." + extension2;
+                        await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                        console.log('Saved imgg locally to static/', filekName);
+                    }
+                } catch (uploadError2) {
+                    console.error('Secondary image upload error:', uploadError2);
+                    // Не прерываем процесс, если второе фото не загрузилось, просто используем первое
+                    console.warn('Failed to upload secondary image, using primary as fallback');
+                    filekName = fileName;
                 }
             }
 
