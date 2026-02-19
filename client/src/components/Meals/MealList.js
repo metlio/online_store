@@ -20,7 +20,7 @@ const MealList = () => {
         setIsLoading(true);
 
         const response = await fetch(
-            "http://localhost:5000/api/device"
+            (process.env.REACT_APP_API_URL || 'http://localhost:5000/') + "api/device"
           );
           
           if(!response.ok) {
