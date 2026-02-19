@@ -12,8 +12,8 @@ class ShapochkaController {
                 return next(ApiError.badRequest('Изображение не выбрано'));
             }
             const {img} = req.files
-            console.log('Uploading shapochka image to Cloudinary...');
-            const imgUrl = await uploadToCloudinary(img.data);
+            console.log('Uploading shapochka image to Cloudinary from path:', img.tempFilePath);
+            const imgUrl = await uploadToCloudinary(img.tempFilePath);
             console.log('Shapochka image uploaded:', imgUrl);
             const shapochka = await Shapochka.create({name, img: imgUrl});
             return res.json(shapochka)

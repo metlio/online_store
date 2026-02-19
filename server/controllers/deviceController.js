@@ -15,15 +15,15 @@ class DeviceController {
             }
 
             const {img} = req.files;
-            console.log('Uploading primary image to Cloudinary...');
-            const imgUrl = await uploadToCloudinary(img.data);
+            console.log('Uploading primary image to Cloudinary from path:', img.tempFilePath);
+            const imgUrl = await uploadToCloudinary(img.tempFilePath);
             console.log('Primary image uploaded:', imgUrl);
 
             let imggUrl = imgUrl; // По умолчанию второе изображение такое же, как первое
             if (req.files.imgg) {
                 const {imgg} = req.files;
-                console.log('Uploading secondary image to Cloudinary...');
-                imggUrl = await uploadToCloudinary(imgg.data);
+                console.log('Uploading secondary image to Cloudinary from path:', imgg.tempFilePath);
+                imggUrl = await uploadToCloudinary(imgg.tempFilePath);
                 console.log('Secondary image uploaded:', imggUrl);
             }
 

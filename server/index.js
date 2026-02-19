@@ -21,13 +21,14 @@ app.use(cors({
     credentials: true
 }));
 app.use(fileUpload({
-    useTempFiles: false
+    useTempFiles: true,
+    tempFileDir: '/tmp/',
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit (Vercel has its own 4.5MB limit though)
+    abortOnLimit: true
 }))
 app.use(express.json())
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
 app.use('/api', router)
-
-app.use(bodyParser.json())
 
 // // Обработка ошибок, последний Middleware
 app.use(errorHandler)
