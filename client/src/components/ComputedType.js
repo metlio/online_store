@@ -4,6 +4,7 @@ import {Context} from "../index";
 import ListGroup from "react-bootstrap/ListGroup";
 import {fetchShapochka} from "../http/deviceAPI";
 import {Image} from "react-bootstrap"
+import { getImageUrl } from '../utils/getImageUrl';
 
 const ComputedType = observer(() => {
     const {shapochka} = useContext(Context)
@@ -16,7 +17,7 @@ const ComputedType = observer(() => {
                     key={type.id}
                 >
                     {type.name}
-                    <Image src={process.env.REACT_APP_API_URL + '/static/' + type.img}/>
+                    <Image src={getImageUrl(type.img)}/>
                 </ListGroup.Item>
             )}
         </ListGroup>

@@ -3,6 +3,7 @@ import {Context} from "../index";
 import Image from "react-bootstrap/Image";
 import {createDevice, fetchBrands, fetchTypes} from "../http/deviceAPI";
 import {observer} from "mobx-react-lite";
+import { getImageUrl } from '../utils/getImageUrl';
 
 const NewComponent = observer((props) => {
 
@@ -19,7 +20,7 @@ const NewComponent = observer((props) => {
     return (
                 <div>
                                 <div>
-                                    <Image height={20}  src={process.env.REACT_APP_API_URL + '/static/' + result.img}/>
+                                    <Image height={20}  src={getImageUrl(result.img)}/>
                                 </div>
                 </div>
     );

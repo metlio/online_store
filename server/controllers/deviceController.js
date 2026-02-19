@@ -1,9 +1,7 @@
-const uuid = require('uuid');
-const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
 const ApiError = require('../error/ApiError');
-const mime = require('mime-types');
 const { Op } = require('sequelize');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 class DeviceController {
     async create(req, res, next) {
@@ -11,29 +9,25 @@ class DeviceController {
             let {name, price, brandId, typeId, info, rating} = req.body
 
             if (!req.files || !req.files.img) {
+                console.log('Request body:', req.body);
+                console.log('Files received:', req.files ? Object.keys(req.files) : 'None');
                 return next(ApiError.badRequest('Пожалуйста, загрузите основное изображение (img)'));
             }
 
             const {img} = req.files;
-            const extension1 = mime.extension(img.mimetype);
-            if (!extension1) {
-                return next(ApiError.badRequest('Неверный тип файла для первого изображения'));
-            }
-            let fileName = uuid.v4() + "." + extension1;
-            await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+            console.log('Uploading primary image to Cloudinary...');
+            const imgUrl = await uploadToCloudinary(img.data);
+            console.log('Primary image uploaded:', imgUrl);
 
-            let filekName = fileName; // По умолчанию второе изображение такое же, как первое
+            let imggUrl = imgUrl; // По умолчанию второе изображение такое же, как первое
             if (req.files.imgg) {
                 const {imgg} = req.files;
-                const extension2 = mime.extension(imgg.mimetype);
-                if (!extension2) {
-                    return next(ApiError.badRequest('Неверный тип файла для второго изображения'));
-                }
-                filekName = uuid.v4() + "." + extension2;
-                await imgg.mv(path.resolve(__dirname, '..', 'static', filekName));
+                console.log('Uploading secondary image to Cloudinary...');
+                imggUrl = await uploadToCloudinary(imgg.data);
+                console.log('Secondary image uploaded:', imggUrl);
             }
 
-            const device = await Device.create({name, price, brandId, rating, typeId, img: fileName, imgg: filekName});
+            const device = await Device.create({name, price, brandId, rating, typeId, img: imgUrl, imgg: imggUrl});
 
             if (info) {
                 info = JSON.parse(info)

@@ -1,8 +1,6 @@
-const uuid = require('uuid');
-const path = require('path');
 const { Shapochka } = require('../models/models');
 const ApiError = require('../error/ApiError');
-const mime = require('mime-types');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 class ShapochkaController {
     async create(req, res, next) {
@@ -10,16 +8,14 @@ class ShapochkaController {
         try {
             let {name} = req.body
             if (!req.files || !req.files.img) {
+                console.log('Files received:', req.files ? Object.keys(req.files) : 'None');
                 return next(ApiError.badRequest('Изображение не выбрано'));
             }
             const {img} = req.files
-            const extension = mime.extension(img.mimetype);
-            if (!extension) {
-                return next(ApiError.badRequest('Неверный тип файла'));
-            }
-            let fileName = uuid.v4() + "." + extension;
-            await img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const shapochka = await Shapochka.create({name, img: fileName});
+            console.log('Uploading shapochka image to Cloudinary...');
+            const imgUrl = await uploadToCloudinary(img.data);
+            console.log('Shapochka image uploaded:', imgUrl);
+            const shapochka = await Shapochka.create({name, img: imgUrl});
             return res.json(shapochka)
         }
             catch (e) {

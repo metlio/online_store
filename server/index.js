@@ -16,12 +16,12 @@ const fs = require('fs');
 
 const app = express()
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true
 }));
 app.use(fileUpload({
-    createParentPath: true
+    useTempFiles: false
 }))
 app.use(express.json())
 app.use('/static', express.static(path.resolve(__dirname, 'static')))
@@ -39,7 +39,7 @@ const start = async () => {
              fs.mkdirSync(staticPath, { recursive: true });
          }
          await sequelize.authenticate()
-         await sequelize.sync()
+         await sequelize.sync({ alter: true })
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
      } catch (e) {
          console.error('Failed to start server:', e);

@@ -1,26 +1,21 @@
-const uuid = require('uuid');
-const path = require('path');
-const {Brand, Type} = require('../models/models')
+const {Brand} = require('../models/models')
 const ApiError = require('../error/ApiError')
-const mime = require('mime-types');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 class BrandController {
     async create(req, res, next) {
         try {
             const {name} = req.body;
-            let fileName = null;
+            let imgUrl = null;
 
             if (req.files && req.files.img) {
                 const {img} = req.files;
-                const extension = mime.extension(img.mimetype);
-                if (!extension) {
-                    return next(ApiError.badRequest('Неверный тип файла'));
-                }
-                fileName = uuid.v4() + "." + extension;
-                await img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                console.log('Uploading brand image to Cloudinary...');
+                imgUrl = await uploadToCloudinary(img.data);
+                console.log('Brand image uploaded:', imgUrl);
             }
 
-            const brand = await Brand.create({name, img: fileName});
+            const brand = await Brand.create({name, img: imgUrl});
             return res.json(brand);
         } catch (e) {
             next(ApiError.badRequest(e.message));
