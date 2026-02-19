@@ -50,7 +50,7 @@ function Shetchik() {
         const fetchMeals = async () => {
 
             const response = await fetch(
-                "http://localhost:5000/api/device"
+                (process.env.REACT_APP_API_URL || 'http://localhost:5000/') + "api/device"
               );
               
               if(!response.ok) {

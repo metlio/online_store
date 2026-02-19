@@ -9,16 +9,22 @@ class DeviceController {
             let {name, price, brandId, typeId, info, rating} = req.body
 
             if (!req.files || !req.files.img) {
+                console.log('Request body:', req.body);
+                console.log('Files received:', req.files ? Object.keys(req.files) : 'None');
                 return next(ApiError.badRequest('Пожалуйста, загрузите основное изображение (img)'));
             }
 
             const {img} = req.files;
+            console.log('Uploading primary image to Cloudinary...');
             const imgUrl = await uploadToCloudinary(img.data);
+            console.log('Primary image uploaded:', imgUrl);
 
             let imggUrl = imgUrl; // По умолчанию второе изображение такое же, как первое
             if (req.files.imgg) {
                 const {imgg} = req.files;
+                console.log('Uploading secondary image to Cloudinary...');
                 imggUrl = await uploadToCloudinary(imgg.data);
+                console.log('Secondary image uploaded:', imggUrl);
             }
 
             const device = await Device.create({name, price, brandId, rating, typeId, img: imgUrl, imgg: imggUrl});

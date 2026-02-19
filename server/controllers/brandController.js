@@ -10,7 +10,9 @@ class BrandController {
 
             if (req.files && req.files.img) {
                 const {img} = req.files;
+                console.log('Uploading brand image to Cloudinary...');
                 imgUrl = await uploadToCloudinary(img.data);
+                console.log('Brand image uploaded:', imgUrl);
             }
 
             const brand = await Brand.create({name, img: imgUrl});
