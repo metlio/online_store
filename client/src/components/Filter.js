@@ -5,6 +5,7 @@ import styles from './Filter.module.css';
 import { Form, Button } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { FaFilter } from 'react-icons/fa';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const Filter = observer(() => {
     const { device } = useContext(Context);
@@ -81,7 +82,7 @@ const Filter = observer(() => {
                                     className={`${styles.brandItem} ${brand.id === device.selectedBrand.id ? styles.activeBrand : ''}`}
                                     onClick={() => device.setSelectedBrand(brand)}
                                 >
-                                    <Image width={30} src={process.env.REACT_APP_API_URL + '/static/' + brand.img} />
+                                    <Image width={30} src={getImageUrl(brand.img)} />
                                 </div>
                             )}
                         </div>

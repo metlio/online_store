@@ -21,14 +21,14 @@ const Device = sequelize.define('device', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
     rating: {type: DataTypes.DECIMAL, defaultValue: 0.0},
-    img: {type: DataTypes.STRING, allowNull: false},
-    imgg: {type: DataTypes.STRING, allowNull: false},
+    img: {type: DataTypes.TEXT, allowNull: false},
+    imgg: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const Shapochka = sequelize.define('shapochka', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: false},
+    img: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const Type = sequelize.define('type', {
@@ -39,7 +39,7 @@ const Type = sequelize.define('type', {
 const Brand = sequelize.define('brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: true},
+    img: {type: DataTypes.TEXT, allowNull: true},
 
 
 })

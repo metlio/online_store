@@ -5,6 +5,7 @@ import {Context} from "../../index";
 import Image from "react-bootstrap/Image";
 import {createDevice, fetchBrands, fetchTypes} from "../../http/deviceAPI";
 import {observer} from "mobx-react-lite";
+import { getImageUrl } from '../../utils/getImageUrl';
 
 const CreateDevice = observer(({show, onHide, refresh}) => {
 
@@ -127,7 +128,7 @@ const CreateDevice = observer(({show, onHide, refresh}) => {
                                     key={brand.id}
                                 >
                                     {brand.name}
-                                    <Image width={20} height={20} src={process.env.REACT_APP_API_URL + '/static/' + brand.img}/>
+                                    <Image width={20} height={20} src={getImageUrl(brand.img)}/>
                                 </Dropdown.Item>
                             )}
                         </Dropdown.Menu>
