@@ -38,7 +38,7 @@ const QUIZ_SECTIONS = [
             'Уменьшает скорость загрузки'
         ],
         correct: 0,
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
+        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/78a21ffd-4ea0-44c9-b444-e7e629716564.mp4'
     },
     {
         id: 'q3',
