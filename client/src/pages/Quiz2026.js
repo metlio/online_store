@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
-const LOGO_IMAGE = 'https://i.postimg.cc/QdQcN7TB/3432532.png';
+const LOGO_IMAGE = 'https://i.postimg.cc/vHN6QzT0/332423.png';
 
 const QUIZ_SECTIONS = [
     {
@@ -30,6 +30,7 @@ const QUIZ_SECTIONS = [
         id: 'q2',
         type: 'question',
         videoPosition: 'right',
+        hasSpotlightMask: true,
         badge: 'ВОПРОС 2 ИЗ 3',
         question: 'Как вертикальное видео влияет на вовлеченность в интерактивных лендингах?',
         options: [
@@ -45,6 +46,7 @@ const QUIZ_SECTIONS = [
         id: 'q3',
         type: 'question',
         videoPosition: 'left',
+        hasSpotlightMask: true,
         badge: 'ВОПРОС 3 ИЗ 3',
         question: 'Что является главным приоритетом при проектировании современных веб-интерфейсов?',
         options: [
@@ -54,7 +56,7 @@ const QUIZ_SECTIONS = [
             'Автопроигрывание звука на 100%'
         ],
         correct: 0,
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
+        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/e1dfa3b5-3003-432e-a8f3-26e0ccb1359d.mp4'
     },
     {
         id: 'outro',
@@ -449,20 +451,15 @@ const Quiz2026 = () => {
                                 width: '100%',
                                 flexWrap: 'wrap-reverse'
                             }}>
-                                {hasSpotlight ? (
+                                {isVideoLeft ? (
                                     <>
-                                        <QuestionBox section={section} answers={answers} onSelectAnswer={handleSelectAnswer} />
-                                        <SpotlightVideoFrame videoSrc={section.video} />
-                                    </>
-                                ) : isVideoLeft ? (
-                                    <>
-                                        <VerticalVideoFrame videoSrc={section.video} />
+                                        {hasSpotlight ? <SpotlightVideoFrame videoSrc={section.video} /> : <VerticalVideoFrame videoSrc={section.video} />}
                                         <QuestionBox section={section} answers={answers} onSelectAnswer={handleSelectAnswer} />
                                     </>
                                 ) : (
                                     <>
                                         <QuestionBox section={section} answers={answers} onSelectAnswer={handleSelectAnswer} />
-                                        <VerticalVideoFrame videoSrc={section.video} />
+                                        {hasSpotlight ? <SpotlightVideoFrame videoSrc={section.video} /> : <VerticalVideoFrame videoSrc={section.video} />}
                                     </>
                                 )}
                             </div>
