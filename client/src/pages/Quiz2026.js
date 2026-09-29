@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const QUIZ_SECTIONS = [
     {
@@ -12,7 +12,8 @@ const QUIZ_SECTIONS = [
     {
         id: 'q1',
         type: 'question',
-        videoPosition: 'left', // Video on left, question on right
+        videoPosition: 'right', // Question on left, video on right occupying main right area
+        hasSpotlightMask: true,
         badge: 'ВОПРОС 1 ИЗ 3',
         question: 'Какой ключевой элемент определяет эстетику 2026 года?',
         options: [
@@ -22,7 +23,7 @@ const QUIZ_SECTIONS = [
             'Монохромный открытый код'
         ],
         correct: 0,
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
+        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/25/1c7fdfdb-391c-498f-9fca-2176453cfcde.mp4'
     },
     {
         id: 'q2',
@@ -93,6 +94,129 @@ const VerticalVideoFrame = ({ videoSrc }) => {
             >
                 <source src={videoSrc} type="video/mp4" />
             </video>
+        </div>
+    );
+};
+
+const SpotlightVideoFrame = ({ videoSrc }) => {
+    const containerRef = useRef(null);
+    const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseMove = (e) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        setMousePos({ x, y });
+    };
+
+    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseLeave = () => setIsHovering(false);
+
+    const spotlightX = isHovering ? `${mousePos.x}%` : '50%';
+    const spotlightY = isHovering ? `${mousePos.y}%` : '50%';
+    const maskOpacity = isHovering ? 1 : 0.35;
+
+    return (
+        <div
+            ref={containerRef}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                position: 'relative',
+                flex: '1 1 500px',
+                maxWidth: '750px',
+                height: '78vh',
+                maxHeight: '720px',
+                borderRadius: '28px',
+                overflow: 'hidden',
+                boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.18)',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                cursor: 'crosshair',
+                userSelect: 'none'
+            }}
+        >
+            {/* Blurred background video */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    filter: 'blur(18px) brightness(0.75) contrast(1.1)',
+                    transform: 'scale(1.08)'
+                }}
+            >
+                <source src={videoSrc} type="video/mp4" />
+            </video>
+
+            {/* Clear video layer revealed by circular mask spotlight */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    filter: 'brightness(1.05)',
+                    maskImage: `radial-gradient(circle 140px at ${spotlightX} ${spotlightY}, black 0%, black 50%, transparent 100%)`,
+                    WebkitMaskImage: `radial-gradient(circle 140px at ${spotlightX} ${spotlightY}, black 0%, black 50%, transparent 100%)`,
+                    opacity: maskOpacity,
+                    transition: 'opacity 0.3s ease',
+                    pointerEvents: 'none'
+                }}
+            >
+                <source src={videoSrc} type="video/mp4" />
+            </video>
+
+            {/* Outer glass ring accent */}
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    pointerEvents: 'none',
+                    background: `radial-gradient(circle 145px at ${spotlightX} ${spotlightY}, transparent 78%, rgba(255,255,255,0.45) 92%, transparent 100%)`,
+                    opacity: isHovering ? 1 : 0.4,
+                    transition: 'opacity 0.3s ease'
+                }}
+            />
+
+            {/* Hint overlay */}
+            <div style={{
+                position: 'absolute',
+                bottom: '18px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                padding: '8px 18px',
+                background: 'rgba(0,0,0,0.55)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                borderRadius: '20px',
+                fontSize: '0.8rem',
+                color: 'rgba(255,255,255,0.85)',
+                pointerEvents: 'none',
+                letterSpacing: '0.04em',
+                border: '1px solid rgba(255,255,255,0.15)'
+            }}>
+                🔍 Наведите мышью, чтобы рассмотреть четкий кадр
+            </div>
         </div>
     );
 };
@@ -289,6 +413,8 @@ const Quiz2026 = () => {
 
                 if (section.type === 'question') {
                     const isVideoLeft = section.videoPosition === 'left';
+                    const hasSpotlight = section.hasSpotlightMask;
+
                     return (
                         <div
                             key={section.id}
@@ -300,7 +426,7 @@ const Quiz2026 = () => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                padding: '2rem',
+                                padding: '2.5rem',
                                 boxSizing: 'border-box',
                                 background: '#0D0F14'
                             }}
@@ -310,12 +436,17 @@ const Quiz2026 = () => {
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '3rem',
-                                maxWidth: '1000px',
+                                gap: '2.5rem',
+                                maxWidth: hasSpotlight ? '1280px' : '1000px',
                                 width: '100%',
                                 flexWrap: 'wrap-reverse'
                             }}>
-                                {isVideoLeft ? (
+                                {hasSpotlight ? (
+                                    <>
+                                        <QuestionBox section={section} answers={answers} onSelectAnswer={handleSelectAnswer} />
+                                        <SpotlightVideoFrame videoSrc={section.video} />
+                                    </>
+                                ) : isVideoLeft ? (
                                     <>
                                         <VerticalVideoFrame videoSrc={section.video} />
                                         <QuestionBox section={section} answers={answers} onSelectAnswer={handleSelectAnswer} />
