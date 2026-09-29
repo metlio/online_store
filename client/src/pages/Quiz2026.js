@@ -1,18 +1,19 @@
 import React, { useState, useRef } from 'react';
 
+const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
+const LOGO_IMAGE = 'https://i.postimg.cc/tTg3mcwN/43232.png';
+
 const QUIZ_SECTIONS = [
     {
         id: 'intro',
         type: 'intro',
         badge: 'ВИКТОРИНА 2026',
-        title: 'Квиз 2026',
-        subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Вопросы больше не пугают до усрачки,  а после прохождения нет ощущения что нахлебался дерьма. Только чистый дух и AI Intellegence by Google & Mixosya',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
+        subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Вопросы больше не пугают до усрачки,  а после прохождения нет ощущения что нахлебался дерьма. Только чистый дух и AI Intellegence by Google & Mixosya'
     },
     {
         id: 'q1',
         type: 'question',
-        videoPosition: 'right', // Question on left, video on right occupying main right area
+        videoPosition: 'right',
         hasSpotlightMask: true,
         badge: 'ВОПРОС 1 ИЗ 3',
         question: 'Какой ключевой элемент определяет эстетику 2026 года?',
@@ -28,7 +29,7 @@ const QUIZ_SECTIONS = [
     {
         id: 'q2',
         type: 'question',
-        videoPosition: 'right', // Question on left, video on right
+        videoPosition: 'right',
         badge: 'ВОПРОС 2 ИЗ 3',
         question: 'Как вертикальное видео влияет на вовлеченность в интерактивных лендингах?',
         options: [
@@ -43,7 +44,7 @@ const QUIZ_SECTIONS = [
     {
         id: 'q3',
         type: 'question',
-        videoPosition: 'left', // Video on left, question on right
+        videoPosition: 'left',
         badge: 'ВОПРОС 3 ИЗ 3',
         question: 'Что является главным приоритетом при проектировании современных веб-интерфейсов?',
         options: [
@@ -60,8 +61,7 @@ const QUIZ_SECTIONS = [
         type: 'outro',
         badge: 'ФИНАЛ',
         title: 'Спасибо за участие!',
-        subtitle: 'Вы прошли весь лендинг Квиз 2026.',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
+        subtitle: 'Вы прошли весь лендинг Квиз 2026.'
     }
 ];
 
@@ -316,6 +316,27 @@ const Quiz2026 = () => {
                 color: '#FFFFFF'
             }}
         >
+            {/* Continuous Fixed Background Video */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    objectFit: 'cover',
+                    filter: 'brightness(0.45) contrast(1.05)',
+                    zIndex: 0,
+                    pointerEvents: 'none'
+                }}
+            >
+                <source src={BACKGROUND_VIDEO} type="video/mp4" />
+            </video>
+
             {QUIZ_SECTIONS.map((section) => {
                 if (section.type === 'intro') {
                     return (
@@ -331,29 +352,10 @@ const Quiz2026 = () => {
                                 alignItems: 'center',
                                 position: 'relative',
                                 padding: '2rem',
-                                boxSizing: 'border-box'
+                                boxSizing: 'border-box',
+                                zIndex: 1
                             }}
                         >
-                            {/* Intro section full background video */}
-                            <video
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    filter: 'brightness(0.55) contrast(1.05)',
-                                    zIndex: 0
-                                }}
-                            >
-                                <source src={section.video} type="video/mp4" />
-                            </video>
-
                             <div style={{
                                 position: 'relative',
                                 zIndex: 2,
@@ -383,16 +385,20 @@ const Quiz2026 = () => {
                                 }}>
                                     {section.badge}
                                 </div>
-                                <h1 style={{
-                                    fontSize: '3.5rem',
-                                    fontWeight: 300,
-                                    letterSpacing: '-0.04em',
-                                    lineHeight: '1.1',
-                                    margin: '0 0 1.25rem 0',
-                                    color: '#FFFFFF'
-                                }}>
-                                    {section.title}
-                                </h1>
+
+                                <img
+                                    src={LOGO_IMAGE}
+                                    alt="Квиз 2026"
+                                    style={{
+                                        maxWidth: '340px',
+                                        width: '90%',
+                                        height: 'auto',
+                                        objectFit: 'contain',
+                                        margin: '0 auto 1.5rem auto',
+                                        display: 'block'
+                                    }}
+                                />
+
                                 <p style={{
                                     fontSize: '1.05rem',
                                     lineHeight: '1.7',
@@ -429,7 +435,8 @@ const Quiz2026 = () => {
                                 alignItems: 'center',
                                 padding: '2.5rem',
                                 boxSizing: 'border-box',
-                                background: '#0D0F14'
+                                position: 'relative',
+                                zIndex: 1
                             }}
                         >
                             <div style={{
@@ -477,28 +484,10 @@ const Quiz2026 = () => {
                                 alignItems: 'center',
                                 position: 'relative',
                                 padding: '2rem',
-                                boxSizing: 'border-box'
+                                boxSizing: 'border-box',
+                                zIndex: 1
                             }}
                         >
-                            <video
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    filter: 'brightness(0.55) contrast(1.05)',
-                                    zIndex: 0
-                                }}
-                            >
-                                <source src={section.video} type="video/mp4" />
-                            </video>
-
                             <div style={{
                                 position: 'relative',
                                 zIndex: 2,
