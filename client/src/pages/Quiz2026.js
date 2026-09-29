@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
-const LOGO_IMAGE = 'https://i.postimg.cc/tTg3mcwN/43232.png';
+const LOGO_IMAGE = 'https://i.postimg.cc/QdQcN7TB/3432532.png';
 
 const QUIZ_SECTIONS = [
     {
