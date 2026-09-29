@@ -6,7 +6,7 @@ const QUIZ_SECTIONS = [
         type: 'intro',
         badge: 'ВИКТОРИНА 2026',
         title: 'Квиз 2026',
-        subtitle: 'Добро пожаловать на интерактивный квиз-лендинг. Проскролльте вниз, чтобы изучить вопросы.',
+        subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Вопросы больше не пугают до усрачки,  а после прохождения нет ощущения что нахлебался дерьма. Только чистый дух и AI Intellegence by Google & Mixosya',
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
     },
     {
@@ -69,13 +69,13 @@ const VerticalVideoFrame = ({ videoSrc }) => {
     return (
         <div style={{
             position: 'relative',
-            width: '320px',
-            height: '568px',
+            height: '80vh',
+            maxHeight: '760px',
+            aspectRatio: '9 / 16',
             maxWidth: '100%',
-            maxHeight: '75vh',
-            borderRadius: '24px',
+            borderRadius: '28px',
             overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             border: '1px solid rgba(255, 255, 255, 0.18)',
             backgroundColor: 'rgba(0,0,0,0.4)',
             flexShrink: 0
@@ -126,17 +126,18 @@ const SpotlightVideoFrame = ({ videoSrc }) => {
             onMouseLeave={handleMouseLeave}
             style={{
                 position: 'relative',
-                flex: '1 1 500px',
-                maxWidth: '750px',
-                height: '78vh',
-                maxHeight: '720px',
+                height: '80vh',
+                maxHeight: '760px',
+                aspectRatio: '9 / 16',
+                maxWidth: '100%',
                 borderRadius: '28px',
                 overflow: 'hidden',
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
                 border: '1px solid rgba(255, 255, 255, 0.18)',
                 backgroundColor: 'rgba(0,0,0,0.5)',
                 cursor: 'crosshair',
-                userSelect: 'none'
+                userSelect: 'none',
+                flexShrink: 0
             }}
         >
             {/* Blurred background video */}
@@ -356,7 +357,7 @@ const Quiz2026 = () => {
                             <div style={{
                                 position: 'relative',
                                 zIndex: 2,
-                                maxWidth: '540px',
+                                maxWidth: '640px',
                                 width: '100%',
                                 background: 'rgba(255, 255, 255, 0.08)',
                                 backdropFilter: 'blur(28px) saturate(180%)',
@@ -398,7 +399,7 @@ const Quiz2026 = () => {
                                     color: 'rgba(255, 255, 255, 0.85)',
                                     fontWeight: 300,
                                     margin: '0 auto 2.5rem auto',
-                                    maxWidth: '420px'
+                                    maxWidth: '520px'
                                 }}>
                                     {section.subtitle}
                                 </p>
