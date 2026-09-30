@@ -1,0 +1,25 @@
+ INFO  Accepting connections at http://localhost:3005
+ HTTP  9/30/2026 9:34:14 AM ::1 GET /2026
+ HTTP  9/30/2026 9:34:14 AM ::1 Returned 200 in 39 ms
+ HTTP  9/30/2026 9:34:14 AM ::1 GET /index.css
+ HTTP  9/30/2026 9:34:14 AM ::1 GET /static/css/main.7393d8e0.css
+ HTTP  9/30/2026 9:34:14 AM ::1 GET /static/js/main.1101ec00.js
+ HTTP  9/30/2026 9:34:14 AM ::1 Returned 200 in 5 ms
+ HTTP  9/30/2026 9:34:14 AM ::1 Returned 200 in 5 ms
+ HTTP  9/30/2026 9:34:14 AM ::1 Returned 200 in 9 ms
+ HTTP  9/30/2026 9:34:15 AM ::1 GET /api/user/auth
+ HTTP  9/30/2026 9:34:15 AM ::1 Returned 200 in 3 ms
+ HTTP  9/30/2026 9:34:15 AM ::1 GET /static/media/m.0b94cc88eb1e57919b4f.mp3
+ HTTP  9/30/2026 9:34:15 AM ::1 Returned 206 in 7 ms
+ HTTP  9/30/2026 9:34:54 AM ::1 GET /2026
+ HTTP  9/30/2026 9:34:54 AM ::1 Returned 200 in 1 ms
+ HTTP  9/30/2026 9:34:54 AM ::1 GET /index.css
+ HTTP  9/30/2026 9:34:54 AM ::1 Returned 200 in 1 ms
+ HTTP  9/30/2026 9:34:54 AM ::1 GET /static/css/main.7393d8e0.css
+ HTTP  9/30/2026 9:34:54 AM ::1 GET /static/js/main.1101ec00.js
+ HTTP  9/30/2026 9:34:54 AM ::1 Returned 200 in 3 ms
+ HTTP  9/30/2026 9:34:54 AM ::1 Returned 200 in 2 ms
+ HTTP  9/30/2026 9:34:54 AM ::1 GET /api/user/auth
+ HTTP  9/30/2026 9:34:54 AM ::1 Returned 200 in 1 ms
+ HTTP  9/30/2026 9:34:54 AM ::1 GET /static/media/m.0b94cc88eb1e57919b4f.mp3
+ HTTP  9/30/2026 9:34:54 AM ::1 Returned 206 in 1 ms
