@@ -23,7 +23,8 @@ const QUIZ_SECTIONS = [
             'Да',
             'Ннет'
         ],
-        correct: 0,
+        correct: 1, // Ннет
+        sound: 'https://zvukogram.com/mp3/cats/142/stsenicheskoe-vesele-antagonista--oglushitelnoe.mp3',
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/25/1c7fdfdb-391c-498f-9fca-2176453cfcde.mp4'
     },
     {
@@ -37,7 +38,8 @@ const QUIZ_SECTIONS = [
             'Быль',
             'Ннебыль'
         ],
-        correct: 0,
+        correct: 0, // Быль
+        sound: 'https://zvukogram.com/mp3/cats/142/vesele-s-jeleznyim-otzvukom.mp3',
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/78a21ffd-4ea0-44c9-b444-e7e629716564.mp4'
     },
     {
@@ -51,7 +53,8 @@ const QUIZ_SECTIONS = [
             'Реальность',
             'Фантазия'
         ],
-        correct: 0,
+        correct: 1, // Фантазия
+        sound: 'https://zvukogram.com/mp3/cats/142/nizkiy-gortannyiy-hohot.mp3',
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/e1dfa3b5-3003-432e-a8f3-26e0ccb1359d.mp4'
     },
     {
@@ -65,7 +68,8 @@ const QUIZ_SECTIONS = [
             'Праавда',
             'Лоожь'
         ],
-        correct: 0,
+        correct: 0, // Праавда
+        sound: 'https://zvukogram.com/mp3/cats/908/veselyiy-raskatistyiy-hohot.mp3',
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/30/1e3ad4f6-18ef-4798-af98-e9a7844aa357.mp4'
     },
     {
@@ -74,6 +78,12 @@ const QUIZ_SECTIONS = [
         badge: 'ФИНАЛ',
         title: 'Спасибо за участие!',
         subtitle: 'Вы прошли весь лендинг Квиз 2026.'
+    },
+    {
+        id: 'results',
+        type: 'results',
+        badge: 'РЕЗУЛЬТАТЫ',
+        title: 'Итоги викторины'
     }
 ];
 
@@ -411,8 +421,31 @@ const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
     const [isPastScreen1, setIsPastScreen1] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
     const containerRef = useRef(null);
     const audioRef = useRef(null);
+    const questionAudioRef = useRef(null);
+    const activeSectionRef = useRef('intro');
+
+    useEffect(() => {
+        // Generate or retrieve user info
+        let storedId = localStorage.getItem('quiz_user_id');
+        let storedName = localStorage.getItem('quiz_user_name');
+
+        if (!storedId) {
+            const randomHash = Math.random().toString(36).substring(2, 8).toUpperCase();
+            storedId = `ID-${randomHash}`;
+            localStorage.setItem('quiz_user_id', storedId);
+        }
+
+        if (!storedName) {
+            const platform = navigator.platform ? navigator.platform : 'Web Browser';
+            storedName = `Игрок (${platform})`;
+            localStorage.setItem('quiz_user_name', storedName);
+        }
+
+        setUserInfo({ name: storedName, id: storedId });
+    }, []);
 
     useEffect(() => {
         document.title = 'Quizzy AI™';
@@ -423,10 +456,27 @@ const Quiz2026 = () => {
             if (!containerRef.current) return;
             const scrollTop = containerRef.current.scrollTop;
             const clientHeight = containerRef.current.clientHeight;
+
             if (scrollTop >= clientHeight * 0.4) {
                 setIsPastScreen1(true);
             } else {
                 setIsPastScreen1(false);
+            }
+
+            // Detect current active section index
+            const currentIndex = Math.round(scrollTop / clientHeight);
+            const currentSection = QUIZ_SECTIONS[currentIndex];
+
+            if (currentSection && currentSection.id !== activeSectionRef.current) {
+                activeSectionRef.current = currentSection.id;
+
+                // Play specific question sound if present
+                if (currentSection.sound) {
+                    if (questionAudioRef.current) {
+                        questionAudioRef.current.src = currentSection.sound;
+                        questionAudioRef.current.play().catch(err => console.log('Question audio play error:', err));
+                    }
+                }
             }
         };
 
@@ -492,8 +542,9 @@ const Quiz2026 = () => {
                 }
             `}</style>
 
-            {/* Ambient Background Music */}
+            {/* Ambient Background Music & Question Sounds */}
             <audio ref={audioRef} src={AMBIENT_AUDIO} loop />
+            <audio ref={questionAudioRef} />
 
             {/* Continuous Fixed Background Video (Visible on Screen 2+) */}
             <video
@@ -723,10 +774,131 @@ const Quiz2026 = () => {
                                     lineHeight: '1.7',
                                     color: 'rgba(255, 255, 255, 0.85)',
                                     fontWeight: 300,
-                                    margin: '0 auto',
+                                    margin: '0 auto 2rem auto',
                                     maxWidth: '420px'
                                 }}>
                                     {section.subtitle}
+                                </p>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.7)' }}>
+                                    <span style={{ fontSize: '0.8rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Результаты ниже</span>
+                                    <span style={{ fontSize: '1.25rem' }}>↓</span>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }
+
+                if (section.type === 'results') {
+                    // Calculate score
+                    const questions = QUIZ_SECTIONS.filter(s => s.type === 'question');
+                    let correctCount = 0;
+                    questions.forEach(q => {
+                        if (answers[q.id] === q.correct) {
+                            correctCount++;
+                        }
+                    });
+
+                    return (
+                        <div
+                            key={section.id}
+                            style={{
+                                height: '100vh',
+                                width: '100vw',
+                                scrollSnapAlign: 'start',
+                                scrollSnapStop: 'always',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                position: 'relative',
+                                padding: '2rem',
+                                boxSizing: 'border-box',
+                                zIndex: 1
+                            }}
+                        >
+                            <div style={{
+                                position: 'relative',
+                                zIndex: 2,
+                                maxWidth: '580px',
+                                width: '100%',
+                                background: 'rgba(255, 255, 255, 0.08)',
+                                backdropFilter: 'blur(30px) saturate(180%)',
+                                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                                borderRadius: '28px',
+                                padding: '3.5rem 2.5rem',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                textAlign: 'center',
+                                boxShadow: '0 30px 60px rgba(0,0,0,0.45)'
+                            }}>
+                                <div style={{
+                                    display: 'inline-block',
+                                    padding: '0.4rem 1.2rem',
+                                    background: 'rgba(255, 255, 255, 0.12)',
+                                    borderRadius: '30px',
+                                    fontSize: '0.75rem',
+                                    fontWeight: 600,
+                                    letterSpacing: '0.2em',
+                                    textTransform: 'uppercase',
+                                    color: '#FFFFFF',
+                                    marginBottom: '1.75rem',
+                                    border: '1px solid rgba(255, 255, 255, 0.18)'
+                                }}>
+                                    {section.badge}
+                                </div>
+
+                                <h2 style={{
+                                    fontSize: '2.5rem',
+                                    fontWeight: 300,
+                                    lineHeight: '1.2',
+                                    margin: '0 0 2rem 0',
+                                    color: '#FFFFFF'
+                                }}>
+                                    {section.title}
+                                </h2>
+
+                                {/* User info card */}
+                                <div style={{
+                                    background: 'rgba(255, 255, 255, 0.06)',
+                                    borderRadius: '20px',
+                                    padding: '1.5rem',
+                                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '1rem',
+                                    marginBottom: '2rem'
+                                }}>
+                                    <div style={{ textAlign: 'left' }}>
+                                        <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#FFFFFF', marginBottom: '0.25rem' }}>
+                                            {userInfo.name}
+                                        </div>
+                                        <div style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'monospace' }}>
+                                            {userInfo.id}
+                                        </div>
+                                    </div>
+
+                                    <div style={{
+                                        background: 'linear-gradient(135deg, #FF2A85, #00E5FF)',
+                                        padding: '0.75rem 1.5rem',
+                                        borderRadius: '16px',
+                                        fontWeight: 800,
+                                        fontSize: '1.4rem',
+                                        color: '#FFFFFF',
+                                        boxShadow: '0 8px 20px rgba(0, 229, 255, 0.25)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.4rem'
+                                    }}>
+                                        <span>{correctCount}</span>
+                                        <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>/ {questions.length}</span>
+                                    </div>
+                                </div>
+
+                                <p style={{
+                                    fontSize: '0.9rem',
+                                    color: 'rgba(255, 255, 255, 0.6)',
+                                    margin: 0
+                                }}>
+                                    {correctCount === questions.length ? '🎉 Идеальный результат! Поздравляем!' : 'Отличная попытка! Попробуйте пройти еще раз.'}
                                 </p>
                             </div>
                         </div>
