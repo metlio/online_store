@@ -9,14 +9,14 @@ const QUIZ_SECTIONS = [
         id: 'intro',
         type: 'intro',
         badge: 'ВИКТОРИНА 2026',
-        subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Вопросы больше не пугают до усрачки,  а после прохождения нет ощущения что нахлебался дерьма. Только чистый дух и AI Intellegence by Google & Mixosya'
+        subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya'
     },
     {
         id: 'q1',
         type: 'question',
         videoPosition: 'right',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 1 ИЗ 3',
+        badge: 'ВОПРОС 1 ИЗ 4',
         question: 'Какой ключевой элемент определяет эстетику 2026 года?',
         options: [
             'Минимализм и живой видеоконтент',
@@ -32,7 +32,7 @@ const QUIZ_SECTIONS = [
         type: 'question',
         videoPosition: 'right',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 2 ИЗ 3',
+        badge: 'ВОПРОС 2 ИЗ 4',
         question: 'Как вертикальное видео влияет на вовлеченность в интерактивных лендингах?',
         options: [
             'Увеличивает фокус и глубину просмотра',
@@ -48,7 +48,7 @@ const QUIZ_SECTIONS = [
         type: 'question',
         videoPosition: 'left',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 3 ИЗ 3',
+        badge: 'ВОПРОС 3 ИЗ 4',
         question: 'Что является главным приоритетом при проектировании современных веб-интерфейсов?',
         options: [
             'Лаконичность, отзывчивость и чистота кода',
@@ -58,6 +58,22 @@ const QUIZ_SECTIONS = [
         ],
         correct: 0,
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/e1dfa3b5-3003-432e-a8f3-26e0ccb1359d.mp4'
+    },
+    {
+        id: 'q4',
+        type: 'question',
+        videoPosition: 'right',
+        hasSpotlightMask: true,
+        badge: 'ВОПРОС 4 ИЗ 4',
+        question: 'Как синтез ИИ и генеративного видео трансформирует пользовательский опыт?',
+        options: [
+            'Создает персонализированное и динамическое погружение',
+            'Заменяет текстовые описания статичными картинками',
+            'Ограничивает возможность интерактива',
+            'Используется только в рекламных баннерах'
+        ],
+        correct: 0,
+        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/30/1e3ad4f6-18ef-4798-af98-e9a7844aa357.mp4'
     },
     {
         id: 'outro',
@@ -298,9 +314,116 @@ const QuestionBox = ({ section, answers, onSelectAnswer }) => {
     );
 };
 
+const Preloader = ({ onFinish }) => {
+    const [fadeOut, setFadeOut] = useState(false);
+
+    useEffect(() => {
+        const timer1 = setTimeout(() => {
+            setFadeOut(true);
+        }, 1200);
+
+        const timer2 = setTimeout(() => {
+            if (onFinish) onFinish();
+        }, 1800);
+
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        };
+    }, [onFinish]);
+
+    return (
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 9999,
+            backgroundColor: '#0A0C10',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            opacity: fadeOut ? 0 : 1,
+            transform: fadeOut ? 'scale(1.05)' : 'scale(1)',
+            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+            pointerEvents: fadeOut ? 'none' : 'auto'
+        }}>
+            <style>{`
+                @keyframes preloaderSpin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                @keyframes pulseGlow {
+                    0%, 100% { transform: scale(1); opacity: 0.8; }
+                    50% { transform: scale(1.1); opacity: 1; }
+                }
+            `}</style>
+
+            {/* Spinning Rainbow Spinner Ring */}
+            <div style={{
+                position: 'relative',
+                width: '90px',
+                height: '90px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: '2rem'
+            }}>
+                <div style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    background: 'conic-gradient(from 0deg, #FF2A85, #FF7300, #00FF88, #00E5FF, #7B2CBF, #FF2A85)',
+                    animation: 'preloaderSpin 1.2s linear infinite',
+                    padding: '4px',
+                    WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px))',
+                    mask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px))'
+                }} />
+
+                {/* Inner glowing core */}
+                <div style={{
+                    width: '60px',
+                    height: '60px',
+                    borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(0,229,255,0.3) 0%, rgba(123,44,191,0.1) 70%, transparent 100%)',
+                    animation: 'pulseGlow 1.5s ease-in-out infinite'
+                }} />
+            </div>
+
+            <div style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: '1rem',
+                letterSpacing: '0.25em',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                color: '#FFFFFF',
+                opacity: 0.9,
+                marginBottom: '0.5rem'
+            }}>
+                QUIZZY AI™ 2026
+            </div>
+
+            <div style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: '0.75rem',
+                letterSpacing: '0.15em',
+                fontWeight: 400,
+                color: 'rgba(255, 255, 255, 0.45)',
+                textTransform: 'uppercase'
+            }}>
+                Загрузка интерактивного опыта...
+            </div>
+        </div>
+    );
+};
+
 const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
     const [isPastScreen1, setIsPastScreen1] = useState(false);
+    const [loading, setLoading] = useState(true);
     const containerRef = useRef(null);
     const audioRef = useRef(null);
 
@@ -344,9 +467,11 @@ const Quiz2026 = () => {
     };
 
     return (
-        <div
-            id="quiz-2026-container"
-            ref={containerRef}
+        <>
+            {loading && <Preloader onFinish={() => setLoading(false)} />}
+            <div
+                id="quiz-2026-container"
+                ref={containerRef}
             style={{
                 position: 'relative',
                 width: '100vw',
@@ -610,6 +735,7 @@ const Quiz2026 = () => {
                 return null;
             })}
         </div>
+        </>
     );
 };
 
