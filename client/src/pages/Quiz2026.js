@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/vHN6QzT0/332423.png';
@@ -299,6 +300,44 @@ const QuestionBox = ({ section, answers, onSelectAnswer }) => {
 
 const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
+    const [isPastScreen1, setIsPastScreen1] = useState(false);
+    const containerRef = useRef(null);
+    const audioRef = useRef(null);
+
+    useEffect(() => {
+        document.title = 'Quizzy AI™';
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!containerRef.current) return;
+            const scrollTop = containerRef.current.scrollTop;
+            const clientHeight = containerRef.current.clientHeight;
+            if (scrollTop >= clientHeight * 0.4) {
+                setIsPastScreen1(true);
+            } else {
+                setIsPastScreen1(false);
+            }
+        };
+
+        const container = containerRef.current;
+        if (container) {
+            container.addEventListener('scroll', handleScroll, { passive: true });
+        }
+        return () => {
+            if (container) {
+                container.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isPastScreen1 && audioRef.current) {
+            audioRef.current.play().catch(err => {
+                console.log('Audio playback prevented:', err);
+            });
+        }
+    }, [isPastScreen1]);
 
     const handleSelectAnswer = (sectionId, idx) => {
         setAnswers(prev => ({ ...prev, [sectionId]: idx }));
@@ -307,13 +346,15 @@ const Quiz2026 = () => {
     return (
         <div
             id="quiz-2026-container"
+            ref={containerRef}
             style={{
                 position: 'relative',
                 width: '100vw',
                 height: '100vh',
                 overflowY: 'scroll',
                 scrollSnapType: 'y mandatory',
-                backgroundColor: '#0A0C10',
+                backgroundColor: isPastScreen1 ? '#0A0C10' : '#FFFFFF',
+                transition: 'background-color 0.8s ease',
                 fontFamily: "'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
                 color: '#FFFFFF'
             }}
@@ -326,7 +367,10 @@ const Quiz2026 = () => {
                 }
             `}</style>
 
-            {/* Continuous Fixed Background Video */}
+            {/* Background Music Axel Boman */}
+            <audio ref={audioRef} src={musicFile} loop />
+
+            {/* Continuous Fixed Background Video (Visible on Screen 2+) */}
             <video
                 autoPlay
                 loop
@@ -341,6 +385,8 @@ const Quiz2026 = () => {
                     objectFit: 'cover',
                     filter: 'brightness(0.45) contrast(1.05)',
                     zIndex: 0,
+                    opacity: isPastScreen1 ? 1 : 0,
+                    transition: 'opacity 0.8s ease-in-out',
                     pointerEvents: 'none'
                 }}
             >
@@ -380,52 +426,63 @@ const Quiz2026 = () => {
                                 textAlign: 'center',
                                 boxShadow: 'none'
                             }}>
-                                {/* Animated Multi-color Title FIRST */}
-                                <h1 style={{
-                                    fontSize: 'clamp(3rem, 7.5vw, 5.5rem)',
-                                    fontWeight: 800,
-                                    letterSpacing: '0.04em',
-                                    textTransform: 'uppercase',
-                                    margin: '0 0 1.5rem 0',
-                                    background: 'linear-gradient(120deg, #FF2A85, #FF7300, #FFEB00, #00FF88, #00E5FF, #7B2CBF, #FF2A85)',
-                                    backgroundSize: '300% 300%',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    animation: 'rainbowGlow 6s ease infinite',
-                                    lineHeight: 1.1,
-                                    filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.6))'
-                                }}>
-                                    {section.badge}
-                                </h1>
-
-                                {/* Logo Image SECOND */}
+                                {/* Logo Image FIRST */}
                                 <img
                                     src={LOGO_IMAGE}
-                                    alt="Квиз 2026"
+                                    alt="Quizzy AI Logo"
                                     style={{
-                                        maxWidth: '420px',
-                                        width: '85%',
+                                        maxWidth: '380px',
+                                        width: '80%',
                                         height: 'auto',
                                         objectFit: 'contain',
-                                        margin: '0 auto 2rem auto',
-                                        display: 'block'
+                                        margin: '0 auto 2.5rem auto',
+                                        display: 'block',
+                                        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.12))'
                                     }}
                                 />
+
+                                {/* Animated Multi-color Title SECOND in rounded border container with blur */}
+                                <div style={{
+                                    display: 'inline-block',
+                                    padding: '0.85rem 2.8rem',
+                                    borderRadius: '50px',
+                                    background: 'rgba(255, 255, 255, 0.75)',
+                                    backdropFilter: 'blur(20px) saturate(180%)',
+                                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                                    border: '1.5px solid rgba(0, 0, 0, 0.08)',
+                                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.08), 0 0 20px rgba(0, 0, 0, 0.04), inset 0 0 15px rgba(255, 255, 255, 0.9)',
+                                    margin: '0 auto 2rem auto'
+                                }}>
+                                    <h1 style={{
+                                        fontSize: 'clamp(2.5rem, 6.5vw, 4.8rem)',
+                                        fontWeight: 800,
+                                        letterSpacing: '0.05em',
+                                        textTransform: 'uppercase',
+                                        margin: 0,
+                                        background: 'linear-gradient(120deg, #FF2A85, #FF7300, #FFEB00, #00FF88, #00E5FF, #7B2CBF, #FF2A85)',
+                                        backgroundSize: '300% 300%',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                        animation: 'rainbowGlow 6s ease infinite',
+                                        lineHeight: 1.15
+                                    }}>
+                                        {section.badge}
+                                    </h1>
+                                </div>
 
                                 <p style={{
                                     fontSize: '1.2rem',
                                     lineHeight: '1.75',
-                                    color: 'rgba(255, 255, 255, 0.9)',
-                                    fontWeight: 300,
+                                    color: '#1F2937',
+                                    fontWeight: 400,
                                     margin: '0 auto 2.5rem auto',
-                                    maxWidth: '720px',
-                                    textShadow: '0 2px 10px rgba(0,0,0,0.7)'
+                                    maxWidth: '720px'
                                 }}>
                                     {section.subtitle}
                                 </p>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.85 }}>
-                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>Проскролльте вниз</span>
-                                    <span style={{ fontSize: '1.5rem', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>↓</span>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: '#4B5563' }}>
+                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Проскролльте вниз</span>
+                                    <span style={{ fontSize: '1.5rem' }}>↓</span>
                                 </div>
                             </div>
                         </div>
