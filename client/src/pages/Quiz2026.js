@@ -118,8 +118,159 @@ const QUIZ_SECTIONS = [
         type: 'results',
         badge: 'РЕЗУЛЬТАТЫ',
         title: 'Итоги викторины'
+    },
+    {
+        id: 'birthday',
+        type: 'birthday',
+        badge: 'С ДНЕМ РОЖДЕНИЯ'
     }
 ];
+
+const FireworksCanvas = () => {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animationFrameId;
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let fireworks = [];
+        let particles = [];
+
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * (canvas.height * 0.55) + canvas.height * 0.1;
+                this.speed = Math.random() * 4 + 8;
+                this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
+                this.hue = Math.floor(Math.random() * 360);
+                this.exploded = false;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.08;
+
+                if (this.vy >= 0 || this.y <= this.targetY) {
+                    this.exploded = true;
+                    this.explode();
+                }
+            }
+
+            explode() {
+                const particleCount = Math.floor(Math.random() * 60) + 70;
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle(this.x, this.y, this.hue));
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${this.hue}, 100%, 80%)`;
+                ctx.fill();
+            }
+        }
+
+        class Particle {
+            constructor(x, y, hue) {
+                this.x = x;
+                this.y = y;
+                this.hue = hue + (Math.random() * 40 - 20);
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 8 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.friction = 0.95;
+                this.gravity = 0.12;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.012;
+                this.size = Math.random() * 3.5 + 2;
+            }
+
+            update() {
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${this.hue}, 100%, 75%)`;
+                ctx.shadowColor = `hsl(${this.hue}, 100%, 60%)`;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        let spawnTimer = 0;
+
+        const render = () => {
+            ctx.fillStyle = 'rgba(255, 20, 147, 0.25)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            spawnTimer++;
+            if (spawnTimer % 15 === 0 || Math.random() < 0.1) {
+                fireworks.push(new Firework());
+            }
+
+            fireworks = fireworks.filter(f => !f.exploded);
+            fireworks.forEach(f => {
+                f.update();
+                f.draw();
+            });
+
+            particles = particles.filter(p => p.alpha > 0);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            animationFrameId = requestAnimationFrame(render);
+        };
+
+        render();
+
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
+    return (
+        <canvas
+            ref={canvasRef}
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+                zIndex: 1
+            }}
+        />
+    );
+};
 
 const VerticalVideoFrame = ({ videoSrc }) => {
     return (
@@ -1088,6 +1239,69 @@ const Quiz2026 = () => {
                                 >
                                     Отправить результат
                                 </button>
+                            </div>
+                        </div>
+                    );
+                }
+
+                if (section.type === 'birthday') {
+                    return (
+                        <div
+                            key={section.id}
+                            style={{
+                                height: '100vh',
+                                width: '100vw',
+                                scrollSnapAlign: 'start',
+                                scrollSnapStop: 'always',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                position: 'relative',
+                                backgroundColor: '#FF1493',
+                                padding: '2rem',
+                                boxSizing: 'border-box',
+                                zIndex: 1,
+                                overflow: 'hidden'
+                            }}
+                        >
+                            <FireworksCanvas />
+                            <div style={{
+                                position: 'relative',
+                                zIndex: 2,
+                                textAlign: 'center',
+                                width: '100%',
+                                maxWidth: '100vw',
+                                padding: '0 1rem',
+                                boxSizing: 'border-box',
+                                pointerEvents: 'none'
+                            }}>
+                                <h1 style={{
+                                    fontFamily: "'Oi', cursive, sans-serif",
+                                    fontSize: 'clamp(2.8rem, 11vw, 9rem)',
+                                    fontWeight: 900,
+                                    color: '#FFFFFF',
+                                    textShadow: '0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.6)',
+                                    margin: 0,
+                                    lineHeight: '1.05',
+                                    textTransform: 'uppercase',
+                                    wordBreak: 'break-word'
+                                }}>
+                                    С ДНЕМ
+                                </h1>
+                                <h1 style={{
+                                    fontFamily: "'Oi', cursive, sans-serif",
+                                    fontSize: 'clamp(2.5rem, 10vw, 8.2rem)',
+                                    fontWeight: 900,
+                                    color: '#FFFFFF',
+                                    textShadow: '0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.6)',
+                                    margin: 0,
+                                    lineHeight: '1.05',
+                                    textTransform: 'uppercase',
+                                    wordBreak: 'break-word'
+                                }}>
+                                    РОЖДЕНИЯ!🎂
+                                </h1>
                             </div>
                         </div>
                     );
