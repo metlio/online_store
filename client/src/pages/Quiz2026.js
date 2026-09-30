@@ -3,12 +3,13 @@ import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/vHN6QzT0/332423.png';
+const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-6.mp3';
 
 const QUIZ_SECTIONS = [
     {
         id: 'intro',
         type: 'intro',
-        badge: 'ВИКТОРИНА 2026',
+        badge: "Video Quiz '26",
         subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya'
     },
     {
@@ -315,18 +316,26 @@ const QuestionBox = ({ section, answers, onSelectAnswer }) => {
 };
 
 const Preloader = ({ onFinish }) => {
+    const [fadeIn, setFadeIn] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
 
     useEffect(() => {
+        // Trigger smooth fade-in after mount
+        const fadeInTimer = setTimeout(() => {
+            setFadeIn(true);
+        }, 50);
+
+        // Slow down preloader display and fade out
         const timer1 = setTimeout(() => {
             setFadeOut(true);
-        }, 1200);
+        }, 2200);
 
         const timer2 = setTimeout(() => {
             if (onFinish) onFinish();
-        }, 1800);
+        }, 3400);
 
         return () => {
+            clearTimeout(fadeInTimer);
             clearTimeout(timer1);
             clearTimeout(timer2);
         };
@@ -345,9 +354,9 @@ const Preloader = ({ onFinish }) => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: fadeOut ? 0 : 1,
-            transform: fadeOut ? 'scale(1.05)' : 'scale(1)',
-            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+            opacity: fadeOut ? 0 : (fadeIn ? 1 : 0),
+            transform: fadeOut ? 'scale(1.05)' : (fadeIn ? 'scale(1)' : 'scale(0.96)'),
+            transition: 'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
             pointerEvents: fadeOut ? 'none' : 'auto'
         }}>
             <style>{`
@@ -492,8 +501,8 @@ const Quiz2026 = () => {
                 }
             `}</style>
 
-            {/* Background Music Axel Boman */}
-            <audio ref={audioRef} src={musicFile} loop />
+            {/* Ambient Background Music */}
+            <audio ref={audioRef} src={AMBIENT_AUDIO} loop />
 
             {/* Continuous Fixed Background Video (Visible on Screen 2+) */}
             <video
@@ -580,7 +589,8 @@ const Quiz2026 = () => {
                                 }}>
                                     <h1 style={{
                                         fontSize: 'clamp(2.5rem, 6.5vw, 4.8rem)',
-                                        fontWeight: 800,
+                                        fontFamily: "'Fascinate Inline', cursive, sans-serif",
+                                        fontWeight: 400,
                                         letterSpacing: '0.05em',
                                         textTransform: 'uppercase',
                                         margin: 0,
