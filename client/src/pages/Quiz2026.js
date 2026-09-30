@@ -4,6 +4,7 @@ import musicFile from '../components/m.mp3';
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/sgdqzQBh/5325232.gif';
 const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-9.mp3';
+const BIRTHDAY_FIREWORKS_SOUND = 'https://zvukogram.com/mp3/44/fireworks-and-fireworks-for-donation.mp3';
 
 const QUIZ_SECTIONS = [
     {
@@ -492,27 +493,63 @@ const QuestionBox = ({ section, answers, onSelectAnswer }) => {
 const Preloader = ({ onFinish }) => {
     const [fadeIn, setFadeIn] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        // Trigger smooth fade-in after mount
-        const fadeInTimer = setTimeout(() => {
-            setFadeIn(true);
-        }, 50);
+        setFadeIn(true);
 
-        // Slow down preloader display and fade out
-        const timer1 = setTimeout(() => {
-            setFadeOut(true);
-        }, 2200);
+        const videoUrls = [
+            BACKGROUND_VIDEO,
+            ...QUIZ_SECTIONS.filter(s => s.video).map(s => s.video)
+        ];
+        const audioUrls = [
+            AMBIENT_AUDIO,
+            BIRTHDAY_FIREWORKS_SOUND,
+            ...QUIZ_SECTIONS.filter(s => s.sound).map(s => s.sound)
+        ];
 
-        const timer2 = setTimeout(() => {
-            if (onFinish) onFinish();
-        }, 3400);
+        let loadedCount = 0;
+        const totalItems = videoUrls.length + audioUrls.length;
 
-        return () => {
-            clearTimeout(fadeInTimer);
-            clearTimeout(timer1);
-            clearTimeout(timer2);
+        const updateProgress = () => {
+            loadedCount += 1;
+            const pct = Math.min(100, Math.round((loadedCount / totalItems) * 100));
+            setProgress(pct);
+
+            if (loadedCount >= totalItems) {
+                setTimeout(() => setFadeOut(true), 400);
+                setTimeout(() => {
+                    if (onFinish) onFinish();
+                }, 1400);
+            }
         };
+
+        // Fallback safety timeout so user isn't stuck forever on slow networks
+        const safetyTimeout = setTimeout(() => {
+            setProgress(100);
+            setFadeOut(true);
+            setTimeout(() => {
+                if (onFinish) onFinish();
+            }, 1000);
+        }, 7000);
+
+        videoUrls.forEach(url => {
+            const video = document.createElement('video');
+            video.preload = 'auto';
+            video.src = url;
+            video.onloadeddata = () => updateProgress();
+            video.onerror = () => updateProgress();
+        });
+
+        audioUrls.forEach(url => {
+            const audio = new Audio();
+            audio.preload = 'auto';
+            audio.src = url;
+            audio.oncanplaythrough = () => updateProgress();
+            audio.onerror = () => updateProgress();
+        });
+
+        return () => clearTimeout(safetyTimeout);
     }, [onFinish]);
 
     return (
@@ -530,7 +567,7 @@ const Preloader = ({ onFinish }) => {
             alignItems: 'center',
             opacity: fadeOut ? 0 : (fadeIn ? 1 : 0),
             transform: fadeOut ? 'scale(1.05)' : (fadeIn ? 'scale(1)' : 'scale(0.96)'),
-            transition: 'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+            transition: 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)',
             pointerEvents: fadeOut ? 'none' : 'auto'
         }}>
             <style>{`
@@ -544,11 +581,11 @@ const Preloader = ({ onFinish }) => {
                 }
             `}</style>
 
-            {/* Spinning Rainbow Spinner Ring */}
+            {/* Spinning Rainbow Spinner Ring with Percentage in Center */}
             <div style={{
                 position: 'relative',
-                width: '90px',
-                height: '90px',
+                width: '110px',
+                height: '110px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -562,18 +599,28 @@ const Preloader = ({ onFinish }) => {
                     background: 'conic-gradient(from 0deg, #FF2A85, #FF7300, #00FF88, #00E5FF, #7B2CBF, #FF2A85)',
                     animation: 'preloaderSpin 1.2s linear infinite',
                     padding: '4px',
-                    WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px))',
-                    mask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px))'
+                    WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 4px))',
+                    mask: 'radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 4px))'
                 }} />
 
-                {/* Inner glowing core */}
+                {/* Inner glowing core with Percentage */}
                 <div style={{
-                    width: '60px',
-                    height: '60px',
+                    width: '82px',
+                    height: '82px',
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(0,229,255,0.3) 0%, rgba(123,44,191,0.1) 70%, transparent 100%)',
-                    animation: 'pulseGlow 1.5s ease-in-out infinite'
-                }} />
+                    background: 'radial-gradient(circle, rgba(0,229,255,0.2) 0%, rgba(123,44,191,0.1) 70%, transparent 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontSize: '1.25rem',
+                    fontWeight: 800,
+                    color: '#FFFFFF',
+                    letterSpacing: '0.02em',
+                    boxShadow: 'inset 0 0 15px rgba(255,255,255,0.1)'
+                }}>
+                    {progress}%
+                </div>
             </div>
 
             <div style={{
@@ -597,7 +644,7 @@ const Preloader = ({ onFinish }) => {
                 color: 'rgba(255, 255, 255, 0.45)',
                 textTransform: 'uppercase'
             }}>
-                Загрузка интерактивного опыта...
+                Загрузка медиа ресурсов...
             </div>
         </div>
     );
@@ -613,6 +660,7 @@ const Quiz2026 = () => {
     const containerRef = useRef(null);
     const audioRef = useRef(null);
     const questionAudioRef = useRef(null);
+    const birthdayAudioRef = useRef(null);
     const activeSectionRef = useRef('intro');
 
     const handleToggleAudio = () => {
@@ -622,7 +670,7 @@ const Quiz2026 = () => {
                 audioRef.current.play().then(() => {
                     setAudioStarted(true);
                     setIsAudioMuted(false);
-                }).catch(err => console.log('Audio error:', err));
+                }).catch(err => console.log('Audio toggle play error:', err));
             } else {
                 audioRef.current.muted = true;
                 setIsAudioMuted(true);
@@ -667,7 +715,19 @@ const Quiz2026 = () => {
             if (currentSection && currentSection.id !== activeSectionRef.current) {
                 activeSectionRef.current = currentSection.id;
 
-                // Play specific question sound if present
+                // Handle birthday fireworks section sound loop
+                if (currentSection.type === 'birthday') {
+                    if (birthdayAudioRef.current) {
+                        birthdayAudioRef.current.currentTime = 0;
+                        birthdayAudioRef.current.play().catch(err => console.log('Birthday audio error:', err));
+                    }
+                } else {
+                    if (birthdayAudioRef.current) {
+                        birthdayAudioRef.current.pause();
+                    }
+                }
+
+                // Play specific question/section sound if present
                 if (currentSection.sound) {
                     if (questionAudioRef.current) {
                         questionAudioRef.current.src = currentSection.sound;
@@ -738,9 +798,10 @@ const Quiz2026 = () => {
                 }
             `}</style>
 
-            {/* Ambient Background Music & Question Sounds */}
-            <audio ref={audioRef} src={AMBIENT_AUDIO} loop />
-            <audio ref={questionAudioRef} />
+            {/* Ambient Background Music, Question Sounds & Birthday Fireworks Audio */}
+            <audio ref={audioRef} src={AMBIENT_AUDIO} loop crossOrigin="anonymous" preload="auto" />
+            <audio ref={questionAudioRef} crossOrigin="anonymous" preload="auto" />
+            <audio ref={birthdayAudioRef} src={BIRTHDAY_FIREWORKS_SOUND} loop crossOrigin="anonymous" preload="auto" />
 
 
             {/* Continuous Fixed Background Video */}
