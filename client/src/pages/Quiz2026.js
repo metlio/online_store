@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
-const LOGO_IMAGE = 'https://i.postimg.cc/vHN6QzT0/332423.png';
+const LOGO_IMAGE = 'https://i.postimg.cc/Ss8QDkqF/3423222.gif';
 const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-6.mp3';
 
 const QUIZ_SECTIONS = [
@@ -18,12 +18,10 @@ const QUIZ_SECTIONS = [
         videoPosition: 'right',
         hasSpotlightMask: true,
         badge: 'ВОПРОС 1 ИЗ 4',
-        question: 'Какой ключевой элемент определяет эстетику 2026 года?',
+        question: 'Правда ли что адвокат сделал олли с первой попытки после того, как Рауль Дюк выдал ему красненькую из чемоданчика?',
         options: [
-            'Минимализм и живой видеоконтент',
-            'Громоздкие всплывающие баннеры',
-            'Перегруженный интернациональный стиль 90-х',
-            'Монохромный открытый код'
+            'Да',
+            'Ннет'
         ],
         correct: 0,
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/25/1c7fdfdb-391c-498f-9fca-2176453cfcde.mp4'
@@ -34,12 +32,10 @@ const QUIZ_SECTIONS = [
         videoPosition: 'right',
         hasSpotlightMask: true,
         badge: 'ВОПРОС 2 ИЗ 4',
-        question: 'Как вертикальное видео влияет на вовлеченность в интерактивных лендингах?',
+        question: 'Быль али небыль',
         options: [
-            'Увеличивает фокус и глубину просмотра',
-            'Затрудняет восприятие',
-            'Никак не влияет',
-            'Уменьшает скорость загрузки'
+            'Быль',
+            'Ннебыль'
         ],
         correct: 0,
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/78a21ffd-4ea0-44c9-b444-e7e629716564.mp4'
@@ -219,25 +215,6 @@ const SpotlightVideoFrame = ({ videoSrc }) => {
                 }}
             />
 
-            {/* Hint overlay */}
-            <div style={{
-                position: 'absolute',
-                bottom: '18px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                padding: '8px 18px',
-                background: 'rgba(0,0,0,0.55)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                borderRadius: '20px',
-                fontSize: '0.8rem',
-                color: 'rgba(255,255,255,0.85)',
-                pointerEvents: 'none',
-                letterSpacing: '0.04em',
-                border: '1px solid rgba(255,255,255,0.15)'
-            }}>
-                🔍 Наведите мышью, чтобы рассмотреть четкий кадр
-            </div>
         </div>
     );
 };
