@@ -48,7 +48,36 @@ const Footer = () => {
             (КОНТАКТЫ)
           </h6>
           <p><a href="mailto:yad@yadde.ru" className="text-reset" style={{ textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }}>YAD@YADDE.RU</a></p>
-          <p style={{ color: 'white', fontSize: '1.1rem', fontWeight: 500 }}>РОСТОВ-НА-ДОНУ, РФ</p>
+          <p style={{ color: 'white', fontSize: '1.1rem', fontWeight: 500, marginBottom: '0.5rem' }}>РОСТОВ-НА-ДОНУ, РФ</p>
+          {(() => {
+              try {
+                  const savedResult = localStorage.getItem('quiz_2026_submitted_result');
+                  if (savedResult) {
+                      const parsed = JSON.parse(savedResult);
+                      return (
+                          <div style={{
+                              marginTop: '0.75rem',
+                              padding: '0.6rem 0.85rem',
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              border: '1px solid rgba(255, 255, 255, 0.15)',
+                              borderRadius: '10px',
+                              color: '#00E5FF',
+                              fontSize: '0.85rem',
+                              fontWeight: 500,
+                              lineHeight: '1.4'
+                          }}>
+                              <div>Результат Квиза: {parsed.score} / {parsed.total}</div>
+                              <div style={{ color: '#888', fontSize: '0.75rem', fontFamily: 'monospace', marginTop: '0.2rem' }}>
+                                  Игрок: {parsed.userId}
+                              </div>
+                          </div>
+                      );
+                  }
+              } catch (e) {
+                  // ignore parsing error
+              }
+              return null;
+          })()}
         </div>
       </div>
     </div>

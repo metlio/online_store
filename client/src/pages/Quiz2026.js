@@ -896,10 +896,39 @@ const Quiz2026 = () => {
                                 <p style={{
                                     fontSize: '0.9rem',
                                     color: 'rgba(255, 255, 255, 0.6)',
-                                    margin: 0
+                                    margin: '0 0 2rem 0'
                                 }}>
                                     {correctCount === questions.length ? '🎉 Идеальный результат! Поздравляем!' : 'Отличная попытка! Попробуйте пройти еще раз.'}
                                 </p>
+
+                                <button
+                                    onClick={() => {
+                                        const resultData = {
+                                            score: correctCount,
+                                            total: questions.length,
+                                            userId: userInfo.id,
+                                            userName: userInfo.name,
+                                            timestamp: Date.now()
+                                        };
+                                        localStorage.setItem('quiz_2026_submitted_result', JSON.stringify(resultData));
+                                        window.location.href = '/magazine';
+                                    }}
+                                    style={{
+                                        padding: '1rem 2.2rem',
+                                        fontSize: '1rem',
+                                        fontWeight: 600,
+                                        letterSpacing: '0.05em',
+                                        color: '#0A0C10',
+                                        backgroundColor: '#FFFFFF',
+                                        border: 'none',
+                                        borderRadius: '30px',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 10px 25px rgba(255, 255, 255, 0.3)',
+                                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                                    }}
+                                >
+                                    Отправить результат
+                                </button>
                             </div>
                         </div>
                     );
