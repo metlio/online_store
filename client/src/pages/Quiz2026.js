@@ -9,7 +9,7 @@ const QUIZ_SECTIONS = [
     {
         id: 'intro',
         type: 'intro',
-        badge: "КВИДЗИ '26",
+        badge: 'Video Quiz 26',
         subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya'
     },
     {
@@ -606,6 +606,7 @@ const Preloader = ({ onFinish }) => {
 const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(true);
+    const [submitted, setSubmitted] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const [audioStarted, setAudioStarted] = useState(false);
     const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
@@ -795,33 +796,6 @@ const Quiz2026 = () => {
                                 textAlign: 'center',
                                 boxShadow: '0 30px 70px rgba(0, 0, 0, 0.5)'
                             }}>
-                                {/* Minimal Sound Toggle Button inside card */}
-                                <button
-                                    onClick={handleToggleAudio}
-                                    style={{
-                                        position: 'absolute',
-                                        top: '20px',
-                                        right: '20px',
-                                        width: '42px',
-                                        height: '42px',
-                                        borderRadius: '50%',
-                                        backgroundColor: 'rgba(0, 0, 0, 0.06)',
-                                        border: '1px solid rgba(0, 0, 0, 0.12)',
-                                        color: '#0A0C10',
-                                        fontSize: '1.1rem',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        cursor: 'pointer',
-                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                                        transition: 'all 0.2s ease',
-                                        zIndex: 10
-                                    }}
-                                    title={audioStarted && !isAudioMuted ? 'Выключить звук' : 'Включить звук'}
-                                >
-                                    {audioStarted && !isAudioMuted ? '🔊' : '🔇'}
-                                </button>
-
                                 {/* Logo Image FIRST */}
                                 <img
                                     src={LOGO_IMAGE}
@@ -839,9 +813,9 @@ const Quiz2026 = () => {
 
                                 {/* Display Font Title SECOND */}
                                 <h1 style={{
-                                    fontSize: 'clamp(2.5rem, 6.5vw, 4.8rem)',
-                                    fontFamily: "'Oi', 'Rubik Mono One', 'Russo One', sans-serif",
-                                    fontWeight: 900,
+                                    fontSize: 'clamp(2.2rem, 6vw, 4.2rem)',
+                                    fontFamily: "'Oi', sans-serif",
+                                    fontWeight: 'normal',
                                     letterSpacing: '0.02em',
                                     textTransform: 'uppercase',
                                     margin: '0 auto 1.75rem auto',
@@ -857,11 +831,39 @@ const Quiz2026 = () => {
                                     lineHeight: '1.75',
                                     color: '#222222',
                                     fontWeight: 400,
-                                    margin: '0 auto 2.5rem auto',
+                                    margin: '0 auto 2rem auto',
                                     maxWidth: '680px'
                                 }}>
                                     Добро пожаловать! Рады <strong style={{ fontWeight: 700, color: '#000000' }}>до вас донести</strong>, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya
                                 </p>
+
+                                {/* Sound Toggle Button centered above scroll prompt, 75x75px */}
+                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                                    <button
+                                        onClick={handleToggleAudio}
+                                        style={{
+                                            width: '75px',
+                                            height: '75px',
+                                            borderRadius: '50%',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.06)',
+                                            border: '1px solid rgba(0, 0, 0, 0.15)',
+                                            color: '#0A0C10',
+                                            fontSize: '2rem',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 4px 15px rgba(0,0,0,0.12)',
+                                            transition: 'all 0.2s ease'
+                                        }}
+                                        title={audioStarted && !isAudioMuted ? 'Выключить звук' : 'Включить звук'}
+                                    >
+                                        <span style={{ transform: 'translateY(-1px)', lineHeight: 1 }}>
+                                            {audioStarted && !isAudioMuted ? '🔊' : '🔇'}
+                                        </span>
+                                    </button>
+                                </div>
+
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: '#555555' }}>
                                     <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700 }}>Проскролльте вниз</span>
                                     <span style={{ fontSize: '1.5rem' }}>↓</span>
@@ -1214,23 +1216,31 @@ const Quiz2026 = () => {
                                             timestamp: Date.now()
                                         };
                                         localStorage.setItem('quiz_2026_submitted_result', JSON.stringify(resultData));
-                                        window.location.href = '/magazine';
+                                        setSubmitted(true);
                                     }}
                                     style={{
                                         padding: '1rem 2.2rem',
+                                        height: '52px',
                                         fontSize: '1rem',
                                         fontWeight: 600,
                                         letterSpacing: '0.05em',
-                                        color: '#0A0C10',
-                                        backgroundColor: '#FFFFFF',
+                                        color: submitted ? '#FFFFFF' : '#0A0C10',
+                                        backgroundColor: submitted ? '#10B981' : '#FFFFFF',
                                         border: 'none',
                                         borderRadius: '30px',
                                         cursor: 'pointer',
-                                        boxShadow: '0 10px 25px rgba(255, 255, 255, 0.3)',
-                                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                                        boxShadow: submitted ? '0 10px 25px rgba(16, 185, 129, 0.3)' : '0 10px 25px rgba(255, 255, 255, 0.3)',
+                                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        lineHeight: 1,
+                                        margin: '0 auto'
                                     }}
                                 >
-                                    Отправить результат
+                                    <span style={{ transform: 'translateY(0px)', display: 'inline-block', lineHeight: '1' }}>
+                                        {submitted ? '✓ Результат сохранен' : 'Отправить результат'}
+                                    </span>
                                 </button>
                             </div>
                         </div>
@@ -1272,7 +1282,7 @@ const Quiz2026 = () => {
                                 <h1 style={{
                                     fontFamily: "'Oi', 'Rubik Mono One', 'Russo One', sans-serif",
                                     fontSize: 'clamp(2.5rem, 9vw, 7.5rem)',
-                                    fontWeight: 900,
+                                    fontWeight: 'normal',
                                     color: '#FFFFFF',
                                     textShadow: '0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.6)',
                                     margin: 0,
@@ -1285,7 +1295,7 @@ const Quiz2026 = () => {
                                 <h1 style={{
                                     fontFamily: "'Oi', 'Rubik Mono One', 'Russo One', sans-serif",
                                     fontSize: 'clamp(2.2rem, 8vw, 6.8rem)',
-                                    fontWeight: 900,
+                                    fontWeight: 'normal',
                                     color: '#FFFFFF',
                                     textShadow: '0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.6)',
                                     margin: 0,
