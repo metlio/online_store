@@ -17,9 +17,18 @@ const QUIZ_SECTIONS = [
         type: 'rules',
         badge: 'Правила викторины',
         rules: [
-            '1. Рассмотрите видео и ответьте на главный вопрос - правда данное действие или вымысел. Звучит глупо, но ничего интереснее мы не придумали :-}',
-            '2. Результаты состязания жестко влияют на ваш призз. Отвертеться не выйдет. Мы учли горький опыт предыдущей версии, и внесли корневые измерения. Ой что это я говорю.. - Джуулс!! Есть работёнка!',
-            '3. Не проявляйте неактивность и хитрость. Мы все тщательно проработали, но не гарантируем корректность соревнования! Все ситуации субьективны. Джулс никого не хочет обидеть по расовой национальности, полу или внешнему виду. Ни одно животное не пострадало. Кроме осьминога (О-хОХО)'
+            {
+                icon: 'https://i.postimg.cc/8cNp5pzD/4232222.png',
+                text: '1. Рассмотрите видео и ответьте на главный вопрос - правда данное действие или вымысел. Звучит глупо, но ничего интереснее мы не придумали :-}'
+            },
+            {
+                icon: 'https://i.postimg.cc/ZnHTvGWt/543333.png',
+                text: '2. Результаты состязания жестко влияют на ваш призз. Отвертеться не выйдет. Мы учли горький опыт предыдущей версии, и внесли корневые измерения. Ой что это я говорю.. - Джуулс!! Есть работёнка!'
+            },
+            {
+                icon: 'https://i.postimg.cc/MH5WfCnS/3453434.png',
+                text: '3. Не проявляйте неактивность и хитрость. Мы все тщательно проработали, но не гарантируем корректность соревнования! Все ситуации субьективны. Джулс никого не хочет обидеть по расовой национальности, полу или внешнему виду. Ни одно животное не пострадало. Кроме осьминога (О-хОХО)'
+            }
         ]
     },
     {
@@ -27,7 +36,7 @@ const QUIZ_SECTIONS = [
         type: 'question',
         videoPosition: 'right',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 1 ИЗ 4',
+        badge: 'ВОПРОС 1 ИЗ 5',
         question: 'Правда ли что адвокат сделал олли с первой попытки после того, как Рауль Дюк выдал ему красненькую из чемоданчика?',
         options: [
             'Да',
@@ -42,7 +51,7 @@ const QUIZ_SECTIONS = [
         type: 'question',
         videoPosition: 'right',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 2 ИЗ 4',
+        badge: 'ВОПРОС 2 ИЗ 5',
         question: 'Быль али небыль',
         options: [
             'Быль',
@@ -57,7 +66,7 @@ const QUIZ_SECTIONS = [
         type: 'question',
         videoPosition: 'left',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 3 ИЗ 4',
+        badge: 'ВОПРОС 3 ИЗ 5',
         question: 'Действительность или вымысел?',
         options: [
             'Реальность',
@@ -72,7 +81,7 @@ const QUIZ_SECTIONS = [
         type: 'question',
         videoPosition: 'right',
         hasSpotlightMask: true,
-        badge: 'ВОПРОС 4 ИЗ 4',
+        badge: 'ВОПРОС 4 ИЗ 5',
         question: 'Правда или ложь?',
         options: [
             'Праавда',
@@ -81,6 +90,21 @@ const QUIZ_SECTIONS = [
         correct: 0, // Праавда
         sound: 'https://zvukogram.com/mp3/cats/908/veselyiy-raskatistyiy-hohot.mp3',
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/30/1e3ad4f6-18ef-4798-af98-e9a7844aa357.mp4'
+    },
+    {
+        id: 'q5',
+        type: 'question',
+        videoPosition: 'left',
+        hasSpotlightMask: true,
+        badge: 'ВОПРОС 5 ИЗ 5',
+        question: 'Истина коль неправда?',
+        options: [
+            'Истина',
+            'Неправда'
+        ],
+        correct: 0, // Истина
+        sound: 'https://zvukogram.com/mp3/cats/142/stsenicheskoe-vesele-antagonista--oglushitelnoe.mp3',
+        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
     },
     {
         id: 'outro',
@@ -438,13 +462,18 @@ const Quiz2026 = () => {
     const questionAudioRef = useRef(null);
     const activeSectionRef = useRef('intro');
 
-    const handleEnableAudio = () => {
+    const handleToggleAudio = () => {
         if (audioRef.current) {
-            audioRef.current.muted = false;
-            audioRef.current.play().then(() => {
-                setAudioStarted(true);
-                setIsAudioMuted(false);
-            }).catch(err => console.log('Audio error:', err));
+            if (!audioStarted || isAudioMuted) {
+                audioRef.current.muted = false;
+                audioRef.current.play().then(() => {
+                    setAudioStarted(true);
+                    setIsAudioMuted(false);
+                }).catch(err => console.log('Audio error:', err));
+            } else {
+                audioRef.current.muted = true;
+                setIsAudioMuted(true);
+            }
         }
     };
 
@@ -560,35 +589,6 @@ const Quiz2026 = () => {
             <audio ref={audioRef} src={AMBIENT_AUDIO} loop />
             <audio ref={questionAudioRef} />
 
-            {/* Audio enable / toggle button */}
-            <button
-                onClick={handleEnableAudio}
-                style={{
-                    position: 'fixed',
-                    top: '24px',
-                    right: '24px',
-                    zIndex: 100,
-                    padding: '0.65rem 1.25rem',
-                    borderRadius: '30px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                    backdropFilter: 'blur(16px)',
-                    WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.25)',
-                    color: '#FFFFFF',
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.05em',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
-                    transition: 'all 0.25s ease'
-                }}
-            >
-                <span style={{ fontSize: '1.1rem' }}>🔊</span>
-                <span>{audioStarted ? 'Звук включен' : 'Включить бадсы'}</span>
-            </button>
 
             {/* Continuous Fixed Background Video */}
             <video
@@ -645,6 +645,35 @@ const Quiz2026 = () => {
                                 textAlign: 'center',
                                 boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)'
                             }}>
+                                {/* Minimal Sound Toggle Button inside card */}
+                                <button
+                                    onClick={handleToggleAudio}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '20px',
+                                        right: '20px',
+                                        width: '42px',
+                                        height: '42px',
+                                        borderRadius: '50%',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                                        backdropFilter: 'blur(12px)',
+                                        WebkitBackdropFilter: 'blur(12px)',
+                                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                                        color: '#FFFFFF',
+                                        fontSize: '1.1rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                                        transition: 'all 0.2s ease',
+                                        zIndex: 10
+                                    }}
+                                    title={audioStarted && !isAudioMuted ? 'Выключить звук' : 'Включить звук'}
+                                >
+                                    {audioStarted && !isAudioMuted ? '🔊' : '🔇'}
+                                </button>
+
                                 {/* Logo Image FIRST */}
                                 <img
                                     src={LOGO_IMAGE}
@@ -751,7 +780,7 @@ const Quiz2026 = () => {
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                                    {section.rules.map((rule, idx) => (
+                                    {section.rules.map((ruleObj, idx) => (
                                         <div
                                             key={idx}
                                             style={{
@@ -759,13 +788,30 @@ const Quiz2026 = () => {
                                                 borderRadius: '16px',
                                                 padding: '1.25rem 1.5rem',
                                                 border: '1px solid rgba(255, 255, 255, 0.12)',
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                gap: '1.25rem'
+                                            }}
+                                        >
+                                            <img
+                                                src={ruleObj.icon}
+                                                alt={`Rule ${idx + 1}`}
+                                                style={{
+                                                    width: '48px',
+                                                    height: '48px',
+                                                    objectFit: 'contain',
+                                                    flexShrink: 0,
+                                                    borderRadius: '8px'
+                                                }}
+                                            />
+                                            <div style={{
                                                 fontSize: '1rem',
                                                 lineHeight: '1.6',
                                                 color: 'rgba(255, 255, 255, 0.95)',
                                                 fontWeight: 300
-                                            }}
-                                        >
-                                            {rule}
+                                            }}>
+                                                {ruleObj.text}
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
