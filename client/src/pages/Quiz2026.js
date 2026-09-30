@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
-const LOGO_IMAGE = 'https://i.postimg.cc/Ss8QDkqF/3423222.gif';
+const LOGO_IMAGE = 'https://i.postimg.cc/sgdqzQBh/5325232.gif';
 const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-9.mp3';
 
 const QUIZ_SECTIONS = [
@@ -11,6 +11,16 @@ const QUIZ_SECTIONS = [
         type: 'intro',
         badge: "Video Quiz '26",
         subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya'
+    },
+    {
+        id: 'rules',
+        type: 'rules',
+        badge: 'Правила викторины',
+        rules: [
+            '1. Рассмотрите видео и ответьте на главный вопрос - правда данное действие или вымысел. Звучит глупо, но ничего интереснее мы не придумали :-}',
+            '2. Результаты состязания жестко влияют на ваш призз. Отвертеться не выйдет. Мы учли горький опыт предыдущей версии, и внесли корневые измерения. Ой что это я говорю.. - Джуулс!! Есть работёнка!',
+            '3. Не проявляйте неактивность и хитрость. Мы все тщательно проработали, но не гарантируем корректность соревнования! Все ситуации субьективны. Джулс никого не хочет обидеть по расовой национальности, полу или внешнему виду. Ни одно животное не пострадало. Кроме осьминога (О-хОХО)'
+        ]
     },
     {
         id: 'q1',
@@ -420,11 +430,23 @@ const Preloader = ({ onFinish }) => {
 const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(true);
+    const [isAudioMuted, setIsAudioMuted] = useState(false);
+    const [audioStarted, setAudioStarted] = useState(false);
     const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
     const containerRef = useRef(null);
     const audioRef = useRef(null);
     const questionAudioRef = useRef(null);
     const activeSectionRef = useRef('intro');
+
+    const handleEnableAudio = () => {
+        if (audioRef.current) {
+            audioRef.current.muted = false;
+            audioRef.current.play().then(() => {
+                setAudioStarted(true);
+                setIsAudioMuted(false);
+            }).catch(err => console.log('Audio error:', err));
+        }
+    };
 
     useEffect(() => {
         // Generate or retrieve user info
@@ -538,6 +560,36 @@ const Quiz2026 = () => {
             <audio ref={audioRef} src={AMBIENT_AUDIO} loop />
             <audio ref={questionAudioRef} />
 
+            {/* Audio enable / toggle button */}
+            <button
+                onClick={handleEnableAudio}
+                style={{
+                    position: 'fixed',
+                    top: '24px',
+                    right: '24px',
+                    zIndex: 100,
+                    padding: '0.65rem 1.25rem',
+                    borderRadius: '30px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                    color: '#FFFFFF',
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.05em',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
+                    transition: 'all 0.25s ease'
+                }}
+            >
+                <span style={{ fontSize: '1.1rem' }}>🔊</span>
+                <span>{audioStarted ? 'Звук включен' : 'Включить бадсы'}</span>
+            </button>
+
             {/* Continuous Fixed Background Video */}
             <video
                 autoPlay
@@ -608,35 +660,24 @@ const Quiz2026 = () => {
                                     }}
                                 />
 
-                                {/* Animated Black & Gray Gradient Title SECOND in rounded border container with blur */}
-                                <div style={{
-                                    display: 'inline-block',
-                                    padding: '0.85rem 2.8rem',
-                                    borderRadius: '50px',
-                                    background: 'rgba(255, 255, 255, 0.85)',
-                                    backdropFilter: 'blur(20px) saturate(180%)',
-                                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                                    border: '1.5px solid rgba(255, 255, 255, 0.4)',
-                                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.2)',
-                                    margin: '0 auto 2rem auto'
+                                {/* Animated Black & Gray Gradient Title SECOND (No pill container, larger size) */}
+                                <h1 style={{
+                                    fontSize: 'clamp(3.2rem, 8.5vw, 6.2rem)',
+                                    fontFamily: "'Fascinate Inline', cursive, sans-serif",
+                                    fontWeight: 400,
+                                    letterSpacing: '0.05em',
+                                    textTransform: 'uppercase',
+                                    margin: '0 auto 2rem auto',
+                                    background: 'linear-gradient(120deg, #000000, #444444, #999999, #222222, #000000)',
+                                    backgroundSize: '300% 300%',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    animation: 'rainbowGlow 5s ease infinite',
+                                    lineHeight: 1.1,
+                                    filter: 'drop-shadow(0 2px 10px rgba(255,255,255,0.2))'
                                 }}>
-                                    <h1 style={{
-                                        fontSize: 'clamp(2.5rem, 6.5vw, 4.8rem)',
-                                        fontFamily: "'Fascinate Inline', cursive, sans-serif",
-                                        fontWeight: 400,
-                                        letterSpacing: '0.05em',
-                                        textTransform: 'uppercase',
-                                        margin: 0,
-                                        background: 'linear-gradient(120deg, #000000, #555555, #AAAAAA, #333333, #000000)',
-                                        backgroundSize: '300% 300%',
-                                        WebkitBackgroundClip: 'text',
-                                        WebkitTextFillColor: 'transparent',
-                                        animation: 'rainbowGlow 5s ease infinite',
-                                        lineHeight: 1.15
-                                    }}>
-                                        {section.badge}
-                                    </h1>
-                                </div>
+                                    {section.badge}
+                                </h1>
 
                                 <p style={{
                                     fontSize: '1.15rem',
@@ -650,6 +691,87 @@ const Quiz2026 = () => {
                                 </p>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'rgba(255, 255, 255, 0.7)' }}>
                                     <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Проскролльте вниз</span>
+                                    <span style={{ fontSize: '1.5rem' }}>↓</span>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }
+
+                if (section.type === 'rules') {
+                    return (
+                        <div
+                            key={section.id}
+                            style={{
+                                height: '100vh',
+                                width: '100vw',
+                                scrollSnapAlign: 'start',
+                                scrollSnapStop: 'always',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                position: 'relative',
+                                padding: '2rem',
+                                boxSizing: 'border-box',
+                                zIndex: 1
+                            }}
+                        >
+                            <div style={{
+                                position: 'relative',
+                                zIndex: 2,
+                                maxWidth: '780px',
+                                width: '100%',
+                                background: 'rgba(255, 255, 255, 0.08)',
+                                backdropFilter: 'blur(28px) saturate(180%)',
+                                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                                borderRadius: '28px',
+                                padding: '3rem 2.5rem',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                textAlign: 'left',
+                                boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)'
+                            }}>
+                                <div style={{
+                                    textAlign: 'center',
+                                    marginBottom: '2rem'
+                                }}>
+                                    <div style={{
+                                        display: 'inline-block',
+                                        padding: '0.4rem 1.2rem',
+                                        background: 'rgba(255, 255, 255, 0.12)',
+                                        borderRadius: '30px',
+                                        fontSize: '0.85rem',
+                                        fontWeight: 700,
+                                        letterSpacing: '0.15em',
+                                        textTransform: 'uppercase',
+                                        color: '#FFFFFF',
+                                        border: '1px solid rgba(255, 255, 255, 0.2)'
+                                    }}>
+                                        {section.badge}
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                                    {section.rules.map((rule, idx) => (
+                                        <div
+                                            key={idx}
+                                            style={{
+                                                background: 'rgba(255, 255, 255, 0.05)',
+                                                borderRadius: '16px',
+                                                padding: '1.25rem 1.5rem',
+                                                border: '1px solid rgba(255, 255, 255, 0.12)',
+                                                fontSize: '1rem',
+                                                lineHeight: '1.6',
+                                                color: 'rgba(255, 255, 255, 0.95)',
+                                                fontWeight: 300
+                                            }}
+                                        >
+                                            {rule}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', marginTop: '2rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Проскролльте далее</span>
                                     <span style={{ fontSize: '1.5rem' }}>↓</span>
                                 </div>
                             </div>
