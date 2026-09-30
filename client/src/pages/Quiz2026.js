@@ -3,7 +3,7 @@ import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/Ss8QDkqF/3423222.gif';
-const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-6.mp3';
+const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-9.mp3';
 
 const QUIZ_SECTIONS = [
     {
@@ -46,12 +46,10 @@ const QUIZ_SECTIONS = [
         videoPosition: 'left',
         hasSpotlightMask: true,
         badge: 'ВОПРОС 3 ИЗ 4',
-        question: 'Что является главным приоритетом при проектировании современных веб-интерфейсов?',
+        question: 'Действительность или вымысел?',
         options: [
-            'Лаконичность, отзывчивость и чистота кода',
-            'Максимальное количество сложных скриптов',
-            'Скрытые ссылки',
-            'Автопроигрывание звука на 100%'
+            'Реальность',
+            'Фантазия'
         ],
         correct: 0,
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/e1dfa3b5-3003-432e-a8f3-26e0ccb1359d.mp4'
@@ -62,12 +60,10 @@ const QUIZ_SECTIONS = [
         videoPosition: 'right',
         hasSpotlightMask: true,
         badge: 'ВОПРОС 4 ИЗ 4',
-        question: 'Как синтез ИИ и генеративного видео трансформирует пользовательский опыт?',
+        question: 'Правда или ложь?',
         options: [
-            'Создает персонализированное и динамическое погружение',
-            'Заменяет текстовые описания статичными картинками',
-            'Ограничивает возможность интерактива',
-            'Используется только в рекламных баннерах'
+            'Праавда',
+            'Лоожь'
         ],
         correct: 0,
         video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/30/1e3ad4f6-18ef-4798-af98-e9a7844aa357.mp4'
@@ -269,8 +265,13 @@ const QuestionBox = ({ section, answers, onSelectAnswer }) => {
                             key={idx}
                             onClick={() => onSelectAnswer(section.id, idx)}
                             style={{
-                                padding: '1rem 1.25rem',
+                                padding: '0.8rem 1.25rem',
+                                minHeight: '52px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
                                 fontSize: '0.925rem',
+                                lineHeight: '1.2',
                                 fontWeight: isSelected ? 600 : 400,
                                 color: isSelected ? '#0A0A0A' : '#FFFFFF',
                                 backgroundColor: isSelected ? '#FFFFFF' : 'rgba(255, 255, 255, 0.08)',
@@ -283,7 +284,7 @@ const QuestionBox = ({ section, answers, onSelectAnswer }) => {
                                 boxShadow: isSelected ? '0 8px 20px rgba(255, 255, 255, 0.25)' : 'none'
                             }}
                         >
-                            {opt}
+                            <span style={{ transform: 'translateY(-1px)' }}>{opt}</span>
                         </button>
                     );
                 })}
@@ -441,12 +442,25 @@ const Quiz2026 = () => {
     }, []);
 
     useEffect(() => {
-        if (isPastScreen1 && audioRef.current) {
-            audioRef.current.play().catch(err => {
-                console.log('Audio playback prevented:', err);
-            });
-        }
-    }, [isPastScreen1]);
+        const startAudio = () => {
+            if (audioRef.current) {
+                audioRef.current.play().catch(err => {
+                    console.log('Audio playback prevented:', err);
+                });
+            }
+        };
+
+        startAudio();
+        window.addEventListener('click', startAudio, { once: true });
+        window.addEventListener('touchstart', startAudio, { once: true });
+        window.addEventListener('scroll', startAudio, { once: true });
+
+        return () => {
+            window.removeEventListener('click', startAudio);
+            window.removeEventListener('touchstart', startAudio);
+            window.removeEventListener('scroll', startAudio);
+        };
+    }, []);
 
     const handleSelectAnswer = (sectionId, idx) => {
         setAnswers(prev => ({ ...prev, [sectionId]: idx }));
