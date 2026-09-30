@@ -419,7 +419,6 @@ const Preloader = ({ onFinish }) => {
 
 const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
-    const [isPastScreen1, setIsPastScreen1] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
     const containerRef = useRef(null);
@@ -456,12 +455,6 @@ const Quiz2026 = () => {
             if (!containerRef.current) return;
             const scrollTop = containerRef.current.scrollTop;
             const clientHeight = containerRef.current.clientHeight;
-
-            if (scrollTop >= clientHeight * 0.4) {
-                setIsPastScreen1(true);
-            } else {
-                setIsPastScreen1(false);
-            }
 
             // Detect current active section index
             const currentIndex = Math.round(scrollTop / clientHeight);
@@ -528,8 +521,7 @@ const Quiz2026 = () => {
                 height: '100vh',
                 overflowY: 'scroll',
                 scrollSnapType: 'y mandatory',
-                backgroundColor: isPastScreen1 ? '#0A0C10' : '#FFFFFF',
-                transition: 'background-color 0.8s ease',
+                backgroundColor: '#0A0C10',
                 fontFamily: "'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
                 color: '#FFFFFF'
             }}
@@ -546,7 +538,7 @@ const Quiz2026 = () => {
             <audio ref={audioRef} src={AMBIENT_AUDIO} loop />
             <audio ref={questionAudioRef} />
 
-            {/* Continuous Fixed Background Video (Visible on Screen 2+) */}
+            {/* Continuous Fixed Background Video */}
             <video
                 autoPlay
                 loop
@@ -561,8 +553,7 @@ const Quiz2026 = () => {
                     objectFit: 'cover',
                     filter: 'brightness(0.45) contrast(1.05)',
                     zIndex: 0,
-                    opacity: isPastScreen1 ? 1 : 0,
-                    transition: 'opacity 0.8s ease-in-out',
+                    opacity: 1,
                     pointerEvents: 'none'
                 }}
             >
@@ -591,42 +582,42 @@ const Quiz2026 = () => {
                             <div style={{
                                 position: 'relative',
                                 zIndex: 2,
-                                maxWidth: '920px',
+                                maxWidth: '780px',
                                 width: '100%',
-                                background: 'transparent',
-                                backdropFilter: 'none',
-                                WebkitBackdropFilter: 'none',
-                                borderRadius: '0px',
-                                padding: '2rem 1rem',
-                                border: 'none',
+                                background: 'rgba(255, 255, 255, 0.08)',
+                                backdropFilter: 'blur(28px) saturate(180%)',
+                                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                                borderRadius: '28px',
+                                padding: '3.5rem 2.5rem',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
                                 textAlign: 'center',
-                                boxShadow: 'none'
+                                boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)'
                             }}>
                                 {/* Logo Image FIRST */}
                                 <img
                                     src={LOGO_IMAGE}
                                     alt="Quizzy AI Logo"
                                     style={{
-                                        maxWidth: '380px',
-                                        width: '80%',
+                                        maxWidth: '340px',
+                                        width: '75%',
                                         height: 'auto',
                                         objectFit: 'contain',
-                                        margin: '0 auto 2.5rem auto',
+                                        margin: '0 auto 2rem auto',
                                         display: 'block',
-                                        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.12))'
+                                        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))'
                                     }}
                                 />
 
-                                {/* Animated Multi-color Title SECOND in rounded border container with blur */}
+                                {/* Animated Black & Gray Gradient Title SECOND in rounded border container with blur */}
                                 <div style={{
                                     display: 'inline-block',
                                     padding: '0.85rem 2.8rem',
                                     borderRadius: '50px',
-                                    background: 'rgba(255, 255, 255, 0.75)',
+                                    background: 'rgba(255, 255, 255, 0.85)',
                                     backdropFilter: 'blur(20px) saturate(180%)',
                                     WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                                    border: '1.5px solid rgba(0, 0, 0, 0.08)',
-                                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.08), 0 0 20px rgba(0, 0, 0, 0.04), inset 0 0 15px rgba(255, 255, 255, 0.9)',
+                                    border: '1.5px solid rgba(255, 255, 255, 0.4)',
+                                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.2)',
                                     margin: '0 auto 2rem auto'
                                 }}>
                                     <h1 style={{
@@ -636,11 +627,11 @@ const Quiz2026 = () => {
                                         letterSpacing: '0.05em',
                                         textTransform: 'uppercase',
                                         margin: 0,
-                                        background: 'linear-gradient(120deg, #FF2A85, #FF7300, #FFEB00, #00FF88, #00E5FF, #7B2CBF, #FF2A85)',
+                                        background: 'linear-gradient(120deg, #000000, #555555, #AAAAAA, #333333, #000000)',
                                         backgroundSize: '300% 300%',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
-                                        animation: 'rainbowGlow 6s ease infinite',
+                                        animation: 'rainbowGlow 5s ease infinite',
                                         lineHeight: 1.15
                                     }}>
                                         {section.badge}
@@ -648,16 +639,16 @@ const Quiz2026 = () => {
                                 </div>
 
                                 <p style={{
-                                    fontSize: '1.2rem',
+                                    fontSize: '1.15rem',
                                     lineHeight: '1.75',
-                                    color: '#1F2937',
-                                    fontWeight: 400,
+                                    color: 'rgba(255, 255, 255, 0.9)',
+                                    fontWeight: 300,
                                     margin: '0 auto 2.5rem auto',
-                                    maxWidth: '720px'
+                                    maxWidth: '680px'
                                 }}>
-                                    {section.subtitle}
+                                    Добро пожаловать! Рады <strong style={{ fontWeight: 700, color: '#FFFFFF' }}>до вас донести</strong>, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya
                                 </p>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: '#4B5563' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'rgba(255, 255, 255, 0.7)' }}>
                                     <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Проскролльте вниз</span>
                                     <span style={{ fontSize: '1.5rem' }}>↓</span>
                                 </div>
