@@ -318,6 +318,14 @@ const Quiz2026 = () => {
                 color: '#FFFFFF'
             }}
         >
+            <style>{`
+                @keyframes rainbowGlow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+            `}</style>
+
             {/* Continuous Fixed Background Video */}
             <video
                 autoPlay
@@ -361,59 +369,63 @@ const Quiz2026 = () => {
                             <div style={{
                                 position: 'relative',
                                 zIndex: 2,
-                                maxWidth: '640px',
+                                maxWidth: '920px',
                                 width: '100%',
-                                background: 'rgba(255, 255, 255, 0.08)',
-                                backdropFilter: 'blur(28px) saturate(180%)',
-                                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-                                borderRadius: '28px',
-                                padding: '3.5rem 2.5rem',
-                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                background: 'transparent',
+                                backdropFilter: 'none',
+                                WebkitBackdropFilter: 'none',
+                                borderRadius: '0px',
+                                padding: '2rem 1rem',
+                                border: 'none',
                                 textAlign: 'center',
-                                boxShadow: '0 30px 60px rgba(0,0,0,0.4)'
+                                boxShadow: 'none'
                             }}>
-                                <div style={{
-                                    display: 'inline-block',
-                                    padding: '0.4rem 1.1rem',
-                                    background: 'rgba(255, 255, 255, 0.12)',
-                                    borderRadius: '30px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 600,
-                                    letterSpacing: '0.2em',
+                                {/* Animated Multi-color Title FIRST */}
+                                <h1 style={{
+                                    fontSize: 'clamp(3rem, 7.5vw, 5.5rem)',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.04em',
                                     textTransform: 'uppercase',
-                                    color: '#FFFFFF',
-                                    marginBottom: '1.75rem',
-                                    border: '1px solid rgba(255, 255, 255, 0.18)'
+                                    margin: '0 0 1.5rem 0',
+                                    background: 'linear-gradient(120deg, #FF2A85, #FF7300, #FFEB00, #00FF88, #00E5FF, #7B2CBF, #FF2A85)',
+                                    backgroundSize: '300% 300%',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    animation: 'rainbowGlow 6s ease infinite',
+                                    lineHeight: 1.1,
+                                    filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.6))'
                                 }}>
                                     {section.badge}
-                                </div>
+                                </h1>
 
+                                {/* Logo Image SECOND */}
                                 <img
                                     src={LOGO_IMAGE}
                                     alt="Квиз 2026"
                                     style={{
-                                        maxWidth: '340px',
-                                        width: '90%',
+                                        maxWidth: '420px',
+                                        width: '85%',
                                         height: 'auto',
                                         objectFit: 'contain',
-                                        margin: '0 auto 1.5rem auto',
+                                        margin: '0 auto 2rem auto',
                                         display: 'block'
                                     }}
                                 />
 
                                 <p style={{
-                                    fontSize: '1.05rem',
-                                    lineHeight: '1.7',
-                                    color: 'rgba(255, 255, 255, 0.85)',
+                                    fontSize: '1.2rem',
+                                    lineHeight: '1.75',
+                                    color: 'rgba(255, 255, 255, 0.9)',
                                     fontWeight: 300,
                                     margin: '0 auto 2.5rem auto',
-                                    maxWidth: '520px'
+                                    maxWidth: '720px',
+                                    textShadow: '0 2px 10px rgba(0,0,0,0.7)'
                                 }}>
                                     {section.subtitle}
                                 </p>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.8 }}>
-                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Проскролльте вниз</span>
-                                    <span style={{ fontSize: '1.5rem' }}>↓</span>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.85 }}>
+                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>Проскролльте вниз</span>
+                                    <span style={{ fontSize: '1.5rem', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>↓</span>
                                 </div>
                             </div>
                         </div>
