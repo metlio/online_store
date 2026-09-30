@@ -9,13 +9,14 @@ const QUIZ_SECTIONS = [
     {
         id: 'intro',
         type: 'intro',
-        badge: "Video Quiz '26",
+        badge: 'Video Quiz 26',
         subtitle: 'Добро пожаловать! Рады до вас донести, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya'
     },
     {
         id: 'rules',
         type: 'rules',
         badge: 'Правила викторины',
+        sound: 'https://zvukogram.com/mp3/35/crow-cawing.mp3',
         rules: [
             {
                 icon: 'https://i.postimg.cc/8cNp5pzD/4232222.png',
@@ -605,6 +606,7 @@ const Preloader = ({ onFinish }) => {
 const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(true);
+    const [submitted, setSubmitted] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const [audioStarted, setAudioStarted] = useState(false);
     const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
@@ -787,44 +789,13 @@ const Quiz2026 = () => {
                                 zIndex: 2,
                                 maxWidth: '780px',
                                 width: '100%',
-                                background: 'rgba(255, 255, 255, 0.08)',
-                                backdropFilter: 'blur(28px) saturate(180%)',
-                                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                                background: '#FFFFFF',
                                 borderRadius: '28px',
                                 padding: '3.5rem 2.5rem',
-                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                border: '1px solid rgba(255, 255, 255, 0.6)',
                                 textAlign: 'center',
-                                boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)'
+                                boxShadow: '0 30px 70px rgba(0, 0, 0, 0.5)'
                             }}>
-                                {/* Minimal Sound Toggle Button inside card */}
-                                <button
-                                    onClick={handleToggleAudio}
-                                    style={{
-                                        position: 'absolute',
-                                        top: '20px',
-                                        right: '20px',
-                                        width: '42px',
-                                        height: '42px',
-                                        borderRadius: '50%',
-                                        backgroundColor: 'rgba(255, 255, 255, 0.12)',
-                                        backdropFilter: 'blur(12px)',
-                                        WebkitBackdropFilter: 'blur(12px)',
-                                        border: '1px solid rgba(255, 255, 255, 0.25)',
-                                        color: '#FFFFFF',
-                                        fontSize: '1.1rem',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        cursor: 'pointer',
-                                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                                        transition: 'all 0.2s ease',
-                                        zIndex: 10
-                                    }}
-                                    title={audioStarted && !isAudioMuted ? 'Выключить звук' : 'Включить звук'}
-                                >
-                                    {audioStarted && !isAudioMuted ? '🔊' : '🔇'}
-                                </button>
-
                                 {/* Logo Image FIRST */}
                                 <img
                                     src={LOGO_IMAGE}
@@ -836,25 +807,21 @@ const Quiz2026 = () => {
                                         objectFit: 'contain',
                                         margin: '0 auto 2rem auto',
                                         display: 'block',
-                                        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))'
+                                        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.15))'
                                     }}
                                 />
 
-                                {/* Animated Black & Gray Gradient Title SECOND (No pill container, larger size) */}
+                                {/* Display Font Title SECOND */}
                                 <h1 style={{
-                                    fontSize: 'clamp(3.2rem, 8.5vw, 6.2rem)',
-                                    fontFamily: "'Fascinate Inline', cursive, sans-serif",
-                                    fontWeight: 400,
-                                    letterSpacing: '0.05em',
+                                    fontSize: 'clamp(2.2rem, 6vw, 4.2rem)',
+                                    fontFamily: "'Oi', sans-serif",
+                                    fontWeight: 'normal',
+                                    letterSpacing: '0.02em',
                                     textTransform: 'uppercase',
-                                    margin: '0 auto 2rem auto',
-                                    background: 'linear-gradient(120deg, #000000, #444444, #999999, #222222, #000000)',
-                                    backgroundSize: '300% 300%',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    animation: 'rainbowGlow 5s ease infinite',
-                                    lineHeight: 1.1,
-                                    filter: 'drop-shadow(0 2px 10px rgba(255,255,255,0.2))'
+                                    margin: '0 auto 1.75rem auto',
+                                    color: '#0A0C10',
+                                    lineHeight: 1.15,
+                                    textShadow: '0 4px 16px rgba(0,0,0,0.08)'
                                 }}>
                                     {section.badge}
                                 </h1>
@@ -862,15 +829,43 @@ const Quiz2026 = () => {
                                 <p style={{
                                     fontSize: '1.15rem',
                                     lineHeight: '1.75',
-                                    color: 'rgba(255, 255, 255, 0.9)',
-                                    fontWeight: 300,
-                                    margin: '0 auto 2.5rem auto',
+                                    color: '#222222',
+                                    fontWeight: 400,
+                                    margin: '0 auto 2rem auto',
                                     maxWidth: '680px'
                                 }}>
-                                    Добро пожаловать! Рады <strong style={{ fontWeight: 700, color: '#FFFFFF' }}>до вас донести</strong>, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya
+                                    Добро пожаловать! Рады <strong style={{ fontWeight: 700, color: '#000000' }}>до вас донести</strong>, что наша команда обновила Квиззи App. Только чистый дух и AI Intellegence by Google & Mixosya
                                 </p>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Проскролльте вниз</span>
+
+                                {/* Sound Toggle Button centered above scroll prompt, 75x75px */}
+                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                                    <button
+                                        onClick={handleToggleAudio}
+                                        style={{
+                                            width: '75px',
+                                            height: '75px',
+                                            borderRadius: '50%',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.06)',
+                                            border: '1px solid rgba(0, 0, 0, 0.15)',
+                                            color: '#0A0C10',
+                                            fontSize: '2rem',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 4px 15px rgba(0,0,0,0.12)',
+                                            transition: 'all 0.2s ease'
+                                        }}
+                                        title={audioStarted && !isAudioMuted ? 'Выключить звук' : 'Включить звук'}
+                                    >
+                                        <span style={{ transform: 'translateY(-1px)', lineHeight: 1 }}>
+                                            {audioStarted && !isAudioMuted ? '🔊' : '🔇'}
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: '#555555' }}>
+                                    <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700 }}>Проскролльте вниз</span>
                                     <span style={{ fontSize: '1.5rem' }}>↓</span>
                                 </div>
                             </div>
@@ -1221,23 +1216,31 @@ const Quiz2026 = () => {
                                             timestamp: Date.now()
                                         };
                                         localStorage.setItem('quiz_2026_submitted_result', JSON.stringify(resultData));
-                                        window.location.href = '/magazine';
+                                        setSubmitted(true);
                                     }}
                                     style={{
                                         padding: '1rem 2.2rem',
+                                        height: '52px',
                                         fontSize: '1rem',
                                         fontWeight: 600,
                                         letterSpacing: '0.05em',
-                                        color: '#0A0C10',
-                                        backgroundColor: '#FFFFFF',
+                                        color: submitted ? '#FFFFFF' : '#0A0C10',
+                                        backgroundColor: submitted ? '#10B981' : '#FFFFFF',
                                         border: 'none',
                                         borderRadius: '30px',
                                         cursor: 'pointer',
-                                        boxShadow: '0 10px 25px rgba(255, 255, 255, 0.3)',
-                                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                                        boxShadow: submitted ? '0 10px 25px rgba(16, 185, 129, 0.3)' : '0 10px 25px rgba(255, 255, 255, 0.3)',
+                                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        lineHeight: 1,
+                                        margin: '0 auto'
                                     }}
                                 >
-                                    Отправить результат
+                                    <span style={{ transform: 'translateY(0px)', display: 'inline-block', lineHeight: '1' }}>
+                                        {submitted ? '✓ Результат сохранен' : 'Отправить результат'}
+                                    </span>
                                 </button>
                             </div>
                         </div>
@@ -1277,26 +1280,26 @@ const Quiz2026 = () => {
                                 pointerEvents: 'none'
                             }}>
                                 <h1 style={{
-                                    fontFamily: "'Oi', cursive, sans-serif",
-                                    fontSize: 'clamp(2.8rem, 11vw, 9rem)',
-                                    fontWeight: 900,
+                                    fontFamily: "'Oi', 'Rubik Mono One', 'Russo One', sans-serif",
+                                    fontSize: 'clamp(2.5rem, 9vw, 7.5rem)',
+                                    fontWeight: 'normal',
                                     color: '#FFFFFF',
                                     textShadow: '0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.6)',
                                     margin: 0,
-                                    lineHeight: '1.05',
+                                    lineHeight: '1.1',
                                     textTransform: 'uppercase',
                                     wordBreak: 'break-word'
                                 }}>
                                     С ДНЕМ
                                 </h1>
                                 <h1 style={{
-                                    fontFamily: "'Oi', cursive, sans-serif",
-                                    fontSize: 'clamp(2.5rem, 10vw, 8.2rem)',
-                                    fontWeight: 900,
+                                    fontFamily: "'Oi', 'Rubik Mono One', 'Russo One', sans-serif",
+                                    fontSize: 'clamp(2.2rem, 8vw, 6.8rem)',
+                                    fontWeight: 'normal',
                                     color: '#FFFFFF',
                                     textShadow: '0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.6)',
                                     margin: 0,
-                                    lineHeight: '1.05',
+                                    lineHeight: '1.1',
                                     textTransform: 'uppercase',
                                     wordBreak: 'break-word'
                                 }}>
