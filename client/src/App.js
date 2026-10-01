@@ -14,11 +14,8 @@ import './pages/Tvorog.css'
 import CartContextProvider from "./store/CartContextProvider";
 import Menu from './components/Menu';
 import UserBar from './components/UserBar';
-import useCustomCursor from './hooks/useCustomCursor';
-import './cursor.css';
 
 const App = observer(() => {
-    useCustomCursor();
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(true)
 
