@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { $host } from '../http';
 import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = '/media/bg_q5.mp4';
@@ -992,27 +993,30 @@ const Quiz2026 = () => {
                                             key={idx}
                                             style={{
                                                 background: 'rgba(255, 255, 255, 0.05)',
-                                                borderRadius: '16px',
-                                                padding: '1.25rem 1.5rem',
+                                                borderRadius: '20px',
+                                                padding: '1.5rem 1.75rem',
                                                 border: '1px solid rgba(255, 255, 255, 0.12)',
                                                 display: 'flex',
-                                                alignItems: 'flex-start',
-                                                gap: '1.25rem'
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                textAlign: 'center',
+                                                gap: '1rem'
                                             }}
                                         >
                                             <img
                                                 src={ruleObj.icon}
                                                 alt={`Rule ${idx + 1}`}
                                                 style={{
-                                                    width: '48px',
-                                                    height: '48px',
+                                                    width: '85px',
+                                                    height: '85px',
                                                     objectFit: 'contain',
                                                     flexShrink: 0,
-                                                    borderRadius: '8px'
+                                                    borderRadius: '12px',
+                                                    marginBottom: '0.25rem'
                                                 }}
                                             />
                                             <div style={{
-                                                fontSize: '1rem',
+                                                fontSize: '1.05rem',
                                                 lineHeight: '1.6',
                                                 color: 'rgba(255, 255, 255, 0.95)',
                                                 fontWeight: 300
@@ -1268,7 +1272,7 @@ const Quiz2026 = () => {
                                 </p>
 
                                 <button
-                                    onClick={() => {
+                                    onClick={async () => {
                                         const resultData = {
                                             score: correctCount,
                                             total: questions.length,
@@ -1276,6 +1280,11 @@ const Quiz2026 = () => {
                                             userName: userInfo.name,
                                             timestamp: Date.now()
                                         };
+                                        try {
+                                            await $host.post('/api/quiz/result', resultData);
+                                        } catch (e) {
+                                            console.error('Error posting quiz result to server:', e);
+                                        }
                                         localStorage.setItem('quiz_2026_submitted_result', JSON.stringify(resultData));
                                         setSubmitted(true);
                                     }}
