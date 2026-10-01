@@ -96,6 +96,7 @@ const QuizResult = sequelize.define('quiz_result', {
     userName: {type: DataTypes.STRING, allowNull: false},
     score: {type: DataTypes.INTEGER, allowNull: false},
     total: {type: DataTypes.INTEGER, allowNull: false},
+    takeMoneyEquivalent: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 module.exports = {

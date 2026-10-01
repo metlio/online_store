@@ -82,6 +82,9 @@ const Footer = () => {
                           lineHeight: '1.4'
                       }}>
                           <div>Результат Квиза: {item.score} / {item.total}</div>
+                          <div style={{ color: '#A7F3D0', fontSize: '0.8rem', marginTop: '0.2rem' }}>
+                              Денежный эквивалент: {item.takeMoneyEquivalent ? 'Да' : 'Нет'}
+                          </div>
                           <div style={{ color: '#888', fontSize: '0.75rem', fontFamily: 'monospace', marginTop: '0.2rem' }}>
                               Игрок: {item.userId}
                           </div>
@@ -106,6 +109,9 @@ const Footer = () => {
                               lineHeight: '1.4'
                           }}>
                               <div>Результат Квиза: {parsed.score} / {parsed.total}</div>
+                              <div style={{ color: '#A7F3D0', fontSize: '0.8rem', marginTop: '0.2rem' }}>
+                                  Денежный эквивалент: {parsed.takeMoneyEquivalent ? 'Да' : 'Нет'}
+                              </div>
                               <div style={{ color: '#888', fontSize: '0.75rem', fontFamily: 'monospace', marginTop: '0.2rem' }}>
                                   Игрок: {parsed.userId}
                               </div>
