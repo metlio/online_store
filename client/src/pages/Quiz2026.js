@@ -4,7 +4,7 @@ import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = '/media/bg_q5.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/2SzYwD9r/3343.gif';
-const AMBIENT_AUDIO = '/media/ambient.mp3';
+const AMBIENT_AUDIO = '/media/ambient_new.mp3';
 const BIRTHDAY_FIREWORKS_SOUND = '/media/fireworks.mp3';
 
 const QUIZ_SECTIONS = [
@@ -100,13 +100,13 @@ const QUIZ_SECTIONS = [
         videoPosition: 'left',
         hasSpotlightMask: true,
         badge: 'ВОПРОС 5 ИЗ 5',
-        question: 'Истина коль неправда?',
+        question: 'Жиза или враки?',
         options: [
-            'Истина',
-            'Неправда'
+            'Жиза',
+            'Враки'
         ],
-        correct: 0, // Истина
-        sound: '/media/laugh1.mp3',
+        correct: 0, // Жиза
+        sound: '/media/laugh5.mp3',
         video: '/media/q5.mp4'
     },
     {
@@ -345,7 +345,7 @@ const SpotlightVideoFrame = ({ videoSrc }) => {
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
                 border: '1px solid rgba(255, 255, 255, 0.18)',
                 backgroundColor: 'rgba(0,0,0,0.5)',
-                cursor: 'crosshair',
+                cursor: 'default',
                 userSelect: 'none',
                 flexShrink: 0
             }}
@@ -671,7 +671,14 @@ const Quiz2026 = () => {
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const [audioStarted, setAudioStarted] = useState(false);
     const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
+    const [hapuDone, setHapuDone] = useState(false);
+    const [showHapuModal, setShowHapuModal] = useState(false);
+    const hapuDoneRef = useRef(false);
     const containerRef = useRef(null);
+
+    useEffect(() => {
+        hapuDoneRef.current = hapuDone;
+    }, [hapuDone]);
     const audioRef = useRef(null);
     const questionAudioRef = useRef(null);
     const birthdayAudioRef = useRef(null);
@@ -724,6 +731,14 @@ const Quiz2026 = () => {
 
             // Detect current active section index
             const currentIndex = Math.round(scrollTop / clientHeight);
+
+            // Intercept scrolling past rules if hapu check is not done
+            if (currentIndex >= 2 && !hapuDoneRef.current) {
+                containerRef.current.scrollTo({ top: clientHeight * 1, behavior: 'auto' });
+                setShowHapuModal(true);
+                return;
+            }
+
             const currentSection = QUIZ_SECTIONS[currentIndex];
 
             if (currentSection && currentSection.id !== activeSectionRef.current) {
@@ -802,6 +817,92 @@ const Quiz2026 = () => {
     return (
         <>
             {loading && <Preloader onFinish={() => setLoading(false)} />}
+
+            {/* Green Popup Modal for Hapu Check */}
+            {showHapuModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    zIndex: 99999,
+                    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                    backdropFilter: 'blur(8px)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '1.5rem'
+                }}>
+                    <div style={{
+                        backgroundColor: '#10B981',
+                        borderRadius: '28px',
+                        padding: '2.5rem 2rem',
+                        maxWidth: '460px',
+                        width: '100%',
+                        textAlign: 'center',
+                        boxShadow: '0 25px 60px rgba(0, 0, 0, 0.5)',
+                        border: '2px solid rgba(255, 255, 255, 0.3)'
+                    }}>
+                        <h2 style={{
+                            color: '#FFFFFF',
+                            fontSize: '1.6rem',
+                            fontWeight: 700,
+                            marginBottom: '2rem',
+                            lineHeight: 1.3
+                        }}>
+                            Убедитесь что вы дали хапу
+                        </h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+                            <button
+                                onClick={() => {
+                                    setHapuDone(true);
+                                    setShowHapuModal(false);
+                                    if (containerRef.current) {
+                                        containerRef.current.scrollTo({ top: containerRef.current.clientHeight * 2, behavior: 'smooth' });
+                                    }
+                                }}
+                                style={{
+                                    padding: '0.95rem 1.5rem',
+                                    fontSize: '1rem',
+                                    fontWeight: 700,
+                                    color: '#0A0C10',
+                                    backgroundColor: '#FFFFFF',
+                                    border: 'none',
+                                    borderRadius: '18px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    boxShadow: '0 6px 16px rgba(0,0,0,0.15)'
+                                }}
+                            >
+                                Да сделал я хапу
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setHapuDone(true);
+                                    setShowHapuModal(false);
+                                    if (containerRef.current) {
+                                        containerRef.current.scrollTo({ top: containerRef.current.clientHeight * 2, behavior: 'smooth' });
+                                    }
+                                }}
+                                style={{
+                                    padding: '0.95rem 1.5rem',
+                                    fontSize: '1rem',
+                                    fontWeight: 700,
+                                    color: '#FFFFFF',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+                                    border: '1px solid rgba(255, 255, 255, 0.4)',
+                                    borderRadius: '18px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease'
+                                }}
+                            >
+                                Не, я болею
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div
                 id="quiz-2026-container"
                 ref={containerRef}
@@ -1310,11 +1411,12 @@ const Quiz2026 = () => {
 
                                 {/* Prize Display Box */}
                                 <div style={{
-                                    background: '#F8FAFC',
+                                    background: '#FFFFFF',
                                     borderRadius: '20px',
                                     padding: '1.5rem',
                                     border: '1px solid #E2E8F0',
                                     marginBottom: '1.75rem',
+                                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center'
