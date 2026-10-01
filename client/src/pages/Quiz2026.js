@@ -799,9 +799,9 @@ const Quiz2026 = () => {
             `}</style>
 
             {/* Ambient Background Music, Question Sounds & Birthday Fireworks Audio */}
-            <audio ref={audioRef} src={AMBIENT_AUDIO} loop crossOrigin="anonymous" preload="auto" />
-            <audio ref={questionAudioRef} crossOrigin="anonymous" preload="auto" />
-            <audio ref={birthdayAudioRef} src={BIRTHDAY_FIREWORKS_SOUND} loop crossOrigin="anonymous" preload="auto" />
+            <audio ref={audioRef} src={AMBIENT_AUDIO} loop preload="auto" />
+            <audio ref={questionAudioRef} preload="auto" />
+            <audio ref={birthdayAudioRef} src={BIRTHDAY_FIREWORKS_SOUND} loop preload="auto" />
 
 
             {/* Continuous Fixed Background Video */}
