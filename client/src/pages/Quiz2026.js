@@ -854,7 +854,8 @@ const Quiz2026 = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding: '1.5rem'
+                    padding: '1.5rem',
+                    cursor: 'default'
                 }}>
                     <div style={{
                         backgroundColor: '#10B981',
