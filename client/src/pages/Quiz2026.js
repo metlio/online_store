@@ -742,7 +742,7 @@ const Quiz2026 = () => {
     }, []);
 
     useEffect(() => {
-        document.title = 'Quizzy AI™';
+        document.title = 'Quizzy AI™ - Праздничная викторина! Выигрывают все!';
     }, []);
 
     useEffect(() => {
