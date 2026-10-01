@@ -4,7 +4,9 @@ import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = '/media/bg_q5.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/2SzYwD9r/3343.gif';
-const AMBIENT_AUDIO = '/media/ambient_new.mp3';
+const AMBIENT_AUDIO = '/media/bar_piano.mp3';
+const HAPU_MODAL_ICON = 'https://i.postimg.cc/3xWfnnGC/54324534.png';
+const RESULTS_HEADER_ICON = 'https://i.postimg.cc/MTtGZ6GT/343252.gif';
 const BIRTHDAY_FIREWORKS_SOUND = '/media/fireworks.mp3';
 
 const QUIZ_SECTIONS = [
@@ -679,6 +681,13 @@ const Quiz2026 = () => {
     useEffect(() => {
         hapuDoneRef.current = hapuDone;
     }, [hapuDone]);
+
+    useEffect(() => {
+        if (showHapuModal && questionAudioRef.current) {
+            questionAudioRef.current.src = '/media/crow.mp3';
+            questionAudioRef.current.play().catch(err => console.log('Hapu modal audio error:', err));
+        }
+    }, [showHapuModal]);
     const audioRef = useRef(null);
     const questionAudioRef = useRef(null);
     const birthdayAudioRef = useRef(null);
@@ -844,6 +853,18 @@ const Quiz2026 = () => {
                         boxShadow: '0 25px 60px rgba(0, 0, 0, 0.5)',
                         border: '2px solid rgba(255, 255, 255, 0.3)'
                     }}>
+                        <img
+                            src={HAPU_MODAL_ICON}
+                            alt="Hapu Icon"
+                            style={{
+                                width: '85px',
+                                height: '85px',
+                                objectFit: 'contain',
+                                margin: '0 auto 1.25rem auto',
+                                display: 'block',
+                                borderRadius: '12px'
+                            }}
+                        />
                         <h2 style={{
                             color: '#FFFFFF',
                             fontSize: '1.6rem',
@@ -864,6 +885,7 @@ const Quiz2026 = () => {
                                 }}
                                 style={{
                                     padding: '0.95rem 1.5rem',
+                                    height: '52px',
                                     fontSize: '1rem',
                                     fontWeight: 700,
                                     color: '#0A0C10',
@@ -872,10 +894,16 @@ const Quiz2026 = () => {
                                     borderRadius: '18px',
                                     cursor: 'pointer',
                                     transition: 'all 0.2s ease',
-                                    boxShadow: '0 6px 16px rgba(0,0,0,0.15)'
+                                    boxShadow: '0 6px 16px rgba(0,0,0,0.15)',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    lineHeight: 1
                                 }}
                             >
-                                Да сделал я хапу
+                                <span style={{ transform: 'translateY(0px)', display: 'inline-block', lineHeight: 1 }}>
+                                    Да сделал я хапу
+                                </span>
                             </button>
                             <button
                                 onClick={() => {
@@ -887,6 +915,7 @@ const Quiz2026 = () => {
                                 }}
                                 style={{
                                     padding: '0.95rem 1.5rem',
+                                    height: '52px',
                                     fontSize: '1rem',
                                     fontWeight: 700,
                                     color: '#FFFFFF',
@@ -894,10 +923,16 @@ const Quiz2026 = () => {
                                     border: '1px solid rgba(255, 255, 255, 0.4)',
                                     borderRadius: '18px',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s ease'
+                                    transition: 'all 0.2s ease',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    lineHeight: 1
                                 }}
                             >
-                                Не, я болею
+                                <span style={{ transform: 'translateY(0px)', display: 'inline-block', lineHeight: 1 }}>
+                                    Не, я болею
+                                </span>
                             </button>
                         </div>
                     </div>
@@ -1346,6 +1381,17 @@ const Quiz2026 = () => {
                                 textAlign: 'center',
                                 boxShadow: '0 30px 70px rgba(0,0,0,0.5)'
                             }}>
+                                <img
+                                    src={RESULTS_HEADER_ICON}
+                                    alt="Results Icon"
+                                    style={{
+                                        width: '90px',
+                                        height: '90px',
+                                        objectFit: 'contain',
+                                        margin: '0 auto 1.25rem auto',
+                                        display: 'block'
+                                    }}
+                                />
                                 <div style={{
                                     display: 'inline-block',
                                     padding: '0.4rem 1.2rem',
