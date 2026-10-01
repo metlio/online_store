@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ReactComponent as Logotyp } from "../sv.svg";
+import { $host } from "../../http";
 
 const Footer = () => {
+    const [quizResults, setQuizResults] = useState([]);
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            try {
+                const { data } = await $host.get('/api/quiz/results');
+                if (data && Array.isArray(data) && data.length > 0) {
+                    setQuizResults(data);
+                }
+            } catch (e) {
+                console.error('Error fetching quiz results:', e);
+            }
+        };
+        fetchResults();
+    }, []);
 
     const footerStyles = {
         width: '100%',
@@ -49,7 +65,30 @@ const Footer = () => {
           </h6>
           <p><a href="mailto:yad@yadde.ru" className="text-reset" style={{ textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }}>YAD@YADDE.RU</a></p>
           <p style={{ color: 'white', fontSize: '1.1rem', fontWeight: 500, marginBottom: '0.5rem' }}>РОСТОВ-НА-ДОНУ, РФ</p>
-          {(() => {
+          {quizResults.length > 0 ? (
+              <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div style={{ color: '#444', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em' }}>
+                      (РЕЗУЛЬТАТЫ КВИЗА)
+                  </div>
+                  {quizResults.map((item) => (
+                      <div key={item.id || item.userId} style={{
+                          padding: '0.6rem 0.85rem',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          borderRadius: '10px',
+                          color: '#00E5FF',
+                          fontSize: '0.85rem',
+                          fontWeight: 500,
+                          lineHeight: '1.4'
+                      }}>
+                          <div>Результат Квиза: {item.score} / {item.total}</div>
+                          <div style={{ color: '#888', fontSize: '0.75rem', fontFamily: 'monospace', marginTop: '0.2rem' }}>
+                              Игрок: {item.userId}
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          ) : (() => {
               try {
                   const savedResult = localStorage.getItem('quiz_2026_submitted_result');
                   if (savedResult) {
@@ -74,7 +113,7 @@ const Footer = () => {
                       );
                   }
               } catch (e) {
-                  // ignore parsing error
+                  // ignore
               }
               return null;
           })()}

@@ -90,6 +90,14 @@ DeviceInfo.belongsTo(Device)
 Type.belongsToMany(Brand, {through: TypeBrand })
 Brand.belongsToMany(Type, {through: TypeBrand })
 
+const QuizResult = sequelize.define('quiz_result', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    userId: {type: DataTypes.STRING, allowNull: false},
+    userName: {type: DataTypes.STRING, allowNull: false},
+    score: {type: DataTypes.INTEGER, allowNull: false},
+    total: {type: DataTypes.INTEGER, allowNull: false},
+})
+
 module.exports = {
     User,
     Basket,
@@ -101,4 +109,5 @@ module.exports = {
     TypeBrand,
     DeviceInfo,
     Shapochka,
+    QuizResult,
 }
