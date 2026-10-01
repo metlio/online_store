@@ -4,7 +4,7 @@ import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = '/media/bg_q5.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/2SzYwD9r/3343.gif';
-const AMBIENT_AUDIO = '/media/bar_piano.mp3';
+const AMBIENT_AUDIO = '/media/space_horror.mp3';
 const HAPU_MODAL_ICON = 'https://i.postimg.cc/3xWfnnGC/54324534.png';
 const RESULTS_HEADER_ICON = 'https://i.postimg.cc/MTtGZ6GT/343252.gif';
 const BIRTHDAY_FIREWORKS_SOUND = '/media/fireworks.mp3';
@@ -28,7 +28,20 @@ const QUIZ_SECTIONS = [
             },
             {
                 icon: 'https://i.postimg.cc/ZnHTvGWt/543333.png',
-                text: '2. Результаты состязания жестко влияют на ваш призз. Отвертеться не выйдет. Мы учли горький опыт предыдущей версии, и внесли корневые измерения. Ой что это я говорю.. - Джуулс!! Есть работёнка!'
+                text: (
+                    <>
+                        2. Результаты состязания жестко влияют на ваш призз. Отвертеться не выйдет. Мы учли горький опыт{' '}
+                        <a
+                            href="https://online-store-vrotend.vercel.app/other"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: '#60A5FA', textDecoration: 'underline' }}
+                        >
+                            предыдущей версии
+                        </a>
+                        , и внесли корневые измерения. Ой что это я говорю.. - Джуулс!! Есть работёнка!
+                    </>
+                )
             },
             {
                 icon: 'https://i.postimg.cc/MH5WfCnS/3453434.png',
@@ -230,7 +243,7 @@ const FireworksCanvas = () => {
         let spawnTimer = 0;
 
         const render = () => {
-            ctx.fillStyle = 'rgba(255, 20, 147, 0.25)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             spawnTimer++;
@@ -841,7 +854,8 @@ const Quiz2026 = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding: '1.5rem'
+                    padding: '1.5rem',
+                    cursor: 'default'
                 }}>
                     <div style={{
                         backgroundColor: '#10B981',
@@ -963,6 +977,12 @@ const Quiz2026 = () => {
                     50% { background-position: 100% 50%; }
                     100% { background-position: 0% 50%; }
                 }
+                @keyframes birthdayBgShift {
+                    0% { background-color: #FF1493; }
+                    33% { background-color: #FFD700; }
+                    66% { background-color: #00FF88; }
+                    100% { background-color: #FF1493; }
+                }
             `}</style>
 
             {/* Ambient Background Music, Question Sounds & Birthday Fireworks Audio */}
@@ -1069,7 +1089,7 @@ const Quiz2026 = () => {
                                 </p>
 
                                 {/* Sound Toggle Button centered above scroll prompt, 75x75px */}
-                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.5rem', gap: '0.4rem' }}>
                                     <button
                                         onClick={handleToggleAudio}
                                         style={{
@@ -1093,6 +1113,9 @@ const Quiz2026 = () => {
                                             {audioStarted && !isAudioMuted ? '🔊' : '🔇'}
                                         </span>
                                     </button>
+                                    <span style={{ fontSize: '0.75rem', color: '#666666', fontWeight: 500 }}>
+                                        Убедитесь что есть звук
+                                    </span>
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: '#555555' }}>
@@ -1561,6 +1584,7 @@ const Quiz2026 = () => {
                                 alignItems: 'center',
                                 position: 'relative',
                                 backgroundColor: '#FF1493',
+                                animation: 'birthdayBgShift 6s linear infinite',
                                 padding: '2rem',
                                 boxSizing: 'border-box',
                                 zIndex: 1,
