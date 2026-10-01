@@ -3,7 +3,7 @@ import { $host } from '../http';
 import musicFile from '../components/m.mp3';
 
 const BACKGROUND_VIDEO = '/media/bg_q5.mp4';
-const LOGO_IMAGE = 'https://i.postimg.cc/sgdqzQBh/5325232.gif';
+const LOGO_IMAGE = 'https://i.postimg.cc/2SzYwD9r/3343.gif';
 const AMBIENT_AUDIO = '/media/ambient.mp3';
 const BIRTHDAY_FIREWORKS_SOUND = '/media/fireworks.mp3';
 
@@ -114,7 +114,7 @@ const QUIZ_SECTIONS = [
         type: 'outro',
         badge: 'ФИНАЛ',
         title: 'Спасибо за участие!',
-        subtitle: 'Вы прошли весь лендинг Квиз 2026.'
+        subtitle: 'Фууух... Вы справились! Что ж, подведем итог...'
     },
     {
         id: 'results',
@@ -822,6 +822,11 @@ const Quiz2026 = () => {
                     50% { background-position: 100% 50%; }
                     100% { background-position: 0% 50%; }
                 }
+                @keyframes blackGreyGradient {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
             `}</style>
 
             {/* Ambient Background Music, Question Sounds & Birthday Fireworks Audio */}
@@ -883,22 +888,22 @@ const Quiz2026 = () => {
                                 textAlign: 'center',
                                 boxShadow: '0 30px 70px rgba(0, 0, 0, 0.5)'
                             }}>
-                                {/* Logo Image FIRST */}
+                                {/* Logo Image FIRST - Larger */}
                                 <img
                                     src={LOGO_IMAGE}
                                     alt="Quizzy AI Logo"
                                     style={{
-                                        maxWidth: '340px',
-                                        width: '75%',
+                                        maxWidth: '480px',
+                                        width: '90%',
                                         height: 'auto',
                                         objectFit: 'contain',
                                         margin: '0 auto 2rem auto',
                                         display: 'block',
-                                        filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.15))'
+                                        filter: 'drop-shadow(0 6px 20px rgba(0,0,0,0.2))'
                                     }}
                                 />
 
-                                {/* Display Font Title SECOND */}
+                                {/* Display Font Title SECOND with Black-Grey Animated Gradient */}
                                 <h1 style={{
                                     fontSize: 'clamp(2.2rem, 6vw, 4.2rem)',
                                     fontFamily: "'Oi', sans-serif",
@@ -906,9 +911,12 @@ const Quiz2026 = () => {
                                     letterSpacing: '0.02em',
                                     textTransform: 'uppercase',
                                     margin: '0 auto 1.75rem auto',
-                                    color: '#0A0C10',
                                     lineHeight: 1.15,
-                                    textShadow: '0 4px 16px rgba(0,0,0,0.08)'
+                                    background: 'linear-gradient(135deg, #0A0C10 0%, #4A5568 50%, #1A202C 100%)',
+                                    backgroundSize: '200% 200%',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    animation: 'blackGreyGradient 4s ease infinite'
                                 }}>
                                     {section.badge}
                                 </h1>
@@ -1193,6 +1201,21 @@ const Quiz2026 = () => {
                         }
                     });
 
+                    // Determine prize info based on score
+                    let prizeImg = '';
+                    let prizeTitle = '';
+
+                    if (correctCount >= 5) {
+                        prizeImg = 'https://api.skvot.com/storage/products/24225/8nq6gxlm5hn3.png';
+                        prizeTitle = 'Премиальные лимитированные подшипники';
+                    } else if (correctCount >= 3) {
+                        prizeImg = 'https://strgimgr.b-cdn.net/sized/280/337513-b59ce32015453e0dfc07dbabbfc813ba.jpg';
+                        prizeTitle = 'Набор для винтажного бритья';
+                    } else {
+                        prizeImg = 'https://api.skvot.com/storage/products/23964/4rbwvy6gjpvj.png';
+                        prizeTitle = 'Премиальный скейт тул';
+                    }
+
                     return (
                         <div
                             key={section.id}
@@ -1215,86 +1238,119 @@ const Quiz2026 = () => {
                                 zIndex: 2,
                                 maxWidth: '580px',
                                 width: '100%',
-                                background: 'rgba(255, 255, 255, 0.08)',
-                                backdropFilter: 'blur(30px) saturate(180%)',
-                                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                                background: '#FFFFFF',
                                 borderRadius: '28px',
                                 padding: '3.5rem 2.5rem',
-                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                border: '1px solid rgba(0, 0, 0, 0.1)',
                                 textAlign: 'center',
-                                boxShadow: '0 30px 60px rgba(0,0,0,0.45)'
+                                boxShadow: '0 30px 70px rgba(0,0,0,0.5)'
                             }}>
                                 <div style={{
                                     display: 'inline-block',
                                     padding: '0.4rem 1.2rem',
-                                    background: 'rgba(255, 255, 255, 0.12)',
+                                    background: 'rgba(0, 0, 0, 0.06)',
                                     borderRadius: '30px',
                                     fontSize: '0.75rem',
-                                    fontWeight: 600,
+                                    fontWeight: 700,
                                     letterSpacing: '0.2em',
                                     textTransform: 'uppercase',
-                                    color: '#FFFFFF',
-                                    marginBottom: '1.75rem',
-                                    border: '1px solid rgba(255, 255, 255, 0.18)'
+                                    color: '#0A0C10',
+                                    marginBottom: '1.5rem',
+                                    border: '1px solid rgba(0, 0, 0, 0.1)'
                                 }}>
                                     {section.badge}
                                 </div>
 
                                 <h2 style={{
                                     fontSize: '2.5rem',
-                                    fontWeight: 300,
+                                    fontWeight: 700,
                                     lineHeight: '1.2',
-                                    margin: '0 0 2rem 0',
-                                    color: '#FFFFFF'
+                                    margin: '0 0 1.5rem 0',
+                                    color: '#0A0C10'
                                 }}>
                                     {section.title}
                                 </h2>
 
                                 {/* User info card */}
                                 <div style={{
-                                    background: 'rgba(255, 255, 255, 0.06)',
+                                    background: 'rgba(0, 0, 0, 0.04)',
                                     borderRadius: '20px',
-                                    padding: '1.5rem',
-                                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                                    padding: '1.25rem 1.5rem',
+                                    border: '1px solid rgba(0, 0, 0, 0.08)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
                                     gap: '1rem',
-                                    marginBottom: '2rem'
+                                    marginBottom: '1.5rem'
                                 }}>
                                     <div style={{ textAlign: 'left' }}>
-                                        <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#FFFFFF', marginBottom: '0.25rem' }}>
+                                        <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0A0C10', marginBottom: '0.25rem' }}>
                                             {userInfo.name}
                                         </div>
-                                        <div style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'monospace' }}>
+                                        <div style={{ fontSize: '0.8rem', color: '#666666', fontFamily: 'monospace' }}>
                                             {userInfo.id}
                                         </div>
                                     </div>
 
                                     <div style={{
-                                        background: 'linear-gradient(135deg, #FF2A85, #00E5FF)',
-                                        padding: '0.75rem 1.5rem',
+                                        background: '#0A0C10',
+                                        padding: '0.65rem 1.25rem',
                                         borderRadius: '16px',
                                         fontWeight: 800,
-                                        fontSize: '1.4rem',
+                                        fontSize: '1.3rem',
                                         color: '#FFFFFF',
-                                        boxShadow: '0 8px 20px rgba(0, 229, 255, 0.25)',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '0.4rem'
+                                        gap: '0.3rem'
                                     }}>
                                         <span>{correctCount}</span>
-                                        <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>/ {questions.length}</span>
+                                        <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>/ {questions.length}</span>
                                     </div>
                                 </div>
 
-                                <p style={{
-                                    fontSize: '0.9rem',
-                                    color: 'rgba(255, 255, 255, 0.6)',
-                                    margin: '0 0 2rem 0'
+                                {/* Prize Display Box */}
+                                <div style={{
+                                    background: '#F8FAFC',
+                                    borderRadius: '20px',
+                                    padding: '1.5rem',
+                                    border: '1px solid #E2E8F0',
+                                    marginBottom: '1.75rem',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
                                 }}>
-                                    {correctCount === questions.length ? '🎉 Идеальный результат! Поздравляем!' : 'Отличная попытка! Попробуйте пройти еще раз.'}
-                                </p>
+                                    <div style={{
+                                        fontSize: '0.8rem',
+                                        fontWeight: 700,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.12em',
+                                        color: '#64748B',
+                                        marginBottom: '0.75rem'
+                                    }}>
+                                        Ваш приз:
+                                    </div>
+
+                                    <img
+                                        src={prizeImg}
+                                        alt="Prize"
+                                        style={{
+                                            width: '140px',
+                                            height: '140px',
+                                            objectFit: 'contain',
+                                            marginBottom: '0.75rem',
+                                            borderRadius: '12px'
+                                        }}
+                                    />
+
+                                    <div style={{
+                                        fontSize: '0.85rem',
+                                        fontWeight: 600,
+                                        color: '#1E293B',
+                                        lineHeight: 1.4
+                                    }}>
+                                        {prizeTitle}
+                                    </div>
+                                </div>
 
                                 <button
                                     onClick={async () => {
@@ -1316,15 +1372,15 @@ const Quiz2026 = () => {
                                     style={{
                                         padding: '1rem 2.2rem',
                                         height: '52px',
-                                        fontSize: '1rem',
-                                        fontWeight: 600,
+                                        fontSize: '0.95rem',
+                                        fontWeight: 700,
                                         letterSpacing: '0.05em',
-                                        color: submitted ? '#FFFFFF' : '#0A0C10',
-                                        backgroundColor: submitted ? '#10B981' : '#FFFFFF',
+                                        color: '#FFFFFF',
+                                        backgroundColor: submitted ? '#10B981' : '#0A0C10',
                                         border: 'none',
                                         borderRadius: '30px',
                                         cursor: 'pointer',
-                                        boxShadow: submitted ? '0 10px 25px rgba(16, 185, 129, 0.3)' : '0 10px 25px rgba(255, 255, 255, 0.3)',
+                                        boxShadow: '0 10px 25px rgba(0,0,0,0.18)',
                                         transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                                         display: 'inline-flex',
                                         alignItems: 'center',
