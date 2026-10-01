@@ -3,20 +3,21 @@ const { QuizResult } = require('../models/models');
 class QuizController {
     async createResult(req, res, next) {
         try {
-            const { userId, userName, score, total } = req.body;
+            const { userId, userName, score, total, takeMoneyEquivalent } = req.body;
             if (!userId) {
                 return res.status(400).json({ message: 'userId is required' });
             }
 
             const [result, created] = await QuizResult.findOrCreate({
                 where: { userId },
-                defaults: { userName, score, total }
+                defaults: { userName, score, total, takeMoneyEquivalent: !!takeMoneyEquivalent }
             });
 
             if (!created) {
                 result.userName = userName || result.userName;
                 result.score = score !== undefined ? score : result.score;
                 result.total = total !== undefined ? total : result.total;
+                result.takeMoneyEquivalent = takeMoneyEquivalent !== undefined ? !!takeMoneyEquivalent : result.takeMoneyEquivalent;
                 await result.save();
             }
 

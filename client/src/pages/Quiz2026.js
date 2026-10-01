@@ -683,6 +683,7 @@ const Quiz2026 = () => {
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(true);
     const [submitted, setSubmitted] = useState(false);
+    const [takeMoney, setTakeMoney] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const [audioStarted, setAudioStarted] = useState(false);
     const [userInfo, setUserInfo] = useState({ name: 'Пользователь', id: 'USR-2026' });
@@ -1523,6 +1524,40 @@ const Quiz2026 = () => {
                                     </div>
                                 </div>
 
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '0.6rem',
+                                    marginBottom: '1.25rem',
+                                    cursor: 'pointer',
+                                    userSelect: 'none'
+                                }}
+                                onClick={() => setTakeMoney(!takeMoney)}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        id="takeMoneyCheckbox"
+                                        checked={takeMoney}
+                                        onChange={(e) => setTakeMoney(e.target.checked)}
+                                        style={{
+                                            width: '18px',
+                                            height: '18px',
+                                            accentColor: '#10B981',
+                                            cursor: 'pointer'
+                                        }}
+                                    />
+                                    <label htmlFor="takeMoneyCheckbox" style={{
+                                        fontSize: '0.9rem',
+                                        fontWeight: 600,
+                                        color: '#1E293B',
+                                        cursor: 'pointer',
+                                        margin: 0
+                                    }}>
+                                        Забрать приз в денежном эквиваленте
+                                    </label>
+                                </div>
+
                                 <button
                                     onClick={async () => {
                                         const resultData = {
@@ -1530,6 +1565,7 @@ const Quiz2026 = () => {
                                             total: questions.length,
                                             userId: userInfo.id,
                                             userName: userInfo.name,
+                                            takeMoneyEquivalent: takeMoney,
                                             timestamp: Date.now()
                                         };
                                         try {
