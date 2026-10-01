@@ -684,7 +684,7 @@ const Quiz2026 = () => {
 
     useEffect(() => {
         if (showHapuModal && questionAudioRef.current) {
-            questionAudioRef.current.src = '/media/crow.mp3';
+            questionAudioRef.current.src = '/media/applause_popup.mp3';
             questionAudioRef.current.play().catch(err => console.log('Hapu modal audio error:', err));
         }
     }, [showHapuModal]);
