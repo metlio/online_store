@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import musicFile from '../components/m.mp3';
 
-const BACKGROUND_VIDEO = 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4';
+const BACKGROUND_VIDEO = '/media/bg_q5.mp4';
 const LOGO_IMAGE = 'https://i.postimg.cc/sgdqzQBh/5325232.gif';
-const AMBIENT_AUDIO = 'https://zvukogram.com/mp3/32/atmosphere-of-outer-space-9.mp3';
-const BIRTHDAY_FIREWORKS_SOUND = 'https://zvukogram.com/mp3/44/fireworks-and-fireworks-for-donation.mp3';
+const AMBIENT_AUDIO = '/media/ambient.mp3';
+const BIRTHDAY_FIREWORKS_SOUND = '/media/fireworks.mp3';
 
 const QUIZ_SECTIONS = [
     {
@@ -17,7 +17,7 @@ const QUIZ_SECTIONS = [
         id: 'rules',
         type: 'rules',
         badge: 'Правила викторины',
-        sound: 'https://zvukogram.com/mp3/35/crow-cawing.mp3',
+        sound: '/media/crow.mp3',
         rules: [
             {
                 icon: 'https://i.postimg.cc/8cNp5pzD/4232222.png',
@@ -45,8 +45,8 @@ const QUIZ_SECTIONS = [
             'Ннет'
         ],
         correct: 1, // Ннет
-        sound: 'https://zvukogram.com/mp3/cats/142/stsenicheskoe-vesele-antagonista--oglushitelnoe.mp3',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/25/1c7fdfdb-391c-498f-9fca-2176453cfcde.mp4'
+        sound: '/media/laugh1.mp3',
+        video: '/media/q1.mp4'
     },
     {
         id: 'q2',
@@ -60,8 +60,8 @@ const QUIZ_SECTIONS = [
             'Ннебыль'
         ],
         correct: 0, // Быль
-        sound: 'https://zvukogram.com/mp3/cats/142/vesele-s-jeleznyim-otzvukom.mp3',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/78a21ffd-4ea0-44c9-b444-e7e629716564.mp4'
+        sound: '/media/laugh2.mp3',
+        video: '/media/q2.mp4'
     },
     {
         id: 'q3',
@@ -75,8 +75,8 @@ const QUIZ_SECTIONS = [
             'Фантазия'
         ],
         correct: 1, // Фантазия
-        sound: 'https://zvukogram.com/mp3/cats/142/nizkiy-gortannyiy-hohot.mp3',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/e1dfa3b5-3003-432e-a8f3-26e0ccb1359d.mp4'
+        sound: '/media/laugh3.mp3',
+        video: '/media/q3.mp4'
     },
     {
         id: 'q4',
@@ -90,8 +90,8 @@ const QUIZ_SECTIONS = [
             'Лоожь'
         ],
         correct: 0, // Праавда
-        sound: 'https://zvukogram.com/mp3/cats/908/veselyiy-raskatistyiy-hohot.mp3',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/30/1e3ad4f6-18ef-4798-af98-e9a7844aa357.mp4'
+        sound: '/media/laugh4.mp3',
+        video: '/media/q4.mp4'
     },
     {
         id: 'q5',
@@ -105,8 +105,8 @@ const QUIZ_SECTIONS = [
             'Неправда'
         ],
         correct: 0, // Истина
-        sound: 'https://zvukogram.com/mp3/cats/142/stsenicheskoe-vesele-antagonista--oglushitelnoe.mp3',
-        video: 'https://imgcdn.stablediffusionweb.com/tmp/2026/9/29/537799df-1ec8-48a4-b3a7-ef1f79c74883.mp4'
+        sound: '/media/laugh1.mp3',
+        video: '/media/bg_q5.mp4'
     },
     {
         id: 'outro',
