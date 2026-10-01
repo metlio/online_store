@@ -107,7 +107,7 @@ const QUIZ_SECTIONS = [
         ],
         correct: 0, // Истина
         sound: '/media/laugh1.mp3',
-        video: '/media/bg_q5.mp4'
+        video: '/media/q5.mp4'
     },
     {
         id: 'outro',
@@ -639,13 +639,26 @@ const Preloader = ({ onFinish }) => {
 
             <div style={{
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontSize: '0.75rem',
+                fontSize: '0.85rem',
                 letterSpacing: '0.15em',
-                fontWeight: 400,
-                color: 'rgba(255, 255, 255, 0.45)',
-                textTransform: 'uppercase'
+                fontWeight: 500,
+                color: 'rgba(255, 255, 255, 0.8)',
+                textTransform: 'uppercase',
+                marginBottom: '0.4rem'
             }}>
-                Загрузка медиа ресурсов...
+                Джулс думает...
+            </div>
+
+            <div style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: '0.7rem',
+                letterSpacing: '0.05em',
+                fontWeight: 400,
+                color: 'rgba(255, 255, 255, 0.4)',
+                textAlign: 'center',
+                maxWidth: '280px'
+            }}>
+                У вас должен быть лучший впн чтобы игра заработала
             </div>
         </div>
     );
@@ -774,6 +787,18 @@ const Quiz2026 = () => {
         setAnswers(prev => ({ ...prev, [sectionId]: idx }));
     };
 
+    // Determine if all 5 questions are answered
+    const questionSections = QUIZ_SECTIONS.filter(s => s.type === 'question');
+    const allQuestionsAnswered = questionSections.length > 0 && questionSections.every(q => answers[q.id] !== undefined);
+
+    // Filter QUIZ_SECTIONS to hide outro, results, and birthday until all questions are answered
+    const visibleSections = QUIZ_SECTIONS.filter(s => {
+        if (['outro', 'results', 'birthday'].includes(s.type)) {
+            return allQuestionsAnswered;
+        }
+        return true;
+    });
+
     return (
         <>
             {loading && <Preloader onFinish={() => setLoading(false)} />}
@@ -827,7 +852,7 @@ const Quiz2026 = () => {
                 <source src={BACKGROUND_VIDEO} type="video/mp4" />
             </video>
 
-            {QUIZ_SECTIONS.map((section) => {
+            {visibleSections.map((section) => {
                 if (section.type === 'intro') {
                     return (
                         <div
